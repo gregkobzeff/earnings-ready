@@ -12,3 +12,7 @@
 .heatmap-item:hover { 
   font-weight: bold;
 }
+
+.heatmap-item-popover {
+  font-size: 10px;
+}

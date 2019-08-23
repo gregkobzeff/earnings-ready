@@ -1,6 +1,6 @@
-import React, { Component, Fragment } from "react";
+import React, { Component } from "react";
 import { Link, withRouter } from "react-router-dom";
-import { Nav, Navbar, NavItem, FormGroup, FormControl, Button } from "react-bootstrap";
+import { Nav, Navbar, Form, FormControl, Button } from "react-bootstrap";
 import { LinkContainer } from "react-router-bootstrap";
 import Routes from "./Routes";
 import './App.css';
@@ -18,6 +18,17 @@ class App extends Component {
 
   userHasAuthenticated = authenticated => {
     this.setState({ isAuthenticated: authenticated });
+  }
+
+  handleSearch = async event => {
+    event.preventDefault();
+    this.props.history.push(`/stocks/${this.state.txtSearch}`);
+  }
+
+  handleChange = event => {
+    this.setState({
+      [event.target.id]: event.target.value
+    });
   }
 
   render() {
@@ -42,18 +53,28 @@ class App extends Component {
             </Link>      
           </Navbar.Brand>
           <Navbar.Toggle aria-controls="basic-navbar-nav" />
-          <Nav>
-            <LinkContainer to="/calendar">
-              <Nav.Link>Calendar</Nav.Link>
-            </LinkContainer>               
-            <LinkContainer to="/heatmap">
-              <Nav.Link>Heat Map</Nav.Link>
-            </LinkContainer>               
-            <LinkContainer to="/test">
-              <Nav.Link>Test</Nav.Link>
-            </LinkContainer>   
-          </Nav>
-        </Navbar>
+            <Nav>
+              <LinkContainer to="/overview">
+                <Nav.Link>Overview</Nav.Link>
+              </LinkContainer> 
+              <LinkContainer to="/calendar">
+                <Nav.Link>Calendar</Nav.Link>
+              </LinkContainer>               
+              <LinkContainer to="/heatmap">
+                <Nav.Link>Heat Map</Nav.Link>
+              </LinkContainer>               
+              <LinkContainer to="/test">
+                <Nav.Link>Test</Nav.Link>
+              </LinkContainer>   
+            </Nav>   
+            <Nav className="ml-auto">
+              <Form inline>
+                <FormControl id="txtSearch" type="text" placeholder="Enter a symbol" onChange={this.handleChange}/> 
+                <Button className="search" onClick={this.handleSearch}>Search</Button>
+              </Form>
+            </Nav> 
+          </Navbar>   
+
         <Routes childProps={childProps} />
       </div>
     );
@@ -63,3 +84,4 @@ class App extends Component {
 }
 
 export default withRouter(App);
+

@@ -33,7 +33,7 @@ export function getStocks() {
     }
 
     let lastEarningsDate = new Date();
-    lastEarningsDate.setDate(new Date().getDate() - i - 1);
+    lastEarningsDate.setDate(new Date().getDate() - 30 + i);
 
     let nextEarningsDate = new Date();
     nextEarningsDate.setDate(new Date().getDate() + i);
@@ -48,6 +48,5 @@ export function getStocks() {
   
   });
 
-  console.log(stocks);
   return stocks;
 }
