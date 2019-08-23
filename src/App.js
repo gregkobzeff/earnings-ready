@@ -29,30 +29,30 @@ class App extends Component {
 
     return (
       <div className="App container">
-        <Navbar fluid collapseOnSelect>
-          <Navbar.Header>
-            <Navbar.Brand>
-              <Link to="/">
-                Home
-              </Link>
-            </Navbar.Brand>
-            <Navbar.Toggle />
-          </Navbar.Header>
-          <Navbar.Collapse>
-            <Nav>
-              <Fragment>
-                <LinkContainer to="/test">
-                  <NavItem>Test</NavItem>
-                </LinkContainer>                
-              </Fragment>
-            </Nav>
-            <Navbar.Form pullRight>
-              <FormGroup>
-                <FormControl type="text" placeholder="Enter a Ticker" />
-              </FormGroup>{' '}
-              <Button type="submit">Search</Button>
-            </Navbar.Form>   
-          </Navbar.Collapse>
+        <Navbar bg="light">
+          <Navbar.Brand>
+            <Link to="/">
+              <img
+                src={logo}
+                width="30"
+                height="30"
+                className="d-inline-block align-top"
+                alt="Earnings Ready logo"
+              />
+            </Link>      
+          </Navbar.Brand>
+          <Navbar.Toggle aria-controls="basic-navbar-nav" />
+          <Nav>
+            <LinkContainer to="/calendar">
+              <Nav.Link>Calendar</Nav.Link>
+            </LinkContainer>               
+            <LinkContainer to="/heatmap">
+              <Nav.Link>Heat Map</Nav.Link>
+            </LinkContainer>               
+            <LinkContainer to="/test">
+              <Nav.Link>Test</Nav.Link>
+            </LinkContainer>   
+          </Nav>
         </Navbar>
         <Routes childProps={childProps} />
       </div>

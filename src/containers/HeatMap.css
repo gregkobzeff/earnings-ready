@@ -1,0 +1,14 @@
+
+.heatmap-item {
+  font-size: 10px;
+  text-align: center;  
+  border: 1px solid black;  
+  cursor: pointer;  
+  flex: 0 0 50px;
+  margin: 1px 1px;
+  padding: 5px 5px;
+}
+
+.heatmap-item:hover { 
+  font-weight: bold;
+}
