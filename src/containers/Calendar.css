@@ -1,0 +1,12 @@
+.calendar h3 {
+  font-size: 18px;
+}
+
+.calendar table {
+  margin-top: 15px;
+  margin-bottom: 50px;
+}
+
+.calendar td {
+  cursor: pointer;
+}

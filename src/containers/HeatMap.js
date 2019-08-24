@@ -1,25 +1,30 @@
+import moment from "moment";
 import React, { Component } from "react";
 import { Container, Row, Col, Popover, OverlayTrigger } from "react-bootstrap";
 import { LinkContainer } from "react-router-bootstrap";
-import * as moment from "moment";
 import { getStocks } from '../libs/DataAccess';
-import { getEarningsProximity } from '../libs/EarningsCalculator';
 import "./HeatMap.css";
 
 export default class HeatMap extends Component {
 
   constructor(props) {
     super(props);
-    this.state = {};
-    this.stocks = getStocks();
+    this.state = {
+      stocks: null
+    };
+  }
+
+  async componentDidMount() {
+    const stocks = getStocks(moment('2000-01-01'), moment('2050-01-01'));
+    this.setState({
+      stocks: stocks
+    });
   }
 
   createElement(stock, index) {
 
-    const proximity = getEarningsProximity(stock); //returns B1, B0, A0, A1
-
     let bgColor;
-    switch (proximity) {
+    switch (stock.earningsProximity) {
       case "B1": bgColor = "#FF8D75"; break;
       case "B0": bgColor = "#FF2D00"; break;
       case "A0": bgColor = "#27B600"; break;
@@ -28,15 +33,15 @@ export default class HeatMap extends Component {
     }
 
     const itemStyle = { 'backgroundColor': bgColor };
-    const lastFontWeight = (proximity === "B1" || proximity === "B0") ? "bold" : "normal";
-    const nextFontWeight = (proximity === "A0" || proximity === "A1") ? "bold" : "normal";
+    const lastFontWeight = (["B1", "B0"].includes(stock.earningsProximity)) ? "bold" : "normal";
+    const nextFontWeight = (["A0", "A1"].includes(stock.earningsProximity)) ? "bold" : "normal";
     const lastStyle = { 'fontWeight': lastFontWeight };
     const nextStyle = { 'fontWeight': nextFontWeight };
 
     const lastText = `${moment(stock.lastEarningsDate).format("MM/DD/YYYY")} ${stock.lastEarningsTime}`;
     const nextText = `${moment(stock.nextEarningsDate).format("MM/DD/YYYY")} ${stock.nextEarningsTime}`;
 
-    const overlay =
+    const popover =
       <Popover className="heatmap-item-popover">
         <Popover.Content>
           <div style={lastStyle}>Last: {lastText}</div>
@@ -44,19 +49,22 @@ export default class HeatMap extends Component {
         </Popover.Content>
       </Popover>
 
+    const linkContainer = 
+      <LinkContainer
+        to={`/stocks/${stock.symbol}`}
+        className="heatmap-item"
+        style={itemStyle}>
+        <Col>{stock.symbol}</Col>
+      </LinkContainer>
+
     return (
       <OverlayTrigger
         key={index}
         trigger="hover"
         placement="top"
-        overlay={overlay}
+        overlay={popover}
       >
-        <LinkContainer
-          to={`/stocks/${stock.symbol}`}
-          className="heatmap-item"
-          style={itemStyle}>
-          <Col>{stock.symbol}</Col>
-        </LinkContainer>
+        {linkContainer}
       </OverlayTrigger>
     )
 
@@ -65,11 +73,13 @@ export default class HeatMap extends Component {
   render() {
     return (
       <div className="heat-map">
-        <Container>
-          <Row>
-            {this.stocks.map((stock, i) => this.createElement(stock, i))}
-          </Row>
-        </Container>
+        { this.state.stocks &&
+          <Container>
+            <Row>
+              {this.state.stocks.map((stock, i) => this.createElement(stock, i))}
+            </Row>
+          </Container>
+        }
       </div>
     );
   }
