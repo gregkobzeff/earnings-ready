@@ -6,7 +6,7 @@
   cursor: pointer;  
   flex: 0 0 50px;
   margin: 1px 1px;
-  padding: 5px 5px;
+  padding: 5px;
 }
 
 .heatmap-item:hover { 
@@ -14,5 +14,5 @@
 }
 
 .heatmap-item-popover {
-  font-size: 10px;
+  font-size: 0.75rem;
 }

@@ -20,6 +20,10 @@ class App extends Component {
     this.setState({ isAuthenticated: authenticated });
   }
 
+  blockSubmit = async event => {
+    event.preventDefault();
+  }
+
   handleSearch = async event => {
     event.preventDefault();
     this.props.history.push(`/stocks/${this.state.txtSearch}`);
@@ -68,7 +72,7 @@ class App extends Component {
               </LinkContainer>   
             </Nav>   
             <Nav className="ml-auto">
-              <Form inline>
+              <Form inline onSubmit={this.blockSubmit}>
                 <FormControl id="txtSearch" type="text" placeholder="Enter a symbol" onChange={this.handleChange}/> 
                 <Button className="search" onClick={this.handleSearch}>Search</Button>
               </Form>

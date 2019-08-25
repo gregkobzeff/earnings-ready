@@ -1,10 +1,7 @@
-.calendar h3 {
-  font-size: 18px;
-}
 
 .calendar table {
-  margin-top: 15px;
-  margin-bottom: 50px;
+  margin-top: 1rem;
+  margin-bottom: 3rem;
 }
 
 .calendar td {

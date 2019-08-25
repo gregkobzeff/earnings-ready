@@ -33,8 +33,8 @@ export default class Calendar extends Component {
 
     return (
       <div key={table.key}>
-        <h3>{table.title}</h3>
-        <Table bordered hover size="sm">
+        <h5>{table.title}</h5>
+        <Table bordered striped hover size="sm">
           <thead>
             <tr>
               <th>Symbol</th>
