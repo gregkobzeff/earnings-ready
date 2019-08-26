@@ -49,7 +49,7 @@ export default class HeatMap extends Component {
         </Popover.Content>
       </Popover>
 
-    const linkContainer = 
+    const linkContainer =
       <LinkContainer
         to={`/stocks/${stock.symbol}`}
         className="heatmap-item"
@@ -73,7 +73,7 @@ export default class HeatMap extends Component {
   render() {
     return (
       <div className="heat-map">
-        { this.state.stocks &&
+        {this.state.stocks &&
           <Container>
             <Row>
               {this.state.stocks.map((stock, i) => this.createElement(stock, i))}

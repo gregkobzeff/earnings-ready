@@ -54,35 +54,35 @@ class App extends Component {
                 className="d-inline-block align-top"
                 alt="Earnings Ready logo"
               />
-            </Link>      
+            </Link>
           </Navbar.Brand>
           <Navbar.Toggle aria-controls="basic-navbar-nav" />
-            <Nav>
-              <LinkContainer to="/overview">
-                <Nav.Link>Overview</Nav.Link>
-              </LinkContainer> 
-              <LinkContainer to="/calendar">
-                <Nav.Link>Calendar</Nav.Link>
-              </LinkContainer>               
-              <LinkContainer to="/heatmap">
-                <Nav.Link>Heat Map</Nav.Link>
-              </LinkContainer>               
-              <LinkContainer to="/test">
-                <Nav.Link>Test</Nav.Link>
-              </LinkContainer>   
-            </Nav>   
-            <Nav className="ml-auto">
-              <Form inline onSubmit={this.blockSubmit}>
-                <FormControl id="txtSearch" type="text" placeholder="Enter a symbol" onChange={this.handleChange}/> 
-                <Button className="search" onClick={this.handleSearch}>Search</Button>
-              </Form>
-            </Nav> 
-          </Navbar>   
+          <Nav>
+            <LinkContainer to="/overview">
+              <Nav.Link>Overview</Nav.Link>
+            </LinkContainer>
+            <LinkContainer to="/calendar">
+              <Nav.Link>Calendar</Nav.Link>
+            </LinkContainer>
+            <LinkContainer to="/heatmap">
+              <Nav.Link>Heat Map</Nav.Link>
+            </LinkContainer>
+            <LinkContainer to="/test">
+              <Nav.Link>Test</Nav.Link>
+            </LinkContainer>
+          </Nav>
+          <Nav className="ml-auto">
+            <Form inline onSubmit={this.blockSubmit}>
+              <FormControl id="txtSearch" type="text" placeholder="Enter a symbol" onChange={this.handleChange} />
+              <Button className="search" onClick={this.handleSearch}>Search</Button>
+            </Form>
+          </Nav>
+        </Navbar>
 
         <Routes childProps={childProps} />
       </div>
     );
-  
+
   }
 
 }

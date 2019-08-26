@@ -15,7 +15,7 @@ export default class Calendar extends Component {
   }
 
   async componentDidMount() {
-    const thisWeekStart = moment().clone().startOf('week');
+    //const thisWeekStart = moment().clone().startOf('week');
     const lastWeekStart = moment().clone().subtract(1, 'week').startOf('week');
     const nextWeekEnd = moment().clone().add(1, 'week').endOf('week');
     const stocks = getStocks(lastWeekStart, nextWeekEnd);
@@ -43,12 +43,12 @@ export default class Calendar extends Component {
             </tr>
           </thead>
           <tbody>
-            { table.stocks.map( (s, i) => 
+            {table.stocks.map((s, i) =>
               <LinkContainer key={i} to={`/stocks/${s.symbol}`}>
                 <tr>
                   <td>{s.symbol}</td>
-                  <td>{(s.earningsProximity.startsWith("B") ? s.lastEarningsDate : s.nextEarningsDate).format("M/D/YYYY")}</td>
-                  <td>{(s.earningsProximity.startsWith("B") ? s.lastEarningsTime : s.nextEarningsTime)}</td>
+                  <td>{s.earningsDate.format("M/D/YYYY")}</td>
+                  <td>{s.earningsTime}</td>
                 </tr>
               </LinkContainer>
             )}
@@ -65,10 +65,10 @@ export default class Calendar extends Component {
     const nextWeekStocks = this.state.stocks.filter(s => s.earningsProximity === "A1");
     const lastWeekStocks = this.state.stocks.filter(s => s.earningsProximity === "B1");
     const tables = [
-      { key: "T", title: "Today", stocks: todayStocks },
-      { key: "TW", title: "This Week", stocks: thisWeekStocks },
-      { key: "NW", title: "Next Week", stocks: nextWeekStocks },
-      { key: "LW", title: "Last Week", stocks: lastWeekStocks }
+      { key: "T1", title: "Today", stocks: todayStocks },
+      { key: "T2", title: "This Week", stocks: thisWeekStocks },
+      { key: "T3", title: "Next Week", stocks: nextWeekStocks },
+      { key: "T4", title: "Last Week", stocks: lastWeekStocks }
     ];
 
     return tables.map(t => this.renderTable(t));

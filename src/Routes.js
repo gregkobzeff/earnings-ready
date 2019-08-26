@@ -14,14 +14,14 @@ import AppliedRoute from "./components/AppliedRoute";
 import UnauthenticatedRoute from "./components/UnauthenticatedRoute";
 
 export default ({ childProps }) =>
-<Switch>
-  <AppliedRoute path="/" exact component={Home} props={childProps} />
-  <AppliedRoute path="/overview" exact component={Overview} props={childProps} />
-  <AppliedRoute path="/calendar" exact component={Calendar} props={childProps} />
-  <AppliedRoute path="/heatmap" exact component={HeatMap} props={childProps} />
-  <AppliedRoute path="/test" exact component={Test} props={childProps} />
-  <AppliedRoute path="/stocks/:symbol" exact component={StockDetails} props={childProps} />
-  <UnauthenticatedRoute path="/login" exact component={Login} props={childProps} />
-  <UnauthenticatedRoute path="/signup" exact component={Signup} props={childProps} />
-  <Route component={NotFound} />
-</Switch>
+  <Switch>
+    <AppliedRoute path="/" exact component={Home} props={childProps} />
+    <AppliedRoute path="/overview" exact component={Overview} props={childProps} />
+    <AppliedRoute path="/calendar" exact component={Calendar} props={childProps} />
+    <AppliedRoute path="/heatmap" exact component={HeatMap} props={childProps} />
+    <AppliedRoute path="/test" exact component={Test} props={childProps} />
+    <AppliedRoute path="/stocks/:symbol" exact component={StockDetails} props={childProps} />
+    <UnauthenticatedRoute path="/login" exact component={Login} props={childProps} />
+    <UnauthenticatedRoute path="/signup" exact component={Signup} props={childProps} />
+    <Route component={NotFound} />
+  </Switch>
