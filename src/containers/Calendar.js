@@ -19,6 +19,7 @@ export default class Calendar extends Component {
     const lastWeekStart = moment().clone().subtract(1, 'week').startOf('week');
     const nextWeekEnd = moment().clone().add(1, 'week').endOf('week');
     const stocks = getStocks(lastWeekStart, nextWeekEnd);
+    stocks.sort((s1, s2) => s1.earningsDate - s2.earningsDate);
     this.setState({ stocks: stocks });
   }
 
@@ -60,8 +61,8 @@ export default class Calendar extends Component {
 
   renderTables() {
     const today = moment().startOf('day');
-    const todayStocks = this.state.stocks.filter(s => s.lastEarningsDate.isSame(today, "d") || s.nextEarningsDate.isSame(today, "d"));
-    const thisWeekStocks = this.state.stocks.filter(s => ["B0", "A0"].includes(s.earningsProximity));
+    const todayStocks = this.state.stocks.filter(s => s.earningsDate.isSame(today, "d"));
+    const thisWeekStocks = this.state.stocks.filter(s => s.earningsProximity === "B0" || s.earningsProximity == "A0");
     const nextWeekStocks = this.state.stocks.filter(s => s.earningsProximity === "A1");
     const lastWeekStocks = this.state.stocks.filter(s => s.earningsProximity === "B1");
     const tables = [
