@@ -11,15 +11,21 @@ export function getStocks(earningsStartDate, earningsEndDate) {
 
     const addMinutes = 60 * (seedEarningsTime === "BTO") ? 6.5 : 13;     //6:30AM or 1:00PM
     const now = moment().startOf("day");
-    const lastEarningsDate = now.clone().add(i - 100, 'day').add(addMinutes, "minute");
+    const lastEarningsDate = now.clone().add(i - 499, 'day').add(addMinutes, "minute");
     const lastEarningsTime = seedEarningsTime;
-    const nextEarningsDate = lastEarningsDate.clone().add(90, 'day');
+    const nextEarningsDate = now.clone().add(i + 1, 'day');
     const nextEarningsTime = seedEarningsTime;
+    const min = -10;
+    const max = 10;
+    const lastEarningsChange = (Math.random() * (max - min + 1) + min).toFixed(2);
+    const lastEarningsChangePct = lastEarningsChange;
 
     const properties = {
       symbol: seedSymbol,
       lastEarningsDate: lastEarningsDate,
       lastEarningsTime: lastEarningsTime,
+      lastEarningsChange: lastEarningsChange,
+      lastEarningsChangePct: lastEarningsChangePct,
       nextEarningsDate: nextEarningsDate,
       nextEarningsTime: nextEarningsTime
     };

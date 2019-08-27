@@ -8,9 +8,12 @@ export default class Stock {
     this.lastEarningsTime = properties.lastEarningsTime;
     this.nextEarningsDate = properties.nextEarningsDate;
     this.nextEarningsTime = properties.nextEarningsTime;
+
     this.earningsProximity = getProximity(this.lastEarningsDate, this.nextEarningsDate);
     this.earningsDate = this.earningsProximity.startsWith("B") ? this.lastEarningsDate : this.nextEarningsDate;
     this.earningsTime = this.earningsProximity.startsWith("B") ? this.lastEarningsTime : this.nextEarningsTime;
+    this.earningsChange = properties.lastEarningsChange;
+    this.earningsChangePct = properties.lastEarningsChangePct;
   }
 
 }

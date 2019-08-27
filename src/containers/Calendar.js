@@ -1,6 +1,6 @@
 import moment from "moment";
 import React, { Component } from "react";
-import { Table } from "react-bootstrap";
+import { Table, ProgressBar } from "react-bootstrap";
 import { LinkContainer } from "react-router-bootstrap";
 import { getStocks } from '../libs/DataAccess';
 import "./Calendar.css";
@@ -12,6 +12,16 @@ export default class Calendar extends Component {
     this.state = {
       stocks: null
     };
+  }
+
+  getChangeSymbol(value) {
+    return value >= 0 ? "+" : ""
+  }
+
+  getBarStyle(percent) {
+    const scale = 10;
+    const widthPct = (percent >= 25) ? 25 : percent;
+    return { 'width': (widthPct * scale) + 'px' };
   }
 
   async componentDidMount() {
@@ -41,6 +51,7 @@ export default class Calendar extends Component {
               <th>Symbol</th>
               <th>Earnings Date</th>
               <th>Earnings Time</th>
+              <th>Earnings Reaction</th>
             </tr>
           </thead>
           <tbody>
@@ -50,6 +61,22 @@ export default class Calendar extends Component {
                   <td>{s.symbol}</td>
                   <td>{s.earningsDate.format("M/D/YYYY")}</td>
                   <td>{s.earningsTime}</td>
+                  <td>
+                    {s.earningsProximity.startsWith("B") &&
+                      <>
+                        <ProgressBar
+                          now={100}
+                          max={100}
+                          style={this.getBarStyle(Math.abs(s.earningsChangePct))}
+                          variant={s.earningsChange >= 0 ? "success" : "danger"}
+                        />
+                        <div>
+                          {this.getChangeSymbol(s.earningsChange) + s.earningsChangePct + "% "
+                            + "(" + this.getChangeSymbol(s.earningsChange) + s.earningsChange + ")"}
+                        </div>
+                      </>
+                    }
+                  </td>
                 </tr>
               </LinkContainer>
             )}

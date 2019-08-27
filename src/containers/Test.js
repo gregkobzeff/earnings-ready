@@ -1,6 +1,6 @@
 import moment from "moment-timezone";
 import React, { Component } from "react";
-
+import { ProgressBar } from "react-bootstrap";
 import "./Test.css";
 
 export default class Test extends Component {
@@ -16,10 +16,11 @@ export default class Test extends Component {
     console.log(moment1, moment2);
 
     return (
-        <div className="test">
-          <h3>Test Page</h3>
-        </div>
-      );
-    }
+      <div className="test">
+        <h3>Test Page</h3>
+        <ProgressBar variant="success" now={60} max={100} />
+      </div>
+    );
+  }
 
 }
