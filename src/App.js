@@ -1,7 +1,8 @@
 import React, { Component } from "react";
 import { Link, withRouter } from "react-router-dom";
-import { Nav, Navbar, Form, FormControl, Button } from "react-bootstrap";
+import { Nav, Navbar, Form, Button } from "react-bootstrap";
 import { LinkContainer } from "react-router-bootstrap";
+import SymbolSelector from "./components/SymbolSelector";
 import Routes from "./Routes";
 import './App.css';
 import logo from './images/logo.png';
@@ -12,7 +13,8 @@ class App extends Component {
     super(props);
     this.state = {
       isAuthenticated: false,
-      isAuthenticating: true
+      isAuthenticating: true,
+      symbol: null
     };
   }
 
@@ -20,18 +22,21 @@ class App extends Component {
     this.setState({ isAuthenticated: authenticated });
   }
 
-  blockSubmit = async event => {
-    event.preventDefault();
-  }
-
   handleSearch = async event => {
     event.preventDefault();
-    this.props.history.push(`/stocks/${this.state.txtSearch}`);
+    if (this.state.symbol == null) return; //no valid selection
+    this.props.history.push(`/stocks/${this.state.symbol}`);
   }
 
-  handleChange = event => {
+  handleSymbolKeyDown = async event => {
+    if (event.key === "Enter") {
+      this.handleSearch(event);
+    }
+  }
+
+  handleSymbolChange = selected => {
     this.setState({
-      [event.target.id]: event.target.value
+      symbol: selected[0]
     });
   }
 
@@ -72,8 +77,8 @@ class App extends Component {
             </LinkContainer>
           </Nav>
           <Nav className="ml-auto">
-            <Form inline onSubmit={this.blockSubmit}>
-              <FormControl id="txtSearch" type="text" placeholder="Enter a symbol" onChange={this.handleChange} />
+            <Form inline>
+              <SymbolSelector placeholder="Enter a symbol" onChange={this.handleSymbolChange} onKeyDown={this.handleSymbolKeyDown} />
               <Button className="search" onClick={this.handleSearch}>Search</Button>
             </Form>
           </Nav>

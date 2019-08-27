@@ -1,6 +1,7 @@
 import moment from "moment-timezone";
 import React, { Component } from "react";
-import { ProgressBar } from "react-bootstrap";
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
+import { faInfoCircle } from '@fortawesome/free-solid-svg-icons'
 import "./Test.css";
 
 export default class Test extends Component {
@@ -18,7 +19,7 @@ export default class Test extends Component {
     return (
       <div className="test">
         <h3>Test Page</h3>
-        <ProgressBar variant="success" now={60} max={100} />
+        <FontAwesomeIcon icon={faInfoCircle} size="lg" className="icon-info" />
       </div>
     );
   }

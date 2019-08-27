@@ -6,3 +6,7 @@
 .calendar td {
   cursor: pointer;
 }
+
+.calendar .popover {
+  max-width: 100%;
+}

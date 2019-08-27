@@ -1,7 +1,9 @@
 import moment from "moment";
 import React, { Component } from "react";
-import { Table, ProgressBar } from "react-bootstrap";
+import { Table, ProgressBar, Popover, OverlayTrigger } from "react-bootstrap";
 import { LinkContainer } from "react-router-bootstrap";
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
+import { faInfoCircle } from '@fortawesome/free-solid-svg-icons'
 import { getStocks } from '../libs/DataAccess';
 import "./Calendar.css";
 
@@ -22,6 +24,24 @@ export default class Calendar extends Component {
     const scale = 10;
     const widthPct = (percent >= 25) ? 25 : percent;
     return { 'width': (widthPct * scale) + 'px' };
+  }
+
+  getERTooltip(key) {
+    return (
+      <OverlayTrigger
+        key={key}
+        trigger="hover"
+        placement="top"
+        overlay={
+          <Popover>
+            <Popover.Content>
+              Price change the first day after reporting earnings.
+            </Popover.Content>
+          </Popover>
+        }>
+        <FontAwesomeIcon icon={faInfoCircle} className="icon-info" />
+      </OverlayTrigger>
+    );
   }
 
   async componentDidMount() {
@@ -51,7 +71,10 @@ export default class Calendar extends Component {
               <th>Symbol</th>
               <th>Earnings Date</th>
               <th>Earnings Time</th>
-              <th>Earnings Reaction</th>
+              <th>
+                Earnings Reaction
+                {this.getERTooltip(table.key)}
+              </th>
             </tr>
           </thead>
           <tbody>
