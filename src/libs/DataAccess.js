@@ -1,5 +1,5 @@
 import moment from "moment";
-import { getProximity } from '../helpers/EarningsHelper';
+import Stock from '../models/Stock';
 
 export function getStocks(earningsStartDate, earningsEndDate) {
 
@@ -15,20 +15,17 @@ export function getStocks(earningsStartDate, earningsEndDate) {
     const lastEarningsTime = seedEarningsTime;
     const nextEarningsDate = lastEarningsDate.clone().add(90, 'day');
     const nextEarningsTime = seedEarningsTime;
-    const earningsProximity = getProximity(lastEarningsDate, nextEarningsDate);
-    const earningsDate = earningsProximity.startsWith("B") ? lastEarningsDate : nextEarningsDate;
-    const earningsTime = earningsProximity.startsWith("B") ? lastEarningsTime : nextEarningsTime;
 
-    return {
+    const properties = {
       symbol: seedSymbol,
       lastEarningsDate: lastEarningsDate,
       lastEarningsTime: lastEarningsTime,
       nextEarningsDate: nextEarningsDate,
-      nextEarningsTime: seedEarningsTime,
-      earningsProximity: earningsProximity,
-      earningsDate: earningsDate,
-      earningsTime: earningsTime,
+      nextEarningsTime: nextEarningsTime
     };
+
+    var stock = new Stock(properties);
+    return stock;
 
   });
 
