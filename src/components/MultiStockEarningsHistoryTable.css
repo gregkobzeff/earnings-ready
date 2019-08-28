@@ -1,0 +1,12 @@
+.multi-stock-earnings-history-table table {
+  margin-top: 1rem;
+  margin-bottom: 3rem;
+}
+
+.multi-stock-earnings-history-table td {
+  cursor: pointer;
+}
+
+.multi-stock-earnings-history-table .tooltip-icon {
+  margin-left: 0.25rem;
+}

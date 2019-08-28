@@ -3,8 +3,8 @@ import { Nav, Navbar, Form, Button } from "react-bootstrap";
 import { LinkContainer } from "react-router-bootstrap";
 import { Link, withRouter } from "react-router-dom";
 import SymbolSelector from "./SymbolSelector";
-import logo from '../images/logo.png';
-import './NavigationBar.css';
+import logo from "../images/logo.png";
+import "./NavigationBar.css";
 
 class NavigationBar extends Component {
 

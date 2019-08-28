@@ -2,7 +2,7 @@ import React, { Component } from "react";
 import { withRouter } from "react-router-dom";
 import NavigationBar from "./components/NavigationBar"
 import Routes from "./Routes";
-import './App.css';
+import "./App.css";
 
 class App extends Component {
 

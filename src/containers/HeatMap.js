@@ -2,7 +2,7 @@ import moment from "moment";
 import React, { Component } from "react";
 import { Container, Row, Col, Popover, OverlayTrigger } from "react-bootstrap";
 import { LinkContainer } from "react-router-bootstrap";
-import { getStocks } from '../libs/DataAccess';
+import { getStocks } from "../libs/DataAccess";
 import "./HeatMap.css";
 
 export default class HeatMap extends Component {
@@ -15,7 +15,7 @@ export default class HeatMap extends Component {
   }
 
   async componentDidMount() {
-    const stocks = getStocks(moment('2000-01-01'), moment('2050-01-01'));
+    const stocks = getStocks(moment("2000-01-01"), moment("2050-01-01"));
     this.setState({
       stocks: stocks
     });
@@ -32,11 +32,11 @@ export default class HeatMap extends Component {
       default: bgColor = "#FFF";
     }
 
-    const itemStyle = { 'backgroundColor': bgColor };
+    const itemStyle = { "backgroundColor": bgColor };
     const lastFontWeight = (["B1", "B0"].includes(stock.earningsProximity)) ? "bold" : "normal";
     const nextFontWeight = (["A0", "A1"].includes(stock.earningsProximity)) ? "bold" : "normal";
-    const lastStyle = { 'fontWeight': lastFontWeight };
-    const nextStyle = { 'fontWeight': nextFontWeight };
+    const lastStyle = { "fontWeight": lastFontWeight };
+    const nextStyle = { "fontWeight": nextFontWeight };
 
     const lastText = `${moment(stock.lastEarningsDate).format("MM/DD/YYYY")} ${stock.lastEarningsTime}`;
     const nextText = `${moment(stock.nextEarningsDate).format("MM/DD/YYYY")} ${stock.nextEarningsTime}`;
@@ -44,6 +44,7 @@ export default class HeatMap extends Component {
     const popover =
       <Popover className="heatmap-item-popover">
         <Popover.Content>
+          <div>{stock.companyName}</div>
           <div style={lastStyle}>Last: {lastText}</div>
           <div style={nextStyle}>Next: {nextText}</div>
         </Popover.Content>

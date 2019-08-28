@@ -1,9 +1,13 @@
-import { getProximity } from '../helpers/EarningsHelper';
+import { getProximity } from "../helpers/EarningsHelper";
 
 export default class Stock {
 
   constructor(properties) {
+
+    //Object.assign(this, properties)
+
     this.symbol = properties.symbol;
+    this.companyName = properties.companyName;
     this.lastEarningsDate = properties.lastEarningsDate;
     this.lastEarningsTime = properties.lastEarningsTime;
     this.nextEarningsDate = properties.nextEarningsDate;
@@ -14,6 +18,9 @@ export default class Stock {
     this.earningsTime = this.earningsProximity.startsWith("B") ? this.lastEarningsTime : this.nextEarningsTime;
     this.earningsChange = properties.lastEarningsChange;
     this.earningsChangePct = properties.lastEarningsChangePct;
+
+    this.earningsHistories = properties.earningsHistories;
+
   }
 
 }
