@@ -23,18 +23,15 @@ export default class HeatMap extends Component {
 
   createElement(stock, index) {
 
-    let bgColor;
-    switch (stock.earningsProximity) {
-      case "B1": bgColor = "#FF8D75"; break;
-      case "B0": bgColor = "#FF2D00"; break;
-      case "A0": bgColor = "#27B600"; break;
-      case "A1": bgColor = "#83BD73"; break;
-      default: bgColor = "#FFF";
-    }
+    let bgColor = "#FFF";
+    if (stock.earningsProximity.isLastWeek) bgColor = "#FF8D75";
+    if (stock.earningsProximity.isThisWeekBeforeNow) bgColor = "#FF2D00";
+    if (stock.earningsProximity.isThisWeekAfterNow) bgColor = "#27B600";
+    if (stock.earningsProximity.isNextWeek) bgColor = "#83BD73";
 
     const itemStyle = { "backgroundColor": bgColor };
-    const lastFontWeight = (["B1", "B0"].includes(stock.earningsProximity)) ? "bold" : "normal";
-    const nextFontWeight = (["A0", "A1"].includes(stock.earningsProximity)) ? "bold" : "normal";
+    const lastFontWeight = stock.earningsProximity.isBeforeNow ? "bold" : "normal";
+    const nextFontWeight = stock.earningsProximity.isAfterNow ? "bold" : "normal";
     const lastStyle = { "fontWeight": lastFontWeight };
     const nextStyle = { "fontWeight": nextFontWeight };
 

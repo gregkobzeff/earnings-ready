@@ -1,3 +1,4 @@
+import moment from "moment";
 import React, { Component } from "react";
 import { Table } from "react-bootstrap";
 import { LinkContainer } from "react-router-bootstrap";
@@ -24,6 +25,8 @@ export default class StockEarningsHistoryTable extends Component {
   }
 
   renderHistory() {
+
+    const now = moment();
 
     return (
       <>
@@ -63,7 +66,7 @@ export default class StockEarningsHistoryTable extends Component {
                   <td>{h.earningsDate.format("M/D/YYYY")}</td>
                   <td>{h.earningsTime}</td>
 
-                  {(this.props.hasPastEarningsOnly || h.earningsProximity.startsWith("B")) &&
+                  {h.earningsDate.isBefore(now) &&
                     <>
                       <td>
                         <EarningsChangeDisplay earningsChange={h.earningsChange} earningsChangePct={h.earningsChangePct} />
@@ -72,7 +75,7 @@ export default class StockEarningsHistoryTable extends Component {
                       <td>{this.formatCurrency(h.earningsConsensusEPS)}</td>
                     </>
                   }
-                  {!(this.props.hasPastEarningsOnly || h.earningsProximity.startsWith("B")) &&
+                  {h.earningsDate.isSameOrAfter(now) &&
                     <>
                       <td></td>
                       <td></td>
@@ -89,7 +92,6 @@ export default class StockEarningsHistoryTable extends Component {
     )
   }
 
-  //props: title, hasMultipleStocks, hasFutureEarnings, history = []
   render() {
     return (
       <section className="stock-earnings-history-table">

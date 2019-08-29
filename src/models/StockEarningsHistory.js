@@ -1,5 +1,5 @@
 import moment from "moment";
-import { getProximity } from "../helpers/EarningsHelper";
+import EarningsProximity from "./EarningsProximity";
 
 export default class StockEarningsHistory {
 
@@ -13,7 +13,9 @@ export default class StockEarningsHistory {
     this.earningsTime = properties.earningsTime;
     this.earningsChange = properties.earningsChange;
     this.earningsChangePct = properties.earningsChangePct;
-    this.earningsProximity = getProximity(properties.earningsDate, moment().add(1, 'year'));
+    this.earningsProximity = new EarningsProximity(
+      properties.earningsDate, properties.earningsTime,
+      moment().add(10, "year"), "");
 
   }
 

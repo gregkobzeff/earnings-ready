@@ -10,16 +10,29 @@ export default class StockDetails extends Component {
     super(props);
     this.state = {
       isLoading: true,
+      symbol: null,
       stock: null
     };
   }
 
-  async componentDidMount() {
-    const stock = getStock(this.props.match.params.symbol);
+  loadStock(symbol) {
+    console.log("loading", symbol);
+    const stock = getStock(symbol);
     this.setState({
       isLoading: false,
-      stock: stock,
+      symbol: symbol,
+      stock: stock
     });
+  }
+
+  async componentDidMount() {
+    this.loadStock(this.props.match.params.symbol);
+  }
+
+  componentDidUpdate(prevProps) {
+    if (prevProps.match.params.symbol !== this.props.match.params.symbol) {
+      this.loadStock(this.props.match.params.symbol);
+    }
   }
 
   renderNotFound() {
@@ -30,23 +43,19 @@ export default class StockDetails extends Component {
   }
 
   renderStock() {
-
     const stock = this.state.stock;
-
     return (
       <>
         <StockDetailsHeader stock={stock} />
         <StockEarningsHistoryTable
           title="Earnings History"
           hasMultipleStocks={false}
-          hasPastEarningsOnly={true}
           history={stock.earningsHistories} />
       </>
     );
   }
 
   render() {
-
     return (
       <div className="stock-details container">
         {this.state.isLoading ? null : this.state.stock != null ? this.renderStock() : this.renderNotFound()}

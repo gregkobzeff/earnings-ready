@@ -23,11 +23,10 @@ export default class Calendar extends Component {
   }
 
   renderTables() {
-    const today = moment().startOf("day");
-    const todayStocks = this.state.stocks.filter(s => s.earningsDate.isSame(today, "d"));
-    const thisWeekStocks = this.state.stocks.filter(s => s.earningsProximity === "B0" || s.earningsProximity === "A0");
-    const nextWeekStocks = this.state.stocks.filter(s => s.earningsProximity === "A1");
-    const lastWeekStocks = this.state.stocks.filter(s => s.earningsProximity === "B1");
+    const todayStocks = this.state.stocks.filter(s => s.earningsProximity.isToday);
+    const thisWeekStocks = this.state.stocks.filter(s => s.earningsProximity.isThisWeek);
+    const nextWeekStocks = this.state.stocks.filter(s => s.earningsProximity.isNextWeek);
+    const lastWeekStocks = this.state.stocks.filter(s => s.earningsProximity.isLastWeek);
     const tables = [
       { key: "T1", title: "Today", stocks: todayStocks },
       { key: "T2", title: "This Week", stocks: thisWeekStocks },
@@ -36,7 +35,7 @@ export default class Calendar extends Component {
     ];
 
     return tables.map(t => <StockEarningsHistoryTable key={t.key}
-      title={t.title} hasMultipleStocks={true} hasPastEarningsOnly={false} history={t.stocks} />);
+      title={t.title} hasMultipleStocks={true} history={t.stocks} />);
 
   }
 

@@ -17,9 +17,7 @@ export function getStocks(earningsStartDate, earningsEndDate) {
     const lastEarningsTime = seedEarningsTime;
     const nextEarningsDate = now.clone().add(i + 1, "day");
     const nextEarningsTime = seedEarningsTime;
-    const min = -10;
-    const max = 10;
-    const lastEarningsChange = (Math.random() * (max - min + 1) + min).toFixed(2);
+    const lastEarningsChange = getRandomNumber(-10, 10, 2);
     const lastEarningsChangePct = lastEarningsChange;
 
     const properties = {
@@ -27,8 +25,8 @@ export function getStocks(earningsStartDate, earningsEndDate) {
       companyName: seedCompanyName,
       lastEarningsDate: lastEarningsDate,
       lastEarningsTime: lastEarningsTime,
-      lastEarningsActualEPS: 1.05,
-      lastEarningsConsensusEPS: 0.95,
+      lastEarningsActualEPS: getRandomNumber(0, 2.50, 2),
+      lastEarningsConsensusEPS: getRandomNumber(0, 2.50, 2),
       lastEarningsChange: lastEarningsChange,
       lastEarningsChangePct: lastEarningsChangePct,
       nextEarningsDate: nextEarningsDate,
@@ -57,12 +55,12 @@ export function getStock(symbol) {
     const p1 = {
       symbol: symbol,
       companyName: `Company${symbol}`,
-      earningsActualEPS: 1.00,
-      earningsConsensusEPS: 0.95,
+      earningsActualEPS: getRandomNumber(0, 2.50, 2),
+      earningsConsensusEPS: getRandomNumber(0, 2.50, 2),
       earningsDate: moment().subtract(x * 3, "month"),
       earningsTime: "BTO",
-      earningsChange: 8.50,
-      earningsChangePct: 2.25,
+      earningsChange: getRandomNumber(0, 10, 2),
+      earningsChangePct: getRandomNumber(0, 10, 2),
     }
     const history = new StockEarningsHistory(p1);
     earningsHistories.push(history);
@@ -82,4 +80,10 @@ export function getStock(symbol) {
 
   var stock = new Stock(properties);
   return stock;
+}
+
+const getRandomNumber = (min, max, places) => {
+  const random = (Math.random() * (max - min + 1) + min);
+  const n = places > 0 ? random.toFixed(places) : Math.round(random);
+  return n;
 }

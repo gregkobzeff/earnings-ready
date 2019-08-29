@@ -1,4 +1,4 @@
-import { getProximity } from "../helpers/EarningsHelper";
+import EarningsProximity from "./EarningsProximity";
 
 export default class Stock {
 
@@ -16,11 +16,11 @@ export default class Stock {
     this.nextEarningsDate = properties.nextEarningsDate;
     this.nextEarningsTime = properties.nextEarningsTime;
 
-    this.earningsProximity = getProximity(this.lastEarningsDate, this.nextEarningsDate);
-    this.earningsDate = this.earningsProximity.startsWith("B") ? this.lastEarningsDate : this.nextEarningsDate;
-    this.earningsTime = this.earningsProximity.startsWith("B") ? this.lastEarningsTime : this.nextEarningsTime;
-    this.earningsActualEPS = this.earningsProximity.startsWith("B") ? this.lastEarningsActualEPS : null;
-    this.earningsConsensusEPS = this.earningsProximity.startsWith("B") ? this.lastEarningsConsensusEPS : null;
+    this.earningsProximity = new EarningsProximity(this.lastEarningsDate, this.lastEarningsTime, this.nextEarningsDate, this.nextEarningsTime);
+    this.earningsDate = this.earningsProximity.earningsDate;
+    this.earningsTime = this.earningsProximity.earningsTime;
+    this.earningsActualEPS = this.earningsProximity.isBeforeNow ? this.lastEarningsActualEPS : null;
+    this.earningsConsensusEPS = this.earningsProximity.isBeforeNow ? this.lastEarningsConsensusEPS : null;
     this.earningsChange = properties.lastEarningsChange;
     this.earningsChangePct = properties.lastEarningsChangePct;
 
