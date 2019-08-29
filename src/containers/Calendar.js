@@ -34,8 +34,13 @@ export default class Calendar extends Component {
       { key: "T4", title: "Last Week", stocks: lastWeekStocks }
     ];
 
-    return tables.map(t => <StockEarningsHistoryTable key={t.key}
-      title={t.title} hasMultipleStocks={true} history={t.stocks} />);
+    return tables.map(t => <StockEarningsHistoryTable
+      key={t.key}
+      title={t.title}
+      hasMultipleStocks={true}
+      highlightRecentPast={false}
+      highlightRecentFuture={false}
+      history={t.stocks} />);
 
   }
 

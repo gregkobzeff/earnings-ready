@@ -1,5 +1,5 @@
 import React, { Component } from "react";
-import { getStock } from "../libs/DataAccess";
+import { getStock, getStockEarningsHistory, getStockGroupEarningsHistory } from "../libs/DataAccess";
 import StockDetailsHeader from "../components/StockDetailsHeader"
 import StockEarningsHistoryTable from "../components/StockEarningsHistoryTable"
 import "./StockDetails.css";
@@ -11,17 +11,22 @@ export default class StockDetails extends Component {
     this.state = {
       isLoading: true,
       symbol: null,
-      stock: null
+      stock: null,
+      earningsHistory: null,
+      groupEarningsHistory: null
     };
   }
 
   loadStock(symbol) {
-    console.log("loading", symbol);
     const stock = getStock(symbol);
+    const earningsHistory = getStockEarningsHistory(symbol);
+    const groupEarningsHistory = getStockGroupEarningsHistory(symbol).filter(h => h.symbol !== symbol);
     this.setState({
       isLoading: false,
       symbol: symbol,
-      stock: stock
+      stock: stock,
+      earningsHistory: earningsHistory,
+      groupEarningsHistory: groupEarningsHistory
     });
   }
 
@@ -43,14 +48,22 @@ export default class StockDetails extends Component {
   }
 
   renderStock() {
-    const stock = this.state.stock;
+
     return (
       <>
-        <StockDetailsHeader stock={stock} />
+        <StockDetailsHeader stock={this.state.stock} />
         <StockEarningsHistoryTable
           title="Earnings History"
           hasMultipleStocks={false}
-          history={stock.earningsHistories} />
+          highlightRecentPast={false}
+          highlightRecentFuture={false}
+          history={this.state.earningsHistory} />
+        <StockEarningsHistoryTable
+          title="Group Earnings History"
+          hasMultipleStocks={true}
+          highlightRecentPast={true}
+          highlightRecentFuture={false}
+          history={this.state.groupEarningsHistory} />
       </>
     );
   }

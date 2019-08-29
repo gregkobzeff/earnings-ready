@@ -5,15 +5,11 @@ import { LinkContainer } from "react-router-bootstrap";
 import { faInfoCircle } from "@fortawesome/free-solid-svg-icons";
 import Tooltip from "./Tooltip";
 import Constants from "../Constants"
+import Utilities from "../libs/Utilities";
 import EarningsChangeDisplay from "./EarningsChangeDisplay";
 import "./StockEarningsHistoryTable.css";
 
 export default class StockEarningsHistoryTable extends Component {
-
-  formatCurrency(amount) {
-    return new Intl.NumberFormat("en-US", { style: "currency", currency: "USD" })
-      .format(amount)
-  }
 
   renderNoHistory() {
     return (
@@ -54,7 +50,10 @@ export default class StockEarningsHistoryTable extends Component {
             {this.props.history.map((h, i) =>
               <LinkContainer key={i} to={`/stocks/${h.symbol}`}
                 className={this.props.hasMultipleStocks ? "enabled-link" : "disabled-link"} >
-                <tr>
+                <tr className={
+                  (this.props.highlightRecentPast && h.earningsProximity.isBeforeNow) ||
+                    (this.props.highlightRecentFuture && h.earningsProximity.isAfterNow) ?
+                    "highlight-recent" : ""}>
 
                   {this.props.hasMultipleStocks &&
                     <>
@@ -71,8 +70,8 @@ export default class StockEarningsHistoryTable extends Component {
                       <td>
                         <EarningsChangeDisplay earningsChange={h.earningsChange} earningsChangePct={h.earningsChangePct} />
                       </td>
-                      <td>{this.formatCurrency(h.earningsActualEPS)}</td>
-                      <td>{this.formatCurrency(h.earningsConsensusEPS)}</td>
+                      <td>{Utilities.formatCurrency(h.earningsActualEPS)}</td>
+                      <td>{Utilities.formatCurrency(h.earningsConsensusEPS)}</td>
                     </>
                   }
                   {h.earningsDate.isSameOrAfter(now) &&
