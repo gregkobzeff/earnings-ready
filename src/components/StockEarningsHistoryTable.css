@@ -10,3 +10,15 @@
 .stock-earnings-history-table .tooltip-icon {
   margin-left: 0.25rem;
 }
+
+.stock-earnings-history-table .enabled-link {
+  cursor: pointer;
+}
+
+.stock-earnings-history-table .disabled-link {
+  /* source: https://stackoverflow.com/questions/2091168/how-to-disable-a-link-using-only-css */
+  pointer-events: none;
+  cursor: default;
+  text-decoration: none;
+  color: black;
+}

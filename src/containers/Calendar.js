@@ -1,7 +1,7 @@
 import moment from "moment";
 import React, { Component } from "react";
 import { getStocks } from "../libs/DataAccess";
-import MultiStockEarningsHistoryTable from "../components/MultiStockEarningsHistoryTable";
+import StockEarningsHistoryTable from "../components/StockEarningsHistoryTable";
 import "./Calendar.css";
 
 export default class Calendar extends Component {
@@ -35,7 +35,9 @@ export default class Calendar extends Component {
       { key: "T4", title: "Last Week", stocks: lastWeekStocks }
     ];
 
-    return tables.map(t => <MultiStockEarningsHistoryTable key={t.key} title={t.title} stocks={t.stocks} />);
+    return tables.map(t => <StockEarningsHistoryTable key={t.key}
+      title={t.title} hasMultipleStocks={true} hasPastEarningsOnly={false} history={t.stocks} />);
+
   }
 
   render() {

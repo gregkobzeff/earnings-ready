@@ -36,7 +36,11 @@ export default class StockDetails extends Component {
     return (
       <>
         <StockDetailsHeader stock={stock} />
-        <StockEarningsHistoryTable earningsHistories={stock.earningsHistories} />
+        <StockEarningsHistoryTable
+          title="Earnings History"
+          hasMultipleStocks={false}
+          hasPastEarningsOnly={true}
+          history={stock.earningsHistories} />
       </>
     );
   }

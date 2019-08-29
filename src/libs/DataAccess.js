@@ -27,6 +27,8 @@ export function getStocks(earningsStartDate, earningsEndDate) {
       companyName: seedCompanyName,
       lastEarningsDate: lastEarningsDate,
       lastEarningsTime: lastEarningsTime,
+      lastEarningsActualEPS: 1.05,
+      lastEarningsConsensusEPS: 0.95,
       lastEarningsChange: lastEarningsChange,
       lastEarningsChangePct: lastEarningsChangePct,
       nextEarningsDate: nextEarningsDate,
@@ -54,8 +56,9 @@ export function getStock(symbol) {
   for (let x = 1; x <= 4; x++) {
     const p1 = {
       symbol: symbol,
-      actualEPS: 1.00,
-      consensusEPS: 0.95,
+      companyName: `Company${symbol}`,
+      earningsActualEPS: 1.00,
+      earningsConsensusEPS: 0.95,
       earningsDate: moment().subtract(x * 3, "month"),
       earningsTime: "BTO",
       earningsChange: 8.50,
