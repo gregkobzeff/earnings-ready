@@ -7,7 +7,7 @@ import "./Tooltip.css";
 export default props =>
   <OverlayTrigger
     trigger="hover"
-    placement="top"
+    placement={props.placement}
     overlay={
       <Popover>
         <Popover.Content>

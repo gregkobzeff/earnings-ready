@@ -1,5 +1,5 @@
 import React, { Component } from "react";
-import { getStock, getStockEarningsHistory, getStockGroupEarningsHistory } from "../libs/DataAccess";
+import { getStock, getStockEarningsHistory, getConnectedStockEarningsHistory } from "../libs/DataAccess";
 import StockDetailsHeader from "../components/StockDetailsHeader"
 import StockEarningsHistoryTable from "../components/StockEarningsHistoryTable"
 import "./StockDetails.css";
@@ -12,21 +12,21 @@ export default class StockDetails extends Component {
       isLoading: true,
       symbol: null,
       stock: null,
-      earningsHistory: null,
-      groupEarningsHistory: null
+      history: null,
+      connectedHistory: null
     };
   }
 
   loadStock(symbol) {
     const stock = getStock(symbol);
-    const earningsHistory = getStockEarningsHistory(symbol);
-    const groupEarningsHistory = getStockGroupEarningsHistory(symbol).filter(h => h.symbol !== symbol);
+    const history = getStockEarningsHistory(symbol);
+    const connectedHistory = getConnectedStockEarningsHistory(symbol).filter(h => h.symbol !== symbol);
     this.setState({
       isLoading: false,
       symbol: symbol,
       stock: stock,
-      earningsHistory: earningsHistory,
-      groupEarningsHistory: groupEarningsHistory
+      history: history,
+      connectedHistory: connectedHistory
     });
   }
 
@@ -49,21 +49,29 @@ export default class StockDetails extends Component {
 
   renderStock() {
 
+    const infoText = `Connected stocks are stocks that have relationships to this stock. For example, they could  
+     be competitors or parts suppliers. Connected stocks that report earlier than ${this.state.symbol} can provide 
+     clues as to how ${this.state.symbol} will report.`;
+
     return (
       <>
         <StockDetailsHeader stock={this.state.stock} />
         <StockEarningsHistoryTable
-          title="Earnings History"
+          title={`Earnings History - ${this.state.symbol}`}
+          infoText=""
+          showDetails={false}
           hasMultipleStocks={false}
           highlightRecentPast={false}
           highlightRecentFuture={false}
-          history={this.state.earningsHistory} />
+          history={this.state.history} />
         <StockEarningsHistoryTable
-          title="Group Earnings History"
+          title="Earnings History - Connected Stocks"
+          infoText={infoText}
+          showDetails={true}
           hasMultipleStocks={true}
-          highlightRecentPast={true}
+          highlightRecentPast={false}
           highlightRecentFuture={false}
-          history={this.state.groupEarningsHistory} />
+          history={this.state.connectedHistory} />
       </>
     );
   }

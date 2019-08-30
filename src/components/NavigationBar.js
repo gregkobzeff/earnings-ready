@@ -49,14 +49,20 @@ class NavigationBar extends Component {
         </Navbar.Brand>
         <Navbar.Toggle aria-controls="basic-navbar-nav" />
         <Nav>
-          <LinkContainer to="/overview">
-            <Nav.Link>Overview</Nav.Link>
+          <LinkContainer to="/trends">
+            <Nav.Link>Trends</Nav.Link>
           </LinkContainer>
           <LinkContainer to="/calendar">
             <Nav.Link>Calendar</Nav.Link>
           </LinkContainer>
+          <LinkContainer to="/watchlist">
+            <Nav.Link>WatchList</Nav.Link>
+          </LinkContainer>
           <LinkContainer to="/heatmap">
-            <Nav.Link>Heat Map</Nav.Link>
+            <Nav.Link>HeatMap</Nav.Link>
+          </LinkContainer>
+          <LinkContainer to="/compare">
+            <Nav.Link>Compare</Nav.Link>
           </LinkContainer>
           <LinkContainer to="/test">
             <Nav.Link>Test</Nav.Link>

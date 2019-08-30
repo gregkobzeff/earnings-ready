@@ -36,6 +36,8 @@ export default class Calendar extends Component {
 
     return tables.map(t => <StockEarningsHistoryTable
       key={t.key}
+      infoText=""
+      showDetails={false}
       title={t.title}
       hasMultipleStocks={true}
       highlightRecentPast={false}

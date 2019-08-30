@@ -7,6 +7,7 @@ export default class StockEarningsHistory {
 
     this.symbol = properties.symbol;
     this.companyName = properties.companyName;
+    this.details = properties.details;
     this.earningsActualEPS = properties.earningsActualEPS;
     this.earningsConsensusEPS = properties.earningsConsensusEPS;
     this.earningsDate = properties.earningsDate;

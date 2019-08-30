@@ -26,7 +26,10 @@ export default class StockEarningsHistoryTable extends Component {
 
     return (
       <>
-        <h5>{this.props.title}</h5>
+        <h5>
+          {this.props.title}
+          {this.props.infoText && <Tooltip icon={faInfoCircle} content={this.props.infoText} placement="top" />}
+        </h5>
         <Table bordered striped hover size="sm">
           <thead>
             <tr>
@@ -40,10 +43,13 @@ export default class StockEarningsHistoryTable extends Component {
               <th>Earnings Time</th>
               <th>
                 Earnings Reaction
-                <Tooltip icon={faInfoCircle} content={Constants.Tooltip_Earnings_Reaction} />
+                <Tooltip icon={faInfoCircle} content={Constants.Tooltip_Earnings_Reaction} placement="top" />
               </th>
               <th>Actual EPS</th>
               <th>Consensus EPS</th>
+              {this.props.showDetails &&
+                <th>Details</th>
+              }
             </tr>
           </thead>
           <tbody>
@@ -81,7 +87,11 @@ export default class StockEarningsHistoryTable extends Component {
                       <td></td>
                     </>
                   }
-
+                  {this.props.showDetails &&
+                    <td>
+                      {h.details && <Tooltip icon={faInfoCircle} content={h.details} placement="left" />}
+                    </td>
+                  }
                 </tr>
               </LinkContainer>
             )}

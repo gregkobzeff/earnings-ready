@@ -79,14 +79,20 @@ export function getStockEarningsHistory(symbol) {
   return history;
 }
 
-export function getStockGroupEarningsHistory(symbol) {
+export function getConnectedStockEarningsHistory(symbol) {
   const history = [];
   const today = moment().startOf("day");
   const count = Utilities.getRandomNumber(0, 20, 0);
+  const details = "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut " +
+    "labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip " +
+    "ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat " +
+    "nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id " +
+    "est laborum.";
   for (let n = 1; n <= count; n++) {
     const historySymbol = (n === 1) ? symbol : seedSymbols[n];
     const props = createEarningsHistoryProps(historySymbol, n);
     props.earningsDate = today.clone().subtract((n - 1) * 2, "day");
+    props.details = n % 2 === 0 ? details : "";
     const stockEarningsHistory = new StockEarningsHistory(props);
     history.push(stockEarningsHistory);
   }
