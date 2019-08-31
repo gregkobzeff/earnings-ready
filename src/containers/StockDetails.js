@@ -1,7 +1,7 @@
 import React, { Component } from "react";
-import { getStock, getStockEarningsHistory, getConnectedStockEarningsHistory } from "../libs/DataAccess";
+import { getStock, getStockEarnings, getConnectedStockEarnings } from "../libs/DataAccess";
 import StockDetailsHeader from "../components/StockDetailsHeader"
-import StockEarningsHistoryTable from "../components/StockEarningsHistoryTable"
+import StockEarningsTable from "../components/StockEarningsTable"
 import "./StockDetails.css";
 
 export default class StockDetails extends Component {
@@ -12,21 +12,21 @@ export default class StockDetails extends Component {
       isLoading: true,
       symbol: null,
       stock: null,
-      history: null,
-      connectedHistory: null
+      earnings: null,
+      connected: null
     };
   }
 
   loadStock(symbol) {
     const stock = getStock(symbol);
-    const history = getStockEarningsHistory(symbol);
-    const connectedHistory = getConnectedStockEarningsHistory(symbol).filter(h => h.symbol !== symbol);
+    const earnings = getStockEarnings(symbol);
+    const connected = getConnectedStockEarnings(symbol).filter(h => h.symbol !== symbol);
     this.setState({
       isLoading: false,
       symbol: symbol,
       stock: stock,
-      history: history,
-      connectedHistory: connectedHistory
+      earnings: earnings,
+      connected: connected
     });
   }
 
@@ -56,22 +56,18 @@ export default class StockDetails extends Component {
     return (
       <>
         <StockDetailsHeader stock={this.state.stock} />
-        <StockEarningsHistoryTable
+        <StockEarningsTable
           title={`Earnings History - ${this.state.symbol}`}
           infoText=""
           showDetails={false}
           hasMultipleStocks={false}
-          highlightRecentPast={false}
-          highlightRecentFuture={false}
-          stocks={this.state.history} />
-        <StockEarningsHistoryTable
-          title="Earnings History - Connected Stocks"
+          stocks={this.state.earnings} />
+        <StockEarningsTable
+          title="Earnings - Connected Stocks"
           infoText={infoText}
           showDetails={true}
           hasMultipleStocks={true}
-          highlightRecentPast={false}
-          highlightRecentFuture={false}
-          stocks={this.state.connectedHistory} />
+          stocks={this.state.connected} />
       </>
     );
   }

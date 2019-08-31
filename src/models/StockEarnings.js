@@ -1,7 +1,7 @@
 import moment from "moment";
 import EarningsProximity from "./EarningsProximity";
 
-export default class StockEarningsHistory {
+export default class StockEarnings {
 
   constructor(properties) {
 

@@ -1,0 +1,16 @@
+.stock-earnings-table {
+  margin-top: 1rem;
+}
+
+.stock-earnings-table .table {
+  margin-top: 1rem;
+  margin-bottom: 3rem;
+}
+
+.stock-earnings-table .tooltip-icon {
+  margin-left: 0.25rem;
+}
+
+.stock-earnings-table .enabled-links td {
+  cursor: pointer;
+}

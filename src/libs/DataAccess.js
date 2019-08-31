@@ -1,6 +1,6 @@
 import moment from "moment";
 import Stock from "../models/Stock";
-import StockEarningsHistory from "../models/StockEarningsHistory";
+import StockEarnings from "../models/StockEarnings";
 import Utilities from "../libs/Utilities";
 
 export function getStocks(earningsStartDate, earningsEndDate) {
@@ -69,18 +69,18 @@ export function getStock(symbol) {
   return stock;
 }
 
-export function getStockEarningsHistory(symbol) {
-  const history = [];
+export function getStockEarnings(symbol) {
+  const earnings = [];
   for (let n = 1; n <= 4; n++) {
-    const props = createEarningsHistoryProps(symbol, n);
-    const stockEarningsHistory = new StockEarningsHistory(props);
-    history.push(stockEarningsHistory);
+    const props = createEarningsProps(symbol, n);
+    const stockEarnings = new StockEarnings(props);
+    earnings.push(stockEarnings);
   }
-  return history;
+  return earnings;
 }
 
-export function getConnectedStockEarningsHistory(symbol) {
-  const history = [];
+export function getConnectedStockEarnings(symbol) {
+  const earnings = [];
   const today = moment().startOf("day");
   const count = Utilities.getRandomNumber(0, 20, 0);
   const details = "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut " +
@@ -89,18 +89,18 @@ export function getConnectedStockEarningsHistory(symbol) {
     "nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id " +
     "est laborum.";
   for (let n = 1; n <= count; n++) {
-    const historySymbol = (n === 1) ? symbol : seedSymbols[n];
-    const props = createEarningsHistoryProps(historySymbol, n);
+    const _symbol = (n === 1) ? symbol : seedSymbols[n];
+    const props = createEarningsProps(_symbol, n);
     props.earningsDate = today.clone().subtract((n - 1) * 2, "day");
     props.details = n % 2 === 0 ? details : "";
-    const stockEarningsHistory = new StockEarningsHistory(props);
-    history.push(stockEarningsHistory);
+    const stockEarnings = new StockEarnings(props);
+    earnings.push(stockEarnings);
   }
-  return history;
+  return earnings;
 }
 
-const createEarningsHistoryProps = (symbol, n) => {
-  const historyProps = {
+const createEarningsProps = (symbol, n) => {
+  const props = {
     symbol: symbol,
     companyName: `Company${symbol}`,
     earningsActualEPS: Utilities.getRandomNumber(0, 2.50, 2),
@@ -111,7 +111,7 @@ const createEarningsHistoryProps = (symbol, n) => {
     earningsChangePct: Utilities.getRandomNumber(0, 10, 2),
   };
 
-  return historyProps;
+  return props;
 }
 
 const seedSymbols = ['ABT', 'ABBV', 'ACN', 'ACE', 'ADBE', 'ADT', 'AAP', 'AES', 'AET', 'AFL', 'AMG', 'A', 'GAS', 'APD',

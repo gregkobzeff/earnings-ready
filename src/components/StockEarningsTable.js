@@ -8,9 +8,9 @@ import Constants from "../Constants"
 import Utilities from "../libs/Utilities";
 import EarningsChangeDisplay from "./EarningsChangeDisplay";
 import 'react-bootstrap-table-next/dist/react-bootstrap-table2.min.css';
-import "./StockEarningsHistoryTable.css";
+import "./StockEarningsTable.css";
 
-class StockEarningsHistoryTable extends Component {
+class StockEarningsTable extends Component {
 
   pushIf(arr, elem, condition) {
     if (condition) arr.push(elem);
@@ -135,7 +135,7 @@ class StockEarningsHistoryTable extends Component {
 
   render() {
     return (
-      <section className="stock-earnings-history-table">
+      <section className="stock-earnings-table">
         {this.props.stocks.length > 0 ? this.renderTable() : this.renderNoTable()}
       </section>
     )
@@ -143,4 +143,4 @@ class StockEarningsHistoryTable extends Component {
 
 }
 
-export default withRouter(StockEarningsHistoryTable);
+export default withRouter(StockEarningsTable);
