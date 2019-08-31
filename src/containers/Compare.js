@@ -1,12 +1,70 @@
 import React, { Component } from "react";
+import { Form, Button, InputGroup } from "react-bootstrap";
+import { getStockEarningsBySymbols } from "../libs/DataAccess";
+import StockEarningsTable from "../components/StockEarningsTable";
 import "./Compare.css";
 
 export default class Compare extends Component {
 
+  constructor(props) {
+    super(props);
+    this.state = {
+      symbols: null,
+      stocks: null
+    };
+  }
+
+  renderForm() {
+    return (
+      <Form onSubmit={this.handleSubmit}>
+        <InputGroup>
+          <InputGroup.Prepend>
+            <Button onClick={this.handleSearch}>Compare</Button>
+          </InputGroup.Prepend>
+          <Form.Control
+            onChange={this.handleChange}
+            type="text"
+            placeholder="Enter symbols separated by commas (ex: AMZN,MSFT)" />
+        </InputGroup>
+      </Form>
+    );
+  }
+
+  renderTable() {
+    return (
+      <StockEarningsTable
+        title=""
+        infoText=""
+        showDetails={false}
+        hasMultipleStocks={true}
+        stocks={this.state.stocks} />
+    );
+  }
+
+  handleChange = event => {
+    this.setState({
+      symbols: event.target.value
+    });
+  }
+
+  handleSubmit = event => {
+    event.preventDefault();
+    this.handleSearch(event);
+  }
+
+  handleSearch = async event => {
+    event.preventDefault();
+    if (!this.state.symbols) return;
+    const symbols = this.state.symbols.replace(/\s+/g, '').split(',').map(s => s.toUpperCase());
+    const stocks = getStockEarningsBySymbols(symbols);
+    this.setState({ stocks: stocks });
+  }
+
   render() {
     return (
-      <div className="Compare">
-        <h3>Compare Page</h3>
+      <div className="compare">
+        {this.renderForm()}
+        {this.state.stocks && this.renderTable()}
       </div>
     );
   }

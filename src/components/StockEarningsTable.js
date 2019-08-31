@@ -114,10 +114,12 @@ class StockEarningsTable extends Component {
 
     return (
       <>
-        <h5>
-          {this.props.title}
-          {this.props.infoText && <Tooltip icon={faInfoCircle} size="1x" content={this.props.infoText} placement="top" />}
-        </h5>
+        {this.props.title &&
+          <h5>
+            {this.props.title}
+            {this.props.infoText && <Tooltip icon={faInfoCircle} size="1x" content={this.props.infoText} placement="top" />}
+          </h5>
+        }
         <BootstrapTable
           bootstrap4
           striped

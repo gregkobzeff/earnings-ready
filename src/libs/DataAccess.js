@@ -74,11 +74,22 @@ export function getStockEarnings(symbol) {
 
   for (let n = 1; n <= 4; n++) {
     const props = createEarningsProps(symbol);
-    const stockEarnings = new StockEarnings(props);
-    stockEarnings.earningsTime = time;
-    earnings.push(stockEarnings);
+    if (props) {
+      const stockEarnings = new StockEarnings(props);
+      stockEarnings.earningsTime = time;
+      earnings.push(stockEarnings);
+    }
   }
 
+  return earnings;
+}
+
+//StocksEarnings - Compare (always past)
+export function getStockEarningsBySymbols(symbols) {
+  let earnings = [];
+  for (let i = 0; i < symbols.length; i++) {
+    earnings = earnings.concat(getStockEarnings(symbols[i]));
+  }
   return earnings;
 }
 
@@ -88,10 +99,13 @@ const createStockProps = (symbol) => {
   const time = FakeData.earningsTime();
   const daysAgo = FakeData.number(1, 90, 0);
   const date = moment().subtract(daysAgo, "day");
+  const company = CompanyList.findBySymbol(symbol);
+
+  if (!company) return null;
 
   const props = {
     symbol: symbol,
-    companyName: CompanyList.findBySymbol(symbol).name,
+    companyName: company.name,
     lastEarningsDate: date,
     lastEarningsTime: time,
     lastEarningsActualEPS: FakeData.number(0, 2.50, 2),
@@ -111,10 +125,13 @@ const createStockProps = (symbol) => {
 const createEarningsProps = (symbol) => {
 
   const daysAgo = FakeData.number(0, 90, 0);
+  const company = CompanyList.findBySymbol(symbol);
+
+  if (!company) return null;
 
   const props = {
     symbol: symbol,
-    companyName: CompanyList.findBySymbol(symbol).name,
+    companyName: company.name,
     earningsActualEPS: FakeData.number(0, 2.50, 2),
     earningsConsensusEPS: FakeData.number(0, 2.50, 2),
     earningsDate: moment().subtract(daysAgo, "day"),
