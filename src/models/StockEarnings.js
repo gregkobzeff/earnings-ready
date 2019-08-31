@@ -1,22 +1,20 @@
 import moment from "moment";
 import EarningsProximity from "./EarningsProximity";
 
+//these are always past earnings
 export default class StockEarnings {
 
   constructor(properties) {
 
     this.symbol = properties.symbol;
     this.companyName = properties.companyName;
-    this.details = properties.details;
     this.earningsActualEPS = properties.earningsActualEPS;
     this.earningsConsensusEPS = properties.earningsConsensusEPS;
     this.earningsDate = properties.earningsDate;
     this.earningsTime = properties.earningsTime;
     this.earningsChange = properties.earningsChange;
     this.earningsChangePct = properties.earningsChangePct;
-    this.earningsProximity = new EarningsProximity(
-      properties.earningsDate, properties.earningsTime,
-      moment().add(10, "year"), "");
+    this.earningsProximity = new EarningsProximity(properties.earningsDate, properties.earningsTime, moment().add(10, "year"), "");
 
   }
 

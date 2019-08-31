@@ -15,5 +15,5 @@ export default props =>
         </Popover.Content>
       </Popover>
     }>
-    <FontAwesomeIcon icon={props.icon} className="tooltip-icon" />
+    <FontAwesomeIcon icon={props.icon} size={props.size} className="tooltip-icon" />
   </OverlayTrigger>;

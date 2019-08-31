@@ -1,5 +1,5 @@
 import React, { Component } from "react";
-import { getStock, getStockEarnings, getConnectedStockEarnings } from "../libs/DataAccess";
+import { getStock, getStockEarnings, getConnectedStocks } from "../libs/DataAccess";
 import StockDetailsHeader from "../components/StockDetailsHeader"
 import StockEarningsTable from "../components/StockEarningsTable"
 import "./StockDetails.css";
@@ -20,7 +20,7 @@ export default class StockDetails extends Component {
   loadStock(symbol) {
     const stock = getStock(symbol);
     const earnings = getStockEarnings(symbol);
-    const connected = getConnectedStockEarnings(symbol).filter(h => h.symbol !== symbol);
+    const connected = getConnectedStocks(symbol).filter(h => h.symbol !== symbol);
     this.setState({
       isLoading: false,
       symbol: symbol,
@@ -52,6 +52,8 @@ export default class StockDetails extends Component {
     const infoText = `Connected stocks are stocks that have relationships to this stock. For example, they could  
      be competitors or parts suppliers. Connected stocks that report earlier than ${this.state.symbol} can provide 
      clues as to how ${this.state.symbol} will report.`;
+
+    console.log("connected", this.state.connected);
 
     return (
       <>

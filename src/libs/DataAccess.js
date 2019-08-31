@@ -4,9 +4,9 @@ import StockEarnings from "../models/StockEarnings";
 import CompanyList from "./CompanyList"
 import FakeData from "./FakeData"
 
+//Calendar (filters by proximity), HeatMap (shows past and next)
 export function getStocks(earningsStartDate, earningsEndDate) {
 
-  //https://stackoverflow.com/questions/3746725/how-to-create-an-array-containing-1-n
   var stocks = Array(500).fill().map((e, i) => {
     const company = CompanyList.find(i);
     var props = createStockProps(company.symbol);
@@ -29,6 +29,44 @@ export function getStock(symbol) {
   return stock;
 }
 
+//Stocks
+export function getWatchList() {
+
+  const stocks = [];
+  const count = FakeData.number(0, 20, 0);
+
+  for (let n = 1; n <= count; n++) {
+    const symbol = FakeData.company().symbol;
+    const props = createStockProps(symbol);
+    const stock = new Stock(props);
+    stocks.push(stock);
+  }
+
+  return stocks;
+}
+
+//Stocks
+export function getConnectedStocks(symbol) {
+
+  const stocks = [];
+  const count = FakeData.number(0, 20, 0);
+  const details = FakeData.paragraph(3);
+
+  for (let n = 1; n <= count; n++) {
+    const cSymbol = FakeData.company().symbol;
+    if (cSymbol !== symbol) {
+      const props = createStockProps(cSymbol);
+      props.details = FakeData.number(1, 3, 0) % 3 === 0 ? details : "";
+      const stock = new Stock(props);
+      stocks.push(stock);
+    }
+  }
+
+  return stocks;
+
+}
+
+//StockEarnings - StockDetails (always past)
 export function getStockEarnings(symbol) {
 
   const time = FakeData.earningsTime();
@@ -44,26 +82,7 @@ export function getStockEarnings(symbol) {
   return earnings;
 }
 
-export function getConnectedStockEarnings(symbol) {
-
-  const earnings = [];
-  const count = FakeData.number(0, 20, 0);
-  const details = FakeData.paragraph(3);
-
-  for (let n = 1; n <= count; n++) {
-    const sym = FakeData.company().symbol;
-    if (sym !== symbol) {
-      const props = createEarningsProps(sym);
-      props.details = FakeData.number(1, 3, 0) % 3 === 0 ? details : "";
-      const stockEarnings = new StockEarnings(props);
-      earnings.push(stockEarnings);
-    }
-  }
-
-  return earnings;
-
-}
-
+//creates past and next (separate properties)
 const createStockProps = (symbol) => {
 
   const time = FakeData.earningsTime();
@@ -88,6 +107,7 @@ const createStockProps = (symbol) => {
 
 }
 
+//always creates past
 const createEarningsProps = (symbol) => {
 
   const daysAgo = FakeData.number(0, 90, 0);
