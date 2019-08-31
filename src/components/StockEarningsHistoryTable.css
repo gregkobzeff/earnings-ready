@@ -2,7 +2,7 @@
   margin-top: 1rem;
 }
 
-.stock-earnings-history-table table {
+.stock-earnings-history-table .table {
   margin-top: 1rem;
   margin-bottom: 3rem;
 }
@@ -11,16 +11,8 @@
   margin-left: 0.25rem;
 }
 
-.stock-earnings-history-table .enabled-link {
+.stock-earnings-history-table .enabled-links td {
   cursor: pointer;
-}
-
-.stock-earnings-history-table .disabled-link {
-  /* source: https://stackoverflow.com/questions/2091168/how-to-disable-a-link-using-only-css */
-  pointer-events: none;
-  cursor: default;
-  text-decoration: none;
-  color: black;
 }
 
 .stock-earnings-history-table .highlight-recent {

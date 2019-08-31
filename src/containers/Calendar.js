@@ -42,7 +42,7 @@ export default class Calendar extends Component {
       hasMultipleStocks={true}
       highlightRecentPast={false}
       highlightRecentFuture={false}
-      history={t.stocks} />);
+      stocks={t.stocks} />);
 
   }
 

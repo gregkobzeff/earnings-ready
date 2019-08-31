@@ -63,7 +63,7 @@ export default class StockDetails extends Component {
           hasMultipleStocks={false}
           highlightRecentPast={false}
           highlightRecentFuture={false}
-          history={this.state.history} />
+          stocks={this.state.history} />
         <StockEarningsHistoryTable
           title="Earnings History - Connected Stocks"
           infoText={infoText}
@@ -71,7 +71,7 @@ export default class StockDetails extends Component {
           hasMultipleStocks={true}
           highlightRecentPast={false}
           highlightRecentFuture={false}
-          history={this.state.connectedHistory} />
+          stocks={this.state.connectedHistory} />
       </>
     );
   }
