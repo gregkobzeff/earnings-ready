@@ -10,6 +10,7 @@ class NavigationBar extends Component {
 
   constructor(props) {
     super(props);
+    this.refSymbolSelector = React.createRef();
     this.state = {
       symbol: null
     };
@@ -18,6 +19,7 @@ class NavigationBar extends Component {
   handleSearch = async event => {
     event.preventDefault();
     if (this.state.symbol == null) return; //no valid selection
+    this.refSymbolSelector.current.clear();
     this.props.history.push(`/stocks/${this.state.symbol}`);
   }
 
@@ -70,8 +72,14 @@ class NavigationBar extends Component {
         </Nav>
         <Nav className="ml-auto">
           <Form inline>
-            <SymbolSelector placeholder="Enter a symbol" onChange={this.handleSymbolChange} onKeyDown={this.handleSymbolKeyDown} />
-            <Button className="search" onClick={this.handleSearch}>Search</Button>
+            <SymbolSelector
+              ref={this.refSymbolSelector}
+              placeholder="Enter a symbol"
+              onChange={this.handleSymbolChange}
+              onKeyDown={this.handleSymbolKeyDown} />
+            <Button
+              className="search"
+              onClick={this.handleSearch}>Search</Button>
           </Form>
         </Nav>
       </Navbar>

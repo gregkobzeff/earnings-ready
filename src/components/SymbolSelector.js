@@ -20,12 +20,18 @@ export default class SymbolSelector extends Component {
     });
   }
 
+  //called by containers
+  clear() {
+    this.typeahead.getInstance().clear();
+  }
+
   render() {
 
     return (
       <>
         {this.state.symbols &&
           <Typeahead
+            ref={(typeahead) => this.typeahead = typeahead}
             id="symbolSelector"
             labelKey="symbol"
             multiple={false}

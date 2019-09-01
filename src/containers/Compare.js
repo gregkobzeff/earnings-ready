@@ -2,6 +2,7 @@ import React, { Component } from "react";
 import { Form, Button, InputGroup } from "react-bootstrap";
 import { getStockEarningsBySymbols } from "../libs/DataAccess";
 import Utilities from "../libs/Utilities";
+import SymbolEntry from "../components/SymbolEntry";
 import StockEarningsTable from "../components/StockEarningsTable";
 import "./Compare.css";
 
@@ -22,10 +23,10 @@ export default class Compare extends Component {
           <InputGroup.Prepend>
             <Button onClick={this.handleSearch}>Compare</Button>
           </InputGroup.Prepend>
-          <Form.Control
-            onChange={this.handleChange}
-            type="text"
-            placeholder="Enter symbols separated by commas (example: AMZN,MSFT)" />
+          <SymbolEntry
+            rows="1"
+            placeholder="Enter symbols separated by commas (example: AMZN,MSFT)"
+            onChange={this.handleChange} />
         </InputGroup>
       </Form>
     );

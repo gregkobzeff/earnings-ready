@@ -143,3 +143,6 @@ const createEarningsProps = (symbol) => {
   return props;
 }
 
+export function saveWatchList(symbols) {
+  console.log("Saving WatchList", symbols);
+}
