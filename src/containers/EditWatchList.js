@@ -1,6 +1,6 @@
 import React, { Component } from "react";
 import { Form, Button } from "react-bootstrap";
-import { saveWatchList } from "../libs/DataAccess";
+import { getWatchList, saveWatchList } from "../libs/DataAccess";
 import Utilities from "../libs/Utilities";
 import SymbolEntry from "../components/SymbolEntry";
 import "./EditWatchList.css";
@@ -10,8 +10,13 @@ export default class EditWatchList extends Component {
   constructor(props) {
     super(props);
     this.state = {
-      symbols: null,
+      symbols: "",
     };
+  }
+
+  async componentDidMount() {
+    const symbols = Utilities.symbolsToString(getWatchList().map(s => s.symbol));
+    this.setState({ symbols: symbols });
   }
 
   handleChange = event => {
@@ -42,6 +47,7 @@ export default class EditWatchList extends Component {
             <SymbolEntry
               rows="3"
               placeholder="Enter symbols here"
+              value={this.state.symbols}
               onChange={this.handleChange} />
           </Form.Group>
           <div className="text-center">

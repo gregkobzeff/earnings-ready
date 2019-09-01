@@ -10,9 +10,10 @@ export default class SymbolEntry extends Component {
     return (
       <Form.Control
         {...props}
-        onChange={this.props.onChange}
         type="text"
-        placeholder={this.props.placeholder} />
+        placeholder={this.props.placeholder}
+        value={this.props.value}
+        onChange={this.props.onChange} />
     )
 
   }

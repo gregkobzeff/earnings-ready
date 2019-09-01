@@ -26,6 +26,7 @@ export default class Compare extends Component {
           <SymbolEntry
             rows="1"
             placeholder="Enter symbols separated by commas (example: AMZN,MSFT)"
+            value=""
             onChange={this.handleChange} />
         </InputGroup>
       </Form>
