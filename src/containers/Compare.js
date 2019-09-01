@@ -1,6 +1,7 @@
 import React, { Component } from "react";
 import { Form, Button, InputGroup } from "react-bootstrap";
 import { getStockEarningsBySymbols } from "../libs/DataAccess";
+import Utilities from "../libs/Utilities";
 import StockEarningsTable from "../components/StockEarningsTable";
 import "./Compare.css";
 
@@ -24,7 +25,7 @@ export default class Compare extends Component {
           <Form.Control
             onChange={this.handleChange}
             type="text"
-            placeholder="Enter symbols separated by commas (ex: AMZN,MSFT)" />
+            placeholder="Enter symbols separated by commas (example: AMZN,MSFT)" />
         </InputGroup>
       </Form>
     );
@@ -55,7 +56,8 @@ export default class Compare extends Component {
   handleSearch = async event => {
     event.preventDefault();
     if (!this.state.symbols) return;
-    const symbols = this.state.symbols.replace(/\s+/g, '').split(',').map(s => s.toUpperCase());
+    const symbols = Utilities.symbolsToArray(this.state.symbols);
+    console.log(symbols);
     const stocks = getStockEarningsBySymbols(symbols);
     this.setState({ stocks: stocks });
   }
