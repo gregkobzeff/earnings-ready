@@ -140,7 +140,7 @@ class StockEarningsTable extends Component {
   renderNoTable() {
     return (
       <>
-        <h3>{this.props.title}</h3>
+        <h5>{this.props.title}</h5>
         <p>No reported earnings.</p>
       </>
     )

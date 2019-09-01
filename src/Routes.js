@@ -4,6 +4,7 @@ import Home from "./containers/Home";
 import Trends from "./containers/Trends";
 import Calendar from "./containers/Calendar";
 import WatchList from "./containers/WatchList";
+import EditWatchList from "./containers/EditWatchList";
 import HeatMap from "./containers/HeatMap";
 import Compare from "./containers/Compare";
 import Test from "./containers/Test";
@@ -21,6 +22,7 @@ export default ({ childProps }) =>
     <AppliedRoute path="/trends" exact component={Trends} props={childProps} />
     <AppliedRoute path="/calendar" exact component={Calendar} props={childProps} />
     <AppliedRoute path="/watchlist" exact component={WatchList} props={childProps} />
+    <AppliedRoute path="/watchlist/edit" exact component={EditWatchList} props={childProps} />
     <AppliedRoute path="/heatmap" exact component={HeatMap} props={childProps} />
     <AppliedRoute path="/compare" exact component={Compare} props={childProps} />
     <AppliedRoute path="/test" exact component={Test} props={childProps} />

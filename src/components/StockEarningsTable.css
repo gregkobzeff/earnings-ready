@@ -2,9 +2,12 @@
   margin-top: 1rem;
 }
 
+.stock-earnings-table h5 {
+  margin-top: 2rem;
+}
+
 .stock-earnings-table .table {
   margin-top: 1rem;
-  margin-bottom: 3rem;
 }
 
 .stock-earnings-table .tooltip-icon {

@@ -57,7 +57,6 @@ export default class Compare extends Component {
     event.preventDefault();
     if (!this.state.symbols) return;
     const symbols = Utilities.symbolsToArray(this.state.symbols);
-    console.log(symbols);
     const stocks = getStockEarningsBySymbols(symbols);
     this.setState({ stocks: stocks });
   }

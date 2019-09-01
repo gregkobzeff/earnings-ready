@@ -1,4 +1,5 @@
 import React, { Component } from "react";
+import { Link } from "react-router-dom";
 import { getWatchList } from "../libs/DataAccess";
 import StockEarningsTable from "../components/StockEarningsTable";
 import "./WatchList.css";
@@ -20,7 +21,7 @@ export default class WatchList extends Component {
   renderTable() {
     return (
       <StockEarningsTable
-        title="WatchList"
+        title=""
         infoText=""
         showDetails={false}
         hasMultipleStocks={true}
@@ -30,8 +31,9 @@ export default class WatchList extends Component {
 
   render() {
     return (
-      <div className="watch-list">
+      <div className="watch-list text-center">
         {this.state.stocks && this.renderTable()}
+        <Link to="/watchlist/edit" className="btn btn-primary btn-sm">Edit WatchList</Link>
       </div>
     );
   }

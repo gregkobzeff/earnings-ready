@@ -53,8 +53,6 @@ export default class StockDetails extends Component {
      be competitors or parts suppliers. Connected stocks that report earlier than ${this.state.symbol} can provide 
      clues as to how ${this.state.symbol} will report.`;
 
-    console.log("connected", this.state.connected);
-
     return (
       <>
         <StockDetailsHeader stock={this.state.stock} />
