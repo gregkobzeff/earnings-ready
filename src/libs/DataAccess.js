@@ -1,6 +1,8 @@
 import moment from "moment";
 import Stock from "../models/Stock";
 import StockEarnings from "../models/StockEarnings";
+import SymbolConnections from "../models/SymbolConnections";
+import Connection from "../models/Connection";
 import CompanyList from "./CompanyList"
 import FakeData from "./FakeData"
 
@@ -63,6 +65,27 @@ export function getConnectedStocks(symbol) {
   }
 
   return stocks;
+
+}
+
+//Connections - EditConnections
+export function getAllSymbolConnections() {
+
+  const allSymbolConnections = [];
+  const count1 = FakeData.number(0, 5, 0);
+
+  for (let x = 1; x <= count1; x++) {
+    const connections = [];
+    const count2 = FakeData.number(0, 10, 0);
+    for (let y = 1; y <= count2; y++) {
+      const connection = new Connection(FakeData.company().symbol, "");
+      connections.push(connection);
+    }
+    const symbolConnection = new SymbolConnections(FakeData.company().symbol, connections);
+    allSymbolConnections.push(symbolConnection);
+  }
+
+  return allSymbolConnections;
 
 }
 
@@ -145,4 +168,8 @@ const createEarningsProps = (symbol) => {
 
 export function saveWatchList(symbols) {
   console.log("Saving WatchList", symbols);
+}
+
+export function saveSymbolConnections(symbolConnections) {
+  console.log("Saving SymbolConnections", symbolConnections);
 }

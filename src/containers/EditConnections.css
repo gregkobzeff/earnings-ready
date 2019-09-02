@@ -1,0 +1,23 @@
+.edit-connections form {
+  margin-top: 1rem;
+  border: 1px solid #DEE2E6;
+  border-radius: 10px;
+  padding: 10px;
+}
+
+.edit-connections h5 {
+  margin-top: 2rem;
+}
+
+.edit-connections table {
+  margin-top: 1rem;
+}
+
+.edit-connections .symbol-column {
+  width: 200px;
+}
+
+.edit-connections .tooltip-icon {
+  margin-left: 0.25rem;
+  color: #666;
+}

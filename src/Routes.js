@@ -9,6 +9,7 @@ import HeatMap from "./containers/HeatMap";
 import Compare from "./containers/Compare";
 import Test from "./containers/Test";
 import StockDetails from "./containers/StockDetails";
+import EditConnections from "./containers/EditConnections";
 import Login from "./containers/Login";
 import Signup from "./containers/Signup";
 import NotFound from "./containers/NotFound";
@@ -27,6 +28,7 @@ export default ({ childProps }) =>
     <AppliedRoute path="/compare" exact component={Compare} props={childProps} />
     <AppliedRoute path="/test" exact component={Test} props={childProps} />
     <AppliedRoute path="/stocks/:symbol" exact component={StockDetails} props={childProps} />
+    <AppliedRoute path="/connections/edit" exact component={EditConnections} props={childProps} />
     <UnauthenticatedRoute path="/login" exact component={Login} props={childProps} />
     <UnauthenticatedRoute path="/signup" exact component={Signup} props={childProps} />
     <Route component={NotFound} />

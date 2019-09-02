@@ -148,9 +148,9 @@ class StockEarningsTable extends Component {
 
   render() {
     return (
-      <section className="stock-earnings-table">
+      <div className="stock-earnings-table">
         {this.props.stocks.length > 0 ? this.renderTable() : this.renderNoTable()}
-      </section>
+      </div>
     )
   }
 

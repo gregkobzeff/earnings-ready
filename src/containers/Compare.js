@@ -11,7 +11,7 @@ export default class Compare extends Component {
   constructor(props) {
     super(props);
     this.state = {
-      symbols: null,
+      symbols: "",
       stocks: null
     };
   }
@@ -26,7 +26,7 @@ export default class Compare extends Component {
           <SymbolEntry
             rows="1"
             placeholder="Enter symbols separated by commas (example: AMZN,MSFT)"
-            value=""
+            value={this.state.symbols}
             onChange={this.handleChange} />
         </InputGroup>
       </Form>

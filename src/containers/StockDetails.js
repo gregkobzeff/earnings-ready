@@ -1,4 +1,5 @@
 import React, { Component } from "react";
+import { Link } from "react-router-dom";
 import { getStock, getStockEarnings, getConnectedStocks } from "../libs/DataAccess";
 import StockDetailsHeader from "../components/StockDetailsHeader"
 import StockEarningsTable from "../components/StockEarningsTable"
@@ -13,20 +14,20 @@ export default class StockDetails extends Component {
       symbol: null,
       stock: null,
       earnings: null,
-      connected: null
+      connectedStocks: null
     };
   }
 
   loadStock(symbol) {
     const stock = getStock(symbol);
     const earnings = getStockEarnings(symbol);
-    const connected = getConnectedStocks(symbol).filter(h => h.symbol !== symbol);
+    const connectedStocks = getConnectedStocks(symbol).filter(h => h.symbol !== symbol);
     this.setState({
       isLoading: false,
       symbol: symbol,
       stock: stock,
       earnings: earnings,
-      connected: connected
+      connectedStocks: connectedStocks
     });
   }
 
@@ -49,8 +50,8 @@ export default class StockDetails extends Component {
 
   renderStock() {
 
-    const infoText = `Connected stocks are stocks that have relationships to this stock. For example, they could  
-     be competitors or parts suppliers. Connected stocks that report earlier than ${this.state.symbol} can provide 
+    const infoText = `Connections are stocks that have relationships to a specific stock. For example, they could  
+     be competitors or parts suppliers. Connections that report earlier than ${this.state.symbol} can provide 
      clues as to how ${this.state.symbol} will report.`;
 
     return (
@@ -63,11 +64,14 @@ export default class StockDetails extends Component {
           hasMultipleStocks={false}
           stocks={this.state.earnings} />
         <StockEarningsTable
-          title="Earnings - Connected Stocks"
+          title="Earnings - Connections"
           infoText={infoText}
           showDetails={true}
           hasMultipleStocks={true}
-          stocks={this.state.connected} />
+          stocks={this.state.connectedStocks} />
+        <div className="text-center">
+          <Link to="/connections/edit" className="btn btn-primary btn-sm">Edit Connections</Link>
+        </div>
       </>
     );
   }

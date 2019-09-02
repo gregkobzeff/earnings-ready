@@ -16,7 +16,7 @@ export default class FakeData {
 
   static number(min, max, places) {
     const random = (Math.random() * (max - min + 1) + min);
-    const adjusted = places > 0 ? random.toFixed(places) : Math.round(random);
+    const adjusted = places > 0 ? random.toFixed(places) : Math.floor(random);
     return adjusted;
   }
 
