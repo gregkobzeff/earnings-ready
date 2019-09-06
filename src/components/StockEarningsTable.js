@@ -42,6 +42,8 @@ class StockEarningsTable extends Component {
     });
 
     columns.push({ dataField: 'earningsTime', text: 'Time', sort: true });
+    columns.push({ dataField: 'consensusEPS', text: 'Consensus EPS', sort: true });
+    columns.push({ dataField: 'actualEPS', text: 'Actual EPS', sort: true });
 
     columns.push({
       dataField: 'earningsReaction',
@@ -55,9 +57,6 @@ class StockEarningsTable extends Component {
           </>)
       }
     });
-
-    columns.push({ dataField: 'actualEPS', text: 'Actual EPS', sort: true });
-    columns.push({ dataField: 'consensusEPS', text: 'Consensus EPS', sort: true });
 
     return columns;
 
@@ -81,11 +80,11 @@ class StockEarningsTable extends Component {
       }
       o.earningsDate = h.earningsDate.format("M/D/YYYY");
       o.earningsTime = h.earningsTime;
+      o.consensusEPS = Utilities.formatCurrency(h.earningsConsensusEPS);
 
       if (h.earningsDate.isBefore(now)) {
-        o.earningsReaction = <EarningsChangeDisplay earningsChange={h.earningsChange} earningsChangePct={h.earningsChangePct} />
         o.actualEPS = Utilities.formatCurrency(h.earningsActualEPS);
-        o.consensusEPS = Utilities.formatCurrency(h.earningsConsensusEPS);
+        o.earningsReaction = <EarningsChangeDisplay earningsChange={h.earningsChange} earningsChangePct={h.earningsChangePct} />
       }
 
       return o;

@@ -18,10 +18,10 @@ export default class Stock {
 
     //matches the properties in StockEarnings class
     this.earningsProximity = new EarningsProximity(this.lastEarningsDate, this.lastEarningsTime, this.nextEarningsDate, this.nextEarningsTime);
-    this.earningsDate = this.earningsProximity.earningsDate;
-    this.earningsTime = this.earningsProximity.earningsTime;
-    this.earningsActualEPS = this.earningsProximity.isBeforeNow ? this.lastEarningsActualEPS : null;
-    this.earningsConsensusEPS = this.earningsProximity.isBeforeNow ? this.lastEarningsConsensusEPS : null;
+    this.earningsDate = this.earningsProximity.displayEarningsDate;
+    this.earningsTime = this.earningsProximity.displayEarningsTime;
+    this.earningsActualEPS = this.earningsProximity.displayLast ? this.lastEarningsActualEPS : null;
+    this.earningsConsensusEPS = this.earningsProximity.displayLast ? this.lastEarningsConsensusEPS : this.nextEarningsConsensusEPS;
     this.earningsChange = properties.lastEarningsChange;
     this.earningsChangePct = properties.lastEarningsChangePct;
 

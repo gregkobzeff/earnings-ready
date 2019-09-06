@@ -6,10 +6,14 @@ export default class EarningsProximity {
 
     const code = this.getProximity(lastEarningsDate, nextEarningsDate);
 
-    this.isBetweenLastWeekAndNextWeek = (code !== "");
+    this.displayLast = code.startsWith("B");
+    this.displayNext = !code.startsWith("B");   //if company did not recently report, show next earnings as default
 
-    this.isBeforeNow = code.startsWith("B");
-    this.isAfterNow = code.startsWith("A");
+    this.displayEarningsDate = this.displayLast ? lastEarningsDate : nextEarningsDate;
+    this.displayEarningsTime = this.displayLast ? lastEarningsTime : nextEarningsTime;
+
+    this.isCloseAndBeforeNow = code.startsWith("B");
+    this.isCloseAndAfterNow = code.startsWith("A");
 
     this.isToday = (code === "B" || code === "A");
     this.isTodayBeforeNow = (code === "B");
@@ -21,9 +25,7 @@ export default class EarningsProximity {
 
     this.isLastWeek = (code === "B1");
     this.isNextWeek = (code === "A1");
-
-    this.earningsDate = this.isBeforeNow ? lastEarningsDate : nextEarningsDate;    //if none highlighted, default to next
-    this.earningsTime = this.isBeforeNow ? lastEarningsTime : nextEarningsTime;
+    this.isBetweenLastWeekAndNextWeek = (code !== "");
 
   }
 

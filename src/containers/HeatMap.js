@@ -30,8 +30,8 @@ export default class HeatMap extends Component {
     if (stock.earningsProximity.isNextWeek) bgColor = "#83BD73";
 
     const itemStyle = { "backgroundColor": bgColor };
-    const lastFontWeight = stock.earningsProximity.isBeforeNow ? "bold" : "normal";
-    const nextFontWeight = stock.earningsProximity.isAfterNow ? "bold" : "normal";
+    const lastFontWeight = stock.earningsProximity.isCloseAndBeforeNow ? "bold" : "normal";
+    const nextFontWeight = stock.earningsProximity.isCloseAndAfterNow ? "bold" : "normal";
     const lastStyle = { "fontWeight": lastFontWeight };
     const nextStyle = { "fontWeight": nextFontWeight };
 
