@@ -1,6 +1,7 @@
 import React, { Component } from "react";
 import { Form, Row, Col, Button } from "react-bootstrap";
 import BootstrapTable from 'react-bootstrap-table-next';
+import { Helmet } from 'react-helmet';
 import { getAllSymbolConnections, saveSymbolConnections } from "../libs/DataAccess";
 import Utilities from "../libs/Utilities";
 import SymbolSelector from "../components/SymbolSelector";
@@ -130,6 +131,9 @@ export default class EditConnections extends Component {
 
     return (
       <>
+        <Helmet>
+          <title>Edit Connections</title>
+        </Helmet>
         <h5>Existing Connections</h5>
         <BootstrapTable
           bootstrap4

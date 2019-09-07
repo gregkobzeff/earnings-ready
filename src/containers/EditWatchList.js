@@ -1,5 +1,6 @@
 import React, { Component } from "react";
 import { Form, Button } from "react-bootstrap";
+import { Helmet } from 'react-helmet';
 import { getWatchList, saveWatchList } from "../libs/DataAccess";
 import Utilities from "../libs/Utilities";
 import SymbolEntry from "../components/SymbolEntry";
@@ -38,6 +39,9 @@ export default class EditWatchList extends Component {
 
     return (
       <div className="edit-watch-list">
+        <Helmet>
+          <title>Edit WatchList</title>
+        </Helmet>
         <h5>Edit WatchList</h5>
         <Form onSubmit={this.handleSubmit}>
           <Form.Group>

@@ -2,6 +2,7 @@ import moment from "moment";
 import React, { Component } from "react";
 import { Container, Row, Col, Popover, OverlayTrigger } from "react-bootstrap";
 import { LinkContainer } from "react-router-bootstrap";
+import { Helmet } from 'react-helmet';
 import { getStocks } from "../libs/DataAccess";
 import "./HeatMap.css";
 
@@ -71,6 +72,9 @@ export default class HeatMap extends Component {
   render() {
     return (
       <div className="heat-map">
+        <Helmet>
+          <title>HeatMap</title>
+        </Helmet>
         {this.state.stocks &&
           <Container>
             <Row>

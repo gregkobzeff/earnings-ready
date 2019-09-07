@@ -1,5 +1,6 @@
 import React, { Component } from "react";
 import { Form, Button, InputGroup } from "react-bootstrap";
+import { Helmet } from 'react-helmet';
 import { getStockEarningsBySymbols } from "../libs/DataAccess";
 import Utilities from "../libs/Utilities";
 import SymbolEntry from "../components/SymbolEntry";
@@ -66,6 +67,9 @@ export default class Compare extends Component {
   render() {
     return (
       <div className="compare">
+        <Helmet>
+          <title>Compare</title>
+        </Helmet>
         {this.renderForm()}
         {this.state.stocks && this.renderTable()}
       </div>

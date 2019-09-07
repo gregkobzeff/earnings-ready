@@ -1,5 +1,6 @@
 import React, { Component } from "react";
 import { Link } from "react-router-dom";
+import { Helmet } from 'react-helmet';
 import { getStock, getStockEarnings, getConnectedStocks } from "../libs/DataAccess";
 import StockDetailsHeader from "../components/StockDetailsHeader"
 import StockEarningsTable from "../components/StockEarningsTable"
@@ -79,6 +80,9 @@ export default class StockDetails extends Component {
   render() {
     return (
       <div className="stock-details container">
+        <Helmet>
+          <title>Stock Details</title>
+        </Helmet>
         {this.state.isLoading ? null : this.state.stock != null ? this.renderStock() : this.renderNotFound()}
       </div>
     );

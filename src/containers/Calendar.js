@@ -1,5 +1,6 @@
 import moment from "moment";
 import React, { Component } from "react";
+import { Helmet } from 'react-helmet';
 import { getStocks } from "../libs/DataAccess";
 import StockEarningsTable from "../components/StockEarningsTable";
 import "./Calendar.css";
@@ -47,6 +48,9 @@ export default class Calendar extends Component {
   render() {
     return (
       <div className="calendar">
+        <Helmet>
+          <title>Calendar</title>
+        </Helmet>
         {this.state.stocks && this.renderTables()}
       </div>
     );
