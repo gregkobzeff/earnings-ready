@@ -23,7 +23,7 @@ class App extends Component {
     this.props.history.listen(() => {
       ReactGA.set({ page: window.location.pathname });
       ReactGA.pageview(window.location.pathname + window.location.search);
-      console.log(window.location.pathname + window.location.search);
+      console.log("pageview:", window.location.pathname + window.location.search);
     });
   }
 
@@ -44,7 +44,7 @@ class App extends Component {
 
     return (
       <div className="App container">
-        <Helmet titleTemplate="Earnings Ready | %s" defaultTitle="Earnings Ready" />
+        <Helmet titleTemplate="%s | Earnings Ready" defaultTitle="Earnings Ready" />
         <NavigationBar props={childProps} />
         <Routes childProps={childProps} />
       </div>

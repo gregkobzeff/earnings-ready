@@ -4,7 +4,7 @@ import { withRouter } from "react-router-dom";
 import BootstrapTable from 'react-bootstrap-table-next';
 import { faInfoCircle } from "@fortawesome/free-solid-svg-icons";
 import Tooltip from "./Tooltip";
-import Constants from "../Constants"
+import Config from "../Config"
 import Utilities from "../libs/Utilities";
 import EarningsChangeDisplay from "./EarningsChangeDisplay";
 import 'react-bootstrap-table-next/dist/react-bootstrap-table2.min.css';
@@ -53,7 +53,7 @@ class StockEarningsTable extends Component {
         return (
           <>
             Reaction
-            <Tooltip icon={faInfoCircle} content={Constants.Tooltip_Earnings_Reaction} size="1x" placement="top" />
+            <Tooltip icon={faInfoCircle} content={Config.Tooltip_Earnings_Reaction} size="1x" placement="top" />
           </>)
       }
     });
