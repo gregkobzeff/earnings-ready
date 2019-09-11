@@ -1,6 +1,4 @@
-//https://en.wikipedia.org/wiki/List_of_S%26P_500_companies
 //paste as block into Dev Tools console
-
 //----------------------------------------------------------------------------------------------------------------------------------
 /*
 let s = "[\n"

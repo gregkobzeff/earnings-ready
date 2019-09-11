@@ -1,8 +1,4 @@
 
-
-//https://datahub.io/core/s-and-p-500-companies#data
-//http://www.convertcsv.com/csv-to-json.htm
-
 let companies = [
   { symbol: "MMM", name: "3M Company" },
   { symbol: "ABT", name: "Abbott Laboratories" },
@@ -510,7 +506,6 @@ let companies = [
   { symbol: "ZION", name: "Zions Bancorp" },
   { symbol: "ZTS", name: "Zoetis" },
 ]
-
 
 companies.sort((a, b) => (a.symbol > b.symbol) ? 1 : -1)
 

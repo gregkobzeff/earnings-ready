@@ -1,7 +1,6 @@
 import { Component } from "react";
 import { withRouter } from "react-router-dom";
 
-//https://stackoverflow.com/questions/36904185/react-router-scroll-to-top-on-every-transition
 class ScrollToTop extends Component {
 
   componentDidUpdate(prevProps) {

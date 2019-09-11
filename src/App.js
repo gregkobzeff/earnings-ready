@@ -2,6 +2,7 @@ import React, { Component } from "react";
 import { withRouter } from "react-router-dom";
 import ReactGA from 'react-ga'
 import { Helmet } from 'react-helmet';
+import Config from "./Config"
 import NavigationBar from "./components/NavigationBar"
 import Routes from "./Routes";
 import "./App.css";
@@ -17,9 +18,6 @@ class App extends Component {
   }
 
   componentWillMount() {
-    //https://zeph.co/google-analytics-react-router
-    //https://medium.com/@AkyunaAkish/understanding-react-router-4-df73a66d96c4
-    //https://medium.com/google-cloud/tracking-site-visits-on-react-app-hosted-in-google-cloud-using-google-analytics-f49c2411d398
     this.props.history.listen(() => {
       ReactGA.set({ page: window.location.pathname });
       ReactGA.pageview(window.location.pathname + window.location.search);
@@ -28,6 +26,8 @@ class App extends Component {
   }
 
   componentDidMount() {
+    ReactGA.initialize(Config.GA_Tracking_ID, { debug: false });
+    console.log("GA Tracking ID: ", Config.GA_Tracking_ID);
     ReactGA.pageview(window.location.pathname);
   }
 
