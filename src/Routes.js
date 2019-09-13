@@ -12,24 +12,28 @@ import StockDetails from "./containers/StockDetails";
 import EditConnections from "./containers/EditConnections";
 import SignIn from "./containers/SignIn";
 import SignUp from "./containers/SignUp";
+import Preferences from "./containers/Preferences";
+import ResetPassword from "./containers/ResetPassword";
 import NotFound from "./containers/NotFound";
 import AppliedRoute from "./components/AppliedRoute";
-//import AuthenticatedRoute from "./components/AuthenticatedRoute";
+import AuthenticatedRoute from "./components/AuthenticatedRoute";
 import UnauthenticatedRoute from "./components/UnauthenticatedRoute";
 
-export default ({ childProps }) =>
+export default ({ appProps }) =>
   <Switch>
-    <AppliedRoute path="/" exact component={Home} props={childProps} />
-    <AppliedRoute path="/trends" exact component={Trends} props={childProps} />
-    <AppliedRoute path="/calendar" exact component={Calendar} props={childProps} />
-    <AppliedRoute path="/watchlist" exact component={WatchList} props={childProps} />
-    <AppliedRoute path="/watchlist/edit" exact component={EditWatchList} props={childProps} />
-    <AppliedRoute path="/heatmap" exact component={HeatMap} props={childProps} />
-    <AppliedRoute path="/compare" exact component={Compare} props={childProps} />
-    <AppliedRoute path="/test" exact component={Test} props={childProps} />
-    <AppliedRoute path="/stocks/:symbol" exact component={StockDetails} props={childProps} />
-    <AppliedRoute path="/connections/edit" exact component={EditConnections} props={childProps} />
-    <UnauthenticatedRoute path="/signin" exact component={SignIn} props={childProps} />
-    <UnauthenticatedRoute path="/signup" exact component={SignUp} props={childProps} />
+    <AppliedRoute path="/" exact component={Home} appProps={appProps} />
+    <AppliedRoute path="/trends" exact component={Trends} appProps={appProps} />
+    <AppliedRoute path="/calendar" exact component={Calendar} appProps={appProps} />
+    <AppliedRoute path="/watchlist" exact component={WatchList} appProps={appProps} />
+    <AppliedRoute path="/watchlist/edit" exact component={EditWatchList} appProps={appProps} />
+    <AppliedRoute path="/heatmap" exact component={HeatMap} appProps={appProps} />
+    <AppliedRoute path="/compare" exact component={Compare} appProps={appProps} />
+    <AppliedRoute path="/test" exact component={Test} appProps={appProps} />
+    <AppliedRoute path="/stocks/:symbol" exact component={StockDetails} appProps={appProps} />
+    <AppliedRoute path="/connections/edit" exact component={EditConnections} appProps={appProps} />
+    <UnauthenticatedRoute path="/signin" exact component={SignIn} appProps={appProps} />
+    <UnauthenticatedRoute path="/signup" exact component={SignUp} appProps={appProps} />
+    <AuthenticatedRoute path="/preferences" exact component={Preferences} appProps={appProps} />
+    <AuthenticatedRoute path="/password/reset" exact component={ResetPassword} appProps={appProps} />
     <Route component={NotFound} />
   </Switch>

@@ -1,4 +1,5 @@
 import React, { Component } from "react";
+import { Auth } from "aws-amplify";
 import { withRouter } from "react-router-dom";
 import ReactGA from 'react-ga'
 import { Helmet } from 'react-helmet';
@@ -18,8 +19,7 @@ class App extends Component {
     });
 
     this.state = {
-      isAuthenticated: false,
-      isAuthenticating: false
+      isSignedIn: false
     };
   }
 
@@ -27,22 +27,36 @@ class App extends Component {
     ReactGA.pageview(window.location.pathname);
   }
 
-  userHasAuthenticated = authenticated => {
-    this.setState({ isAuthenticated: authenticated });
+  //Auth.signIn will throw error is unsuccessful
+  handleSignIn = async (email, password) => {
+    console.log("Signing in: ", email, password);
+    await Auth.signIn(email, password);
+    this.setState({ isSignedIn: true });
+    this.props.history.push("/");
+  }
+
+  handleSignOut = async () => {
+    console.log("Signing out");
+    await Auth.signOut();
+    this.setState({ isSignedIn: false });
+    this.props.history.push("/");
   }
 
   render() {
 
-    const childProps = {
-      isAuthenticated: this.state.isAuthenticated,
-      userHasAuthenticated: this.userHasAuthenticated
+    const appProps = {
+      security: {
+        isSignedIn: this.state.isSignedIn,
+        handleSignIn: this.handleSignIn,
+        handleSignOut: this.handleSignOut
+      }
     };
 
     return (
       <div className="App container">
         <Helmet titleTemplate="%s | Earnings Ready" defaultTitle="Earnings Ready" />
-        <NavigationBar props={childProps} />
-        <Routes childProps={childProps} />
+        <NavigationBar security={appProps.security} />
+        <Routes appProps={appProps} />
       </div>
     );
 

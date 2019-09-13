@@ -35,12 +35,19 @@ class NavigationBar extends Component {
     });
   }
 
-  handleSettings = async event => {
+  handlePreferences = async event => {
     event.preventDefault();
+    this.props.history.push("/preferences");
+  }
+
+  handleResetPassword = async event => {
+    event.preventDefault();
+    this.props.history.push("/password/reset");
   }
 
   handleSignOut = async event => {
     event.preventDefault();
+    this.props.security.handleSignOut();
   }
 
   render() {
@@ -77,11 +84,16 @@ class NavigationBar extends Component {
           <LinkContainer to="/test">
             <Nav.Link>Test</Nav.Link>
           </LinkContainer>
-          {this.props.props.isAuthenticated
+        </Nav>
+        <Nav className="ml-auto">
+          {this.props.security.isSignedIn
             ?
             <NavDropdown title="Account">
-              <NavDropdown.Item className="account-item" onClick={this.handleSettings}>
-                Settings
+              <NavDropdown.Item className="account-item" onClick={this.handlePreferences}>
+                Preferences
+              </NavDropdown.Item>
+              <NavDropdown.Item className="account-item" onClick={this.handleResetPassword}>
+                Reset Password
               </NavDropdown.Item>
               <NavDropdown.Item className="account-item" onClick={this.handleSignOut}>
                 Sign Out
@@ -96,8 +108,6 @@ class NavigationBar extends Component {
               </LinkContainer>
             </>
           }
-        </Nav>
-        <Nav className="ml-auto">
           <Form inline>
             <SymbolSelector
               ref={this.refSymbolSelector}

@@ -1,0 +1,19 @@
+.sign-in {
+  padding: 60px 0;
+}
+
+.sign-in .form-container {
+  border: 1px solid #DDD;
+  border-radius: 0.25rem;
+  margin: 0 auto;
+  max-width: 350px;
+  padding: 25px 25px;
+}
+
+.sign-in form {
+  margin-top: 20px;
+}
+
+.sign-in .alert {
+  padding: 10px 10px 0px 10px;
+}
