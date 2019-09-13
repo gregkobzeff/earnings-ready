@@ -10,8 +10,8 @@ import Compare from "./containers/Compare";
 import Test from "./containers/Test";
 import StockDetails from "./containers/StockDetails";
 import EditConnections from "./containers/EditConnections";
-import Login from "./containers/Login";
-import Signup from "./containers/Signup";
+import SignIn from "./containers/SignIn";
+import SignUp from "./containers/SignUp";
 import NotFound from "./containers/NotFound";
 import AppliedRoute from "./components/AppliedRoute";
 //import AuthenticatedRoute from "./components/AuthenticatedRoute";
@@ -29,7 +29,7 @@ export default ({ childProps }) =>
     <AppliedRoute path="/test" exact component={Test} props={childProps} />
     <AppliedRoute path="/stocks/:symbol" exact component={StockDetails} props={childProps} />
     <AppliedRoute path="/connections/edit" exact component={EditConnections} props={childProps} />
-    <UnauthenticatedRoute path="/login" exact component={Login} props={childProps} />
-    <UnauthenticatedRoute path="/signup" exact component={Signup} props={childProps} />
+    <UnauthenticatedRoute path="/signin" exact component={SignIn} props={childProps} />
+    <UnauthenticatedRoute path="/signup" exact component={SignUp} props={childProps} />
     <Route component={NotFound} />
   </Switch>

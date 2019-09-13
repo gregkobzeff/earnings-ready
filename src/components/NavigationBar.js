@@ -1,5 +1,5 @@
 import React, { Component } from "react";
-import { Nav, Navbar, Form, Button } from "react-bootstrap";
+import { Nav, Navbar, NavDropdown, Form, Button } from "react-bootstrap";
 import { LinkContainer } from "react-router-bootstrap";
 import { Link, withRouter } from "react-router-dom";
 import SymbolSelector from "./SymbolSelector";
@@ -35,9 +35,17 @@ class NavigationBar extends Component {
     });
   }
 
+  handleSettings = async event => {
+    event.preventDefault();
+  }
+
+  handleSignOut = async event => {
+    event.preventDefault();
+  }
+
   render() {
     return (
-      <Navbar bg="light">
+      <Navbar bg="light" className="navigation-bar">
         <Navbar.Brand>
           <Link to="/">
             <img
@@ -69,6 +77,25 @@ class NavigationBar extends Component {
           <LinkContainer to="/test">
             <Nav.Link>Test</Nav.Link>
           </LinkContainer>
+          {this.props.props.isAuthenticated
+            ?
+            <NavDropdown title="Account">
+              <NavDropdown.Item className="account-item" onClick={this.handleSettings}>
+                Settings
+              </NavDropdown.Item>
+              <NavDropdown.Item className="account-item" onClick={this.handleSignOut}>
+                Sign Out
+              </NavDropdown.Item>
+            </NavDropdown>
+            : <>
+              <LinkContainer to="/signin">
+                <Nav.Link>Sign In</Nav.Link>
+              </LinkContainer>
+              <LinkContainer to="/signup" className="btn sign-up">
+                <Nav.Link>Sign Up</Nav.Link>
+              </LinkContainer>
+            </>
+          }
         </Nav>
         <Nav className="ml-auto">
           <Form inline>

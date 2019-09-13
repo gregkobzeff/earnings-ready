@@ -1,16 +1,16 @@
 import React, { Component } from "react";
 import { Helmet } from 'react-helmet';
-import "./Login.css";
+import "./SignIn.css";
 
-export default class Login extends Component {
+export default class SignIn extends Component {
 
   render() {
     return (
-      <div className="login">
+      <div className="sign-in">
         <Helmet>
-          <title>Log In</title>
+          <title>Sign In</title>
         </Helmet>
-        <h3>Login Page</h3>
+        <h3>SignIn Page</h3>
       </div>
     );
   }

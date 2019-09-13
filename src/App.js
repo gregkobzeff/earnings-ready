@@ -19,7 +19,7 @@ class App extends Component {
 
     this.state = {
       isAuthenticated: false,
-      isAuthenticating: true
+      isAuthenticating: false
     };
   }
 
