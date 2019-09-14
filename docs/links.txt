@@ -17,3 +17,12 @@ CompanyList class
  https://en.wikipedia.org/wiki/List_of_S%26P_500_companies
  https://datahub.io/core/s-and-p-500-companies#data
  http://www.convertcsv.com/csv-to-json.htm
+
+Email validation
+ https://stackoverflow.com/questions/46155/how-to-validate-an-email-address-in-javascript
+
+Password validation
+ https://stackoverflow.com/questions/14850553/javascript-regex-for-password-containing-at-least-8-characters-1-number-1-uppe
+
+Font Awesome icons
+ https://fontawesome.com/icons?d=gallery

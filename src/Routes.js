@@ -12,7 +12,8 @@ import StockDetails from "./containers/StockDetails";
 import EditConnections from "./containers/EditConnections";
 import SignIn from "./containers/SignIn";
 import SignUp from "./containers/SignUp";
-import Preferences from "./containers/Preferences";
+import ConfirmSignUp from "./containers/ConfirmSignUp";
+import Settings from "./containers/Settings";
 import ResetPassword from "./containers/ResetPassword";
 import NotFound from "./containers/NotFound";
 import AppliedRoute from "./components/AppliedRoute";
@@ -33,7 +34,8 @@ export default ({ appProps }) =>
     <AppliedRoute path="/connections/edit" exact component={EditConnections} appProps={appProps} />
     <UnauthenticatedRoute path="/signin" exact component={SignIn} appProps={appProps} />
     <UnauthenticatedRoute path="/signup" exact component={SignUp} appProps={appProps} />
-    <AuthenticatedRoute path="/preferences" exact component={Preferences} appProps={appProps} />
+    <UnauthenticatedRoute path="/confirm" exact component={ConfirmSignUp} appProps={appProps} />
+    <AuthenticatedRoute path="/settings" exact component={Settings} appProps={appProps} />
     <AuthenticatedRoute path="/password/reset" exact component={ResetPassword} appProps={appProps} />
     <Route component={NotFound} />
   </Switch>

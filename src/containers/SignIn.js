@@ -49,11 +49,19 @@ export default class SignIn extends Component {
       <Form onSubmit={this.handleSubmit}>
         <Form.Group controlId="email">
           <Form.Label>Email Address</Form.Label>
-          <Form.Control type="email" placeholder="Enter Email Address" onChange={this.handleChange} />
+          <Form.Control
+            type="email"
+            placeholder="Enter Email Address"
+            value={this.state.email}
+            onChange={this.handleChange} />
         </Form.Group>
         <Form.Group controlId="password">
           <Form.Label>Password</Form.Label>
-          <Form.Control type="password" placeholder="Enter Password" onChange={this.handleChange} />
+          <Form.Control
+            type="password"
+            placeholder="Enter Password"
+            value={this.state.password}
+            onChange={this.handleChange} />
         </Form.Group>
         <Button variant="primary" type="submit" disabled={!this.validateForm()} block>
           Sign In

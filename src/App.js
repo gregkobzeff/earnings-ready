@@ -19,12 +19,25 @@ class App extends Component {
     });
 
     this.state = {
-      isSignedIn: false
+      isSignedIn: true
     };
   }
 
   componentDidMount() {
     ReactGA.pageview(window.location.pathname);
+  }
+
+  handleSignUp = async (email, password) => {
+    console.log("Signing up: ", email, password);
+    const newUser = await Auth.signUp({ username: email, password: password });
+    console.log("New User: ", newUser);
+    this.props.history.push("/confirm");
+  }
+
+  handleConfirmSignUp = async (email, code) => {
+    console.log("Confirming Sign up: ", email, code);
+    await Auth.confirmSignUp(email, code);
+    this.props.history.push("/signin");
   }
 
   //Auth.signIn will throw error is unsuccessful
@@ -47,6 +60,8 @@ class App extends Component {
     const appProps = {
       security: {
         isSignedIn: this.state.isSignedIn,
+        handleSignUp: this.handleSignUp,
+        handleConfirmSignUp: this.handleConfirmSignUp,
         handleSignIn: this.handleSignIn,
         handleSignOut: this.handleSignOut
       }

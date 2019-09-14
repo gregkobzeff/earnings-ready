@@ -1,0 +1,2 @@
+Cognito
+ Manually removed special-character requirement for passwords on dev and prod
