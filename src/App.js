@@ -31,7 +31,7 @@ class App extends Component {
     console.log("Signing up: ", email, password);
     const newUser = await Auth.signUp({ username: email, password: password });
     console.log("New User: ", newUser);
-    this.props.history.push("/confirm");
+    this.props.history.push("/code/confirm");
   }
 
   handleConfirmSignUp = async (email, code) => {

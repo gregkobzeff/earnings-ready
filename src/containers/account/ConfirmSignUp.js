@@ -1,8 +1,10 @@
 import React, { Component } from "react";
-import { Form, Button, Alert } from "react-bootstrap";
-import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { faCheckCircle } from "@fortawesome/free-solid-svg-icons";
+import { Form, Button } from "react-bootstrap";
 import { Helmet } from 'react-helmet';
+import Message from "../../components/account/Message";
+import ValidIcon from "../../components/account/ValidIcon";
+import Config from "../../Config";
+import "./Account.css";
 import "./ConfirmSignUp.css";
 
 export default class ConfirmSignUp extends Component {
@@ -22,22 +24,14 @@ export default class ConfirmSignUp extends Component {
     });
   }
 
-  validIcon() {
-    return (
-      <FontAwesomeIcon icon={faCheckCircle} size="1x" className="valid-icon" />
-    );
-  }
-
   validateEmail() {
-    var regex = /\S+@\S+\.\S+/;
-    const valid = regex.test(this.state.email);
-    return valid;
+    var regex = RegExp(Config.REGEX_EMAIL_ADDRESS);
+    return regex.test(this.state.email);
   }
 
   validateCode() {
-    var regex = /^\d{6}$/;
-    const valid = regex.test(this.state.code);
-    return valid;
+    var regex = RegExp(Config.REGEX_CONFIRMATION_CODE);
+    return regex.test(this.state.code);
   }
 
   validateForm() {
@@ -54,23 +48,13 @@ export default class ConfirmSignUp extends Component {
     }
   }
 
-  errorMessage = () => {
-    return (
-      <Alert variant="danger">
-        <p>
-          {this.state.errorMessage}
-        </p>
-      </Alert>
-    )
-  }
-
   form = () => {
     return (
       <Form onSubmit={this.handleConfirmSignUp}>
         <Form.Group controlId="email">
           <Form.Label>
             Email Address
-            {this.validateEmail() && this.validIcon()}
+            {this.validateEmail() && <ValidIcon />}
           </Form.Label>
           <Form.Control
             type="email"
@@ -82,7 +66,7 @@ export default class ConfirmSignUp extends Component {
         <Form.Group controlId="code">
           <Form.Label>
             Confirmation Code
-            {this.validateCode() && this.validIcon()}
+            {this.validateCode() && <ValidIcon />}
           </Form.Label>
           <Form.Control
             type="text"
@@ -104,12 +88,12 @@ export default class ConfirmSignUp extends Component {
 
   render() {
     return (
-      <div className="confirm-sign-up">
+      <div className="account-page confirm-sign-up">
         <Helmet>
           <title>Sign Up</title>
         </Helmet>
-        <div className="form-container">
-          {this.state.errorMessage && <this.errorMessage />}
+        <div className="account-form-container">
+          {this.state.errorMessage && <Message type="danger" message={this.state.errorMessage} />}
           <h4>Confirm Sign Up</h4>
           <this.form />
         </div>

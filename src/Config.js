@@ -24,11 +24,12 @@ const prod = {
   }
 };
 
-// Default to dev if not set
 const config = process.env.REACT_APP_STAGE === 'prod' ? prod : dev;
 
 export default {
   GA_Tracking_ID: "UA-147348500-1",
-  Tooltip_Earnings_Reaction: "Price change the first day after reporting earnings.",
+  REGEX_EMAIL_ADDRESS: "\\S+@\\S+\\.\\S+",
+  REGEX_PASSWORD: "^(?=.*\\d)(?=.*[a-z])(?=.*[A-Z])[0-9a-zA-Z ]{8,}$",
+  REGEX_CONFIRMATION_CODE: "^\\d{6}$",
   ...config
 };

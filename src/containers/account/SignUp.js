@@ -1,9 +1,11 @@
 import React, { Component } from "react";
 import { Link } from "react-router-dom";
-import { Form, Button, Alert } from "react-bootstrap";
-import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { faCheckCircle } from "@fortawesome/free-solid-svg-icons";
+import { Form, Button } from "react-bootstrap";
 import { Helmet } from 'react-helmet';
+import Message from "../../components/account/Message";
+import ValidIcon from "../../components/account/ValidIcon";
+import Config from "../../Config";
+import "./Account.css";
 import "./SignUp.css";
 
 export default class SignUp extends Component {
@@ -23,22 +25,14 @@ export default class SignUp extends Component {
     });
   }
 
-  validIcon() {
-    return (
-      <FontAwesomeIcon icon={faCheckCircle} size="1x" className="valid-icon" />
-    );
-  }
-
   validateEmail() {
-    var regex = /\S+@\S+\.\S+/;
-    const valid = regex.test(this.state.email);
-    return valid;
+    var regex = RegExp(Config.REGEX_EMAIL_ADDRESS);
+    return regex.test(this.state.email);
   }
 
   validatePassword() {
-    var regex = /^(?=.*\d)(?=.*[a-z])(?=.*[A-Z])[0-9a-zA-Z ]{8,}$/;
-    const valid = regex.test(this.state.password);
-    return valid;
+    var regex = RegExp(Config.REGEX_PASSWORD);
+    return regex.test(this.state.password);
   }
 
   validateForm() {
@@ -55,16 +49,6 @@ export default class SignUp extends Component {
     }
   }
 
-  errorMessage = () => {
-    return (
-      <Alert variant="danger">
-        <p>
-          {this.state.errorMessage}
-        </p>
-      </Alert>
-    )
-  }
-
   signUpForm = () => {
     return (
       <>
@@ -73,7 +57,7 @@ export default class SignUp extends Component {
           <Form.Group controlId="email">
             <Form.Label>
               Email Address
-            {this.validateEmail() && this.validIcon()}
+            {this.validateEmail() && <ValidIcon />}
             </Form.Label>
             <Form.Control
               type="email"
@@ -85,7 +69,7 @@ export default class SignUp extends Component {
           <Form.Group controlId="password">
             <Form.Label>
               Password
-            {this.validatePassword() && this.validIcon()}
+            {this.validatePassword() && <ValidIcon />}
             </Form.Label>
             <Form.Control
               type="password"
@@ -98,7 +82,7 @@ export default class SignUp extends Component {
           </Form.Text>
             <Form.Text className="text-muted">
               Do you already have a confirmation code?
-              <Link to="/confirm" className="confirm">Enter Code</Link>
+              <Link to="/code/confirm" className="confirm">Enter Code</Link>
             </Form.Text>
           </Form.Group>
           <Button variant="primary" type="submit" disabled={!this.validateForm()} block>
@@ -111,12 +95,12 @@ export default class SignUp extends Component {
 
   render() {
     return (
-      <div className="sign-up">
+      <div className="account-page sign-up">
         <Helmet>
           <title>Sign Up</title>
         </Helmet>
-        <div className="form-container">
-          {this.state.errorMessage && <this.errorMessage />}
+        <div className="account-form-container">
+          {this.state.errorMessage && <Message type="danger" message={this.state.errorMessage} />}
           <this.signUpForm />
         </div>
       </div>

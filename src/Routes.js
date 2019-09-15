@@ -34,7 +34,7 @@ export default ({ appProps }) =>
     <AppliedRoute path="/connections/edit" exact component={EditConnections} appProps={appProps} />
     <UnauthenticatedRoute path="/signin" exact component={SignIn} appProps={appProps} />
     <UnauthenticatedRoute path="/signup" exact component={SignUp} appProps={appProps} />
-    <UnauthenticatedRoute path="/confirm" exact component={ConfirmSignUp} appProps={appProps} />
+    <UnauthenticatedRoute path="/code/confirm" exact component={ConfirmSignUp} appProps={appProps} />
     <AuthenticatedRoute path="/settings" exact component={Settings} appProps={appProps} />
     <AuthenticatedRoute path="/password/reset" exact component={ResetPassword} appProps={appProps} />
     <Route component={NotFound} />

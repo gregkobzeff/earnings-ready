@@ -1,28 +1,3 @@
-.confirm-sign-up {
-  padding: 60px 0;
-}
-
-.confirm-sign-up .form-container {
-  border: 1px solid #DDD;
-  border-radius: 0.25rem;
-  margin: 0 auto;
-  max-width: 450px;
-  padding: 25px 25px;
-}
-
-.confirm-sign-up form {
-  margin-top: 20px;
-}
-
-.confirm-sign-up .alert {
-  padding: 10px 10px 0px 10px;
-}
-
-.confirm-sign-up .valid-icon {
-  margin-left: 0.25rem;
-  color: #28a745;
-}
-
 .confirm-sign-up .help-text {
   margin-top: 10px;
 }

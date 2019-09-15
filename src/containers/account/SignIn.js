@@ -1,6 +1,8 @@
 import React, { Component } from "react";
-import { Form, Button, Alert } from "react-bootstrap";
+import { Form, Button } from "react-bootstrap";
 import { Helmet } from 'react-helmet';
+import Message from "../../components/account/Message";
+import "./Account.css";
 import "./SignIn.css";
 
 export default class SignIn extends Component {
@@ -34,16 +36,6 @@ export default class SignIn extends Component {
     }
   }
 
-  errorMessage = () => {
-    return (
-      <Alert variant="danger">
-        <p>
-          Incorrect email address or password.
-        </p>
-      </Alert>
-    )
-  }
-
   form = () => {
     return (
       <Form onSubmit={this.handleSubmit}>
@@ -72,12 +64,12 @@ export default class SignIn extends Component {
 
   render() {
     return (
-      <div className="sign-in">
+      <div className="account-page sign-in">
         <Helmet>
           <title>Sign In</title>
         </Helmet>
-        <div className="form-container">
-          {this.state.errorMessage && <this.errorMessage />}
+        <div className="account-form-container">
+          {this.state.errorMessage && <Message type="danger" message={this.state.errorMessage} />}
           <h4>Sign In</h4>
           <this.form />
         </div>

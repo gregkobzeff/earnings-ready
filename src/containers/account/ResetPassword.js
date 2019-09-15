@@ -1,5 +1,6 @@
 import React, { Component } from "react";
 import { Helmet } from 'react-helmet';
+import "./Account.css";
 import "./ResetPassword.css";
 
 export default class ResetPassword extends Component {

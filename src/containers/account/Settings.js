@@ -1,5 +1,6 @@
 import React, { Component } from "react";
 import { Helmet } from 'react-helmet';
+import "./Account.css";
 import "./Settings.css";
 
 export default class Settings extends Component {

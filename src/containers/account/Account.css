@@ -1,0 +1,15 @@
+.account-page {
+  padding: 60px 0;
+}
+
+.account-form-container {
+  border: 1px solid #DDD;
+  border-radius: 0.25rem;
+  margin: 0 auto;
+  max-width: 450px;
+  padding: 25px 25px;
+}
+
+.account-form-container form {
+  margin-top: 20px;
+}
