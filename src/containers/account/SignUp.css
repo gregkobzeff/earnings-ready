@@ -1,3 +1,7 @@
-.sign-up .confirm {
-  margin-left: 5px;
+.sign-up .help-text p {
+  margin-bottom: 0.25rem;
+}
+
+.sign-up .help-text a {
+  margin-left: 0.25rem;
 }

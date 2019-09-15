@@ -1,20 +1,21 @@
 import React, { Component } from "react";
-import { Link } from "react-router-dom";
 import { Form, Button } from "react-bootstrap";
 import { Helmet } from 'react-helmet';
 import Message from "../../components/account/Message";
 import ValidIcon from "../../components/account/ValidIcon";
 import Config from "../../Config";
 import "./Account.css";
-import "./SignUp.css";
+import "./ConfirmResetPassword.css";
 
-export default class SignUp extends Component {
+export default class ConfirmResetPassword extends Component {
 
   constructor(props) {
     super(props);
     this.state = {
+      code: "",
       email: "",
       password: "",
+      confirmPassword: "",
       errorMessage: ""
     };
   }
@@ -23,6 +24,11 @@ export default class SignUp extends Component {
     this.setState({
       [event.target.id]: event.target.value
     });
+  }
+
+  validateCode() {
+    var regex = RegExp(Config.REGEX_CONFIRMATION_CODE);
+    return regex.test(this.state.code);
   }
 
   validateEmail() {
@@ -35,14 +41,19 @@ export default class SignUp extends Component {
     return regex.test(this.state.password);
   }
 
-  validateForm() {
-    return this.validateEmail() && this.validatePassword();
+  validateConfirmPassword() {
+    return this.state.confirmPassword === this.state.password;
   }
 
-  handleSignUp = async event => {
+  validateForm() {
+    return this.validateCode() && this.validateEmail()
+      && this.validatePassword() && this.validateConfirmPassword();
+  }
+
+  handleConfirmResetPassword = async event => {
     event.preventDefault();
     try {
-      await this.props.account.handleSignUp(this.state.email, this.state.password);
+      await this.props.account.handleConfirmResetPassword(this.state.email, this.state.code, this.state.password);
     }
     catch (e) {
       this.setState({ errorMessage: e.message });
@@ -52,12 +63,21 @@ export default class SignUp extends Component {
   signUpForm = () => {
     return (
       <>
-        <h4>Sign Up</h4>
-        <Form onSubmit={this.handleSignUp}>
+        <h4>Confirm Reset Password</h4>
+        <Form onSubmit={this.handleConfirmResetPassword}>
+          <Form.Group controlId="code">
+            <Form.Label>
+              Confirmation Code {this.validateCode() && <ValidIcon />}
+            </Form.Label>
+            <Form.Control
+              type="text"
+              placeholder="Enter Confirmation Code"
+              value={this.state.code}
+              onChange={this.handleChange} />
+          </Form.Group>
           <Form.Group controlId="email">
             <Form.Label>
-              Email Address
-            {this.validateEmail() && <ValidIcon />}
+              Email Address {this.validateEmail() && <ValidIcon />}
             </Form.Label>
             <Form.Control
               type="email"
@@ -68,32 +88,31 @@ export default class SignUp extends Component {
           </Form.Group>
           <Form.Group controlId="password">
             <Form.Label>
-              Password
-            {this.validatePassword() && <ValidIcon />}
+              Password {this.validatePassword() && <ValidIcon />}
             </Form.Label>
             <Form.Control
               type="password"
               placeholder="Enter Password"
               value={this.state.password}
               onChange={this.handleChange} />
+          </Form.Group>
+          <Form.Group controlId="confirmPassword">
+            <Form.Label>
+              Confirm Password {this.validateConfirmPassword() && <ValidIcon />}
+            </Form.Label>
+            <Form.Control
+              type="password"
+              placeholder="Enter Password Again"
+              value={this.state.confirmPassword}
+              onChange={this.handleChange} />
             <Form.Text className="text-muted help-text">
               <p>
-                Password must be at least 8 characters in length and contain at
-                least one uppercase letter, one lowercase letter, and one number.
-              </p>
-              <p>
-                Do you already have a confirmation code?
-                <Link to="/code/confirm">Enter Code</Link>
-              </p>
-              <p>
-                Did you sign up and not receive a confirmation code?
-                <Link to="/code/resend">Resend Code</Link>
+                After you have successfully reset your password, you will be able to sign in.
               </p>
             </Form.Text>
-
           </Form.Group>
           <Button variant="primary" type="submit" disabled={!this.validateForm()} block>
-            Sign Up
+            Confirm Reset Password
         </Button>
         </Form>
       </>
@@ -102,9 +121,9 @@ export default class SignUp extends Component {
 
   render() {
     return (
-      <div className="account-page sign-up">
+      <div className="account-page confirm-reset-password">
         <Helmet>
-          <title>Sign Up</title>
+          <title>Confirm Reset Password</title>
         </Helmet>
         <div className="account-form-container">
           {this.state.errorMessage && <Message type="danger" message={this.state.errorMessage} />}

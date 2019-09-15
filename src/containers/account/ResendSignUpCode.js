@@ -1,18 +1,16 @@
 import React, { Component } from "react";
-import { Link } from "react-router-dom";
 import { Form, Button } from "react-bootstrap";
 import { Helmet } from 'react-helmet';
 import Message from "../../components/account/Message";
 import "./Account.css";
-import "./SignIn.css";
+import "./ResendSignUpCode.css";
 
-export default class SignIn extends Component {
+export default class ResendSignUpCode extends Component {
 
   constructor(props) {
     super(props);
     this.state = {
       email: "",
-      password: "",
       errorMessage: ""
     };
   }
@@ -24,13 +22,13 @@ export default class SignIn extends Component {
   }
 
   validateForm() {
-    return this.state.email.length > 0 && this.state.password.length > 0;
+    return this.state.email.length > 0;
   }
 
-  handleSubmit = async event => {
+  handleResendSignUpCode = async event => {
     event.preventDefault();
     try {
-      await this.props.account.handleSignIn(this.state.email, this.state.password);
+      await this.props.account.handleResendSignUpCode(this.state.email);
     }
     catch (e) {
       this.setState({ errorMessage: e.message });
@@ -39,28 +37,25 @@ export default class SignIn extends Component {
 
   form = () => {
     return (
-      <Form onSubmit={this.handleSubmit}>
+      <Form onSubmit={this.handleResendSignUpCode}>
         <Form.Group controlId="email">
-          <Form.Label>Email Address</Form.Label>
+          <Form.Label>
+            Email Address
+          </Form.Label>
           <Form.Control
             type="email"
             placeholder="Enter Email Address"
             value={this.state.email}
-            onChange={this.handleChange} />
+            onChange={this.handleChange}
+            autoFocus />
         </Form.Group>
-        <Form.Group controlId="password">
-          <Form.Label>Password</Form.Label>
-          <Form.Control
-            type="password"
-            placeholder="Enter Password"
-            value={this.state.password}
-            onChange={this.handleChange} />
-        </Form.Group>
+
         <Button variant="primary" type="submit" disabled={!this.validateForm()} block>
-          Sign In
+          Resend Code
         </Button>
         <Form.Text className="text-muted help-text">
-          Unable to sign in? <Link to="/password/reset">Reset Password</Link>
+          It can take a few minutes for the code to arrive.
+          Check your email spam folder if you do not receive it.
         </Form.Text>
       </Form>
     );
@@ -68,13 +63,13 @@ export default class SignIn extends Component {
 
   render() {
     return (
-      <div className="account-page sign-in">
+      <div className="account-page resend-sign-up-code">
         <Helmet>
-          <title>Sign In</title>
+          <title>Resend Confirmation Code</title>
         </Helmet>
         <div className="account-form-container">
           {this.state.errorMessage && <Message type="danger" message={this.state.errorMessage} />}
-          <h4>Sign In</h4>
+          <h4>Resend Confirmation Code</h4>
           <this.form />
         </div>
       </div>

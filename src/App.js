@@ -40,19 +40,42 @@ class App extends Component {
     this.props.history.push("/signin");
   }
 
+  handleResendSignUpCode = async (email) => {
+    console.log("Resending Signing up code: ", email);
+    await Auth.resendSignUp(email);
+    this.props.history.push("/code/confirm");
+  }
+
+  handleResetPassword = async (email) => {
+    console.log("Confirming reset password: ", email);
+    await Auth.forgotPassword(email);
+    this.props.history.push("/password/reset/confirm");
+  }
+
+  handleConfirmResetPassword = async (email, code, password) => {
+    console.log("Confirming reset password: ", email, code, password);
+    await Auth.forgotPasswordSubmit(email, code, password);
+    await Auth.signOut();
+    this.setState({ isSignedIn: false }, () => {
+      this.props.history.push("/signin");
+    });
+  }
+
   //Auth.signIn will throw error is unsuccessful
   handleSignIn = async (email, password) => {
     console.log("Signing in: ", email, password);
     await Auth.signIn(email, password);
-    this.setState({ isSignedIn: true });
-    this.props.history.push("/");
+    this.setState({ isSignedIn: true }, () => {
+      this.props.history.push("/");
+    });
   }
 
   handleSignOut = async () => {
     console.log("Signing out");
     await Auth.signOut();
-    this.setState({ isSignedIn: false });
-    this.props.history.push("/");
+    this.setState({ isSignedIn: false }, () => {
+      this.props.history.push("/");
+    });
   }
 
   render() {
@@ -62,6 +85,9 @@ class App extends Component {
         isSignedIn: this.state.isSignedIn,
         handleSignUp: this.handleSignUp,
         handleConfirmSignUp: this.handleConfirmSignUp,
+        handleResendSignUpCode: this.handleResendSignUpCode,
+        handleResetPassword: this.handleResetPassword,
+        handleConfirmResetPassword: this.handleConfirmResetPassword,
         handleSignIn: this.handleSignIn,
         handleSignOut: this.handleSignOut
       }
