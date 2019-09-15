@@ -84,7 +84,7 @@ class NavigationBar extends Component {
         <Nav className="ml-auto">
           {this.props.account.isSignedIn
             ?
-            <NavDropdown title="Account">
+            <NavDropdown title={this.props.account.user.attributes.email} className="drop-down">
               <NavDropdown.Item onClick={this.handleSettings}>
                 Settings
               </NavDropdown.Item>

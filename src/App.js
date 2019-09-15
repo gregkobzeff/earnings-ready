@@ -19,7 +19,8 @@ class App extends Component {
     });
 
     this.state = {
-      isSignedIn: false
+      isSignedIn: false,
+      user: null
     };
   }
 
@@ -63,17 +64,16 @@ class App extends Component {
     const currentUser = await Auth.currentAuthenticatedUser();
     await Auth.changePassword(currentUser, oldPassword, password);
     await Auth.signOut();
-    this.setState({ isSignedIn: false }, () => {
+    this.setState({ isSignedIn: false, user: null }, () => {
       this.props.history.push("/signin");
     });
   }
 
-  //Auth.signIn will throw error is unsuccessful
   handleSignIn = async (email, password) => {
     console.log("Signing in: ", email, password);
     const user = await Auth.signIn(email, password);
     console.log("Signed in user: ", user);
-    this.setState({ isSignedIn: true }, () => {
+    this.setState({ isSignedIn: true, user: user }, () => {
       this.props.history.push("/");
     });
   }
@@ -81,7 +81,7 @@ class App extends Component {
   handleSignOut = async () => {
     console.log("Signing out");
     await Auth.signOut();
-    this.setState({ isSignedIn: false }, () => {
+    this.setState({ isSignedIn: false, user: null }, () => {
       this.props.history.push("/");
     });
   }
@@ -91,6 +91,7 @@ class App extends Component {
     const appProps = {
       account: {
         isSignedIn: this.state.isSignedIn,
+        user: this.state.user,
         handleSignUp: this.handleSignUp,
         handleConfirmSignUp: this.handleConfirmSignUp,
         handleResendSignUpCode: this.handleResendSignUpCode,

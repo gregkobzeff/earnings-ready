@@ -5,3 +5,8 @@
 .navigation-bar form {
   margin-left: 1rem;
 }
+
+.navigation-bar .drop-down {
+  font-size: 0.8rem;
+  line-height: 1.5rem;
+}
