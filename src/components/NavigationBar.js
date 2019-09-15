@@ -46,6 +46,7 @@ class NavigationBar extends Component {
   }
 
   render() {
+
     return (
       <Navbar bg="light" className="navigation-bar">
         <Navbar.Brand>
@@ -84,10 +85,10 @@ class NavigationBar extends Component {
           {this.props.account.isSignedIn
             ?
             <NavDropdown title="Account">
-              <NavDropdown.Item className="account-item" onClick={this.handleSettings}>
+              <NavDropdown.Item onClick={this.handleSettings}>
                 Settings
               </NavDropdown.Item>
-              <NavDropdown.Item className="account-item" onClick={this.handleSignOut}>
+              <NavDropdown.Item onClick={this.handleSignOut}>
                 Sign Out
               </NavDropdown.Item>
             </NavDropdown>

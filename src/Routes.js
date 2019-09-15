@@ -18,6 +18,7 @@ import ResetPassword from "./containers/account/ResetPassword";
 import ConfirmResetPassword from "./containers/account/ConfirmResetPassword";
 import Settings from "./containers/account/Settings";
 import NotFound from "./containers/NotFound";
+import ChangePassword from "./containers/account/ChangePassword";
 import AppliedRoute from "./components/AppliedRoute";
 import AuthenticatedRoute from "./components/AuthenticatedRoute";
 import UnauthenticatedRoute from "./components/UnauthenticatedRoute";
@@ -38,8 +39,9 @@ export default ({ appProps }) =>
     <UnauthenticatedRoute path="/signup" exact component={SignUp} appProps={appProps} />
     <UnauthenticatedRoute path="/code/confirm" exact component={ConfirmSignUp} appProps={appProps} />
     <UnauthenticatedRoute path="/code/resend" exact component={ResendSignUpCode} appProps={appProps} />
-    <AppliedRoute path="/password/reset" exact component={ResetPassword} appProps={appProps} />
-    <AppliedRoute path="/password/reset/confirm" exact component={ConfirmResetPassword} appProps={appProps} />
+    <UnauthenticatedRoute path="/password/reset" exact component={ResetPassword} appProps={appProps} />
+    <UnauthenticatedRoute path="/password/reset/confirm" exact component={ConfirmResetPassword} appProps={appProps} />
     <AuthenticatedRoute path="/settings" exact component={Settings} appProps={appProps} />
+    <AuthenticatedRoute path="/password/change" exact component={ChangePassword} appProps={appProps} />
     <Route component={NotFound} />
   </Switch>

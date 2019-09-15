@@ -5,15 +5,14 @@ import Message from "../../components/account/Message";
 import ValidIcon from "../../components/account/ValidIcon";
 import Config from "../../Config";
 import "./Account.css";
-import "./ConfirmResetPassword.css";
+import "./ChangePassword.css";
 
-export default class ConfirmResetPassword extends Component {
+export default class ChangePassword extends Component {
 
   constructor(props) {
     super(props);
     this.state = {
-      code: "",
-      email: "",
+      oldPassword: "",
       password: "",
       confirmPassword: "",
       errorMessage: ""
@@ -26,19 +25,12 @@ export default class ConfirmResetPassword extends Component {
     });
   }
 
-  validateCode() {
-    var regex = RegExp(Config.REGEX_CONFIRMATION_CODE);
-    return regex.test(this.state.code);
-  }
-
-  validateEmail() {
-    var regex = RegExp(Config.REGEX_EMAIL_ADDRESS);
-    return regex.test(this.state.email);
+  validateOldPassword() {
+    return RegExp(Config.REGEX_PASSWORD).test(this.state.oldPassword);
   }
 
   validatePassword() {
-    var regex = RegExp(Config.REGEX_PASSWORD);
-    return regex.test(this.state.password);
+    return RegExp(Config.REGEX_PASSWORD).test(this.state.password);
   }
 
   validateConfirmPassword() {
@@ -46,73 +38,61 @@ export default class ConfirmResetPassword extends Component {
   }
 
   validateForm() {
-    return this.validateCode() && this.validateEmail()
-      && this.validatePassword() && this.validateConfirmPassword();
+    return this.validateOldPassword() && this.validatePassword() && this.validateConfirmPassword();
   }
 
-  handleConfirmResetPassword = async event => {
+  handleChangePassword = async event => {
     event.preventDefault();
     try {
-      await this.props.account.handleConfirmResetPassword(this.state.email, this.state.code, this.state.password);
+      await this.props.account.handleChangePassword(this.state.oldPassword, this.state.password);
     }
     catch (e) {
       this.setState({ errorMessage: e.message });
     }
   }
 
-  signUpForm = () => {
+  form = () => {
     return (
       <>
-        <h4>Confirm Reset Password</h4>
-        <Form onSubmit={this.handleConfirmResetPassword}>
-          <Form.Group controlId="code">
+        <h4>Change Password</h4>
+        <Form onSubmit={this.handleChangePassword}>
+          <Form.Group controlId="oldPassword">
             <Form.Label>
-              Confirmation Code {this.validateCode() && <ValidIcon />}
-            </Form.Label>
-            <Form.Control
-              type="text"
-              placeholder="Enter Confirmation Code"
-              value={this.state.code}
-              onChange={this.handleChange} />
-          </Form.Group>
-          <Form.Group controlId="email">
-            <Form.Label>
-              Email Address {this.validateEmail() && <ValidIcon />}
-            </Form.Label>
-            <Form.Control
-              type="email"
-              placeholder="Enter Email Address"
-              value={this.state.email}
-              onChange={this.handleChange}
-              autoFocus />
-          </Form.Group>
-          <Form.Group controlId="password">
-            <Form.Label>
-              Password {this.validatePassword() && <ValidIcon />}
+              Current Password {this.validateOldPassword() && <ValidIcon />}
             </Form.Label>
             <Form.Control
               type="password"
-              placeholder="Enter Password"
+              placeholder="Enter Current Password"
+              value={this.state.oldPassword}
+              onChange={this.handleChange} />
+          </Form.Group>
+          <Form.Group controlId="password">
+            <Form.Label>
+              New Password {this.validatePassword() && <ValidIcon />}
+            </Form.Label>
+            <Form.Control
+              type="password"
+              placeholder="Enter New Password"
               value={this.state.password}
               onChange={this.handleChange} />
           </Form.Group>
           <Form.Group controlId="confirmPassword">
             <Form.Label>
-              Confirm Password {this.validateConfirmPassword() && <ValidIcon />}
+              Confirm New Password {this.validateConfirmPassword() && <ValidIcon />}
             </Form.Label>
             <Form.Control
               type="password"
-              placeholder="Enter Password Again"
+              placeholder="Enter New Password Again"
               value={this.state.confirmPassword}
               onChange={this.handleChange} />
             <Form.Text className="text-muted help-text">
               <p>
-                After you have successfully reset your password, you will be able to sign in.
+                After you have successfully changed your password, you will be redirected to the sign in page.
               </p>
             </Form.Text>
           </Form.Group>
           <Button variant="primary" type="submit" disabled={!this.validateForm()} block>
-            Confirm Reset Password
+            Change Password
         </Button>
         </Form>
       </>
@@ -121,13 +101,13 @@ export default class ConfirmResetPassword extends Component {
 
   render() {
     return (
-      <div className="account-page confirm-reset-password">
+      <div className="account-page change-password">
         <Helmet>
-          <title>Confirm Reset Password</title>
+          <title>Change Password</title>
         </Helmet>
         <div className="account-form-container">
           {this.state.errorMessage && <Message type="danger" message={this.state.errorMessage} />}
-          <this.signUpForm />
+          <this.form />
         </div>
       </div>
     );

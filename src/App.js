@@ -55,6 +55,13 @@ class App extends Component {
   handleConfirmResetPassword = async (email, code, password) => {
     console.log("Confirming reset password: ", email, code, password);
     await Auth.forgotPasswordSubmit(email, code, password);
+    this.props.history.push("/signin");
+  }
+
+  handleChangePassword = async (oldPassword, password) => {
+    console.log("change password: ", oldPassword, password);
+    const currentUser = await Auth.currentAuthenticatedUser();
+    await Auth.changePassword(currentUser, oldPassword, password);
     await Auth.signOut();
     this.setState({ isSignedIn: false }, () => {
       this.props.history.push("/signin");
@@ -64,7 +71,8 @@ class App extends Component {
   //Auth.signIn will throw error is unsuccessful
   handleSignIn = async (email, password) => {
     console.log("Signing in: ", email, password);
-    await Auth.signIn(email, password);
+    const user = await Auth.signIn(email, password);
+    console.log("Signed in user: ", user);
     this.setState({ isSignedIn: true }, () => {
       this.props.history.push("/");
     });
@@ -88,6 +96,7 @@ class App extends Component {
         handleResendSignUpCode: this.handleResendSignUpCode,
         handleResetPassword: this.handleResetPassword,
         handleConfirmResetPassword: this.handleConfirmResetPassword,
+        handleChangePassword: this.handleChangePassword,
         handleSignIn: this.handleSignIn,
         handleSignOut: this.handleSignOut
       }

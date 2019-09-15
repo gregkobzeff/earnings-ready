@@ -16,7 +16,10 @@ export default class Settings extends Component {
         <h3>Settings</h3>
         <ListGroup>
           <ListGroup.Item>
-            <Link to="/password/reset">Reset Password</Link> - Reset your password if you want to change it.
+            <Link to="/password/change">Change Password</Link>
+          </ListGroup.Item>
+          <ListGroup.Item>
+            <Link to="/">Change Email Address</Link>
           </ListGroup.Item>
         </ListGroup>
       </div>
