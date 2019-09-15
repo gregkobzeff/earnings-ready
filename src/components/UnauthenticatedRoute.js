@@ -23,7 +23,7 @@ export default ({ component: C, appProps, ...rest }) => {
     <Route
       {...rest}
       render={props =>
-        !appProps.security.isSignedIn
+        !appProps.account.isSignedIn
           ? <C {...props} {...appProps} />
           : <Redirect
             to={redirect === "" || redirect === null ? "/" : redirect}

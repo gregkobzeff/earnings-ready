@@ -19,7 +19,7 @@ class App extends Component {
     });
 
     this.state = {
-      isSignedIn: true
+      isSignedIn: false
     };
   }
 
@@ -58,7 +58,7 @@ class App extends Component {
   render() {
 
     const appProps = {
-      security: {
+      account: {
         isSignedIn: this.state.isSignedIn,
         handleSignUp: this.handleSignUp,
         handleConfirmSignUp: this.handleConfirmSignUp,
@@ -70,7 +70,7 @@ class App extends Component {
     return (
       <div className="App container">
         <Helmet titleTemplate="%s | Earnings Ready" defaultTitle="Earnings Ready" />
-        <NavigationBar security={appProps.security} />
+        <NavigationBar account={appProps.account} />
         <Routes appProps={appProps} />
       </div>
     );

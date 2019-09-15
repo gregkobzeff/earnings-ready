@@ -48,7 +48,7 @@ export default class SignUp extends Component {
   handleSignUp = async event => {
     event.preventDefault();
     try {
-      await this.props.security.handleSignUp(this.state.email, this.state.password);
+      await this.props.account.handleSignUp(this.state.email, this.state.password);
     }
     catch (e) {
       this.setState({ errorMessage: e.message });

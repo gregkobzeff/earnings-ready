@@ -47,7 +47,7 @@ export default class ConfirmSignUp extends Component {
   handleConfirmSignUp = async event => {
     event.preventDefault();
     try {
-      await this.props.security.handleConfirmSignUp(this.state.email, this.state.code);
+      await this.props.account.handleConfirmSignUp(this.state.email, this.state.code);
     }
     catch (e) {
       this.setState({ errorMessage: e.message });

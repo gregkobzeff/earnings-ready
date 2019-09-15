@@ -42,7 +42,7 @@ class NavigationBar extends Component {
 
   handleSignOut = async event => {
     event.preventDefault();
-    this.props.security.handleSignOut();
+    this.props.account.handleSignOut();
   }
 
   render() {
@@ -81,7 +81,7 @@ class NavigationBar extends Component {
           </LinkContainer>
         </Nav>
         <Nav className="ml-auto">
-          {this.props.security.isSignedIn
+          {this.props.account.isSignedIn
             ?
             <NavDropdown title="Account">
               <NavDropdown.Item className="account-item" onClick={this.handleSettings}>
