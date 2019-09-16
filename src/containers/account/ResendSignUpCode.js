@@ -2,6 +2,9 @@ import React, { Component } from "react";
 import { Form, Button } from "react-bootstrap";
 import { Helmet } from 'react-helmet';
 import Message from "../../components/account/Message";
+import FormEmail from "../../components/account/FormEmail";
+import FormHelpText from "../../components/account/FormHelpText";
+import Config from "../../Config";
 import "./Account.css";
 import "./ResendSignUpCode.css";
 
@@ -15,14 +18,13 @@ export default class ResendSignUpCode extends Component {
     };
   }
 
-  handleChange = event => {
+  validateEmail = () => RegExp(Config.REGEX_EMAIL_ADDRESS).test(this.state.email);
+  validateForm = () => this.validateEmail();
+
+  handleChange = (event) => {
     this.setState({
       [event.target.id]: event.target.value
     });
-  }
-
-  validateForm() {
-    return this.state.email.length > 0;
   }
 
   handleResendSignUpCode = async event => {
@@ -38,25 +40,18 @@ export default class ResendSignUpCode extends Component {
   form = () => {
     return (
       <Form onSubmit={this.handleResendSignUpCode}>
-        <Form.Group controlId="email">
-          <Form.Label>
-            Email Address
-          </Form.Label>
-          <Form.Control
-            type="email"
-            placeholder="Enter Email Address"
-            value={this.state.email}
-            onChange={this.handleChange}
-            autoFocus />
-        </Form.Group>
-
+        <FormEmail
+          id="email"
+          value={this.state.email}
+          onChange={this.handleChange}
+          validate={this.validateEmail} />
         <Button variant="primary" type="submit" disabled={!this.validateForm()} block>
           Resend Code
         </Button>
-        <Form.Text className="text-muted help-text">
+        <FormHelpText>
           It can take a few minutes for the code to arrive.
           Check your email spam folder if you do not receive it.
-        </Form.Text>
+        </FormHelpText>
       </Form>
     );
   }
@@ -65,11 +60,11 @@ export default class ResendSignUpCode extends Component {
     return (
       <div className="account-page resend-sign-up-code">
         <Helmet>
-          <title>Resend Confirmation Code</title>
+          <title>Resend Verification Code</title>
         </Helmet>
         <div className="account-form-container">
           {this.state.errorMessage && <Message type="danger" message={this.state.errorMessage} />}
-          <h4>Resend Confirmation Code</h4>
+          <h4>Resend Verification Code</h4>
           <this.form />
         </div>
       </div>

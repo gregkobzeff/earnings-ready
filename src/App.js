@@ -32,11 +32,11 @@ class App extends Component {
     console.log("Signing up: ", email, password);
     const newUser = await Auth.signUp({ username: email, password: password });
     console.log("New User: ", newUser);
-    this.props.history.push("/code/confirm");
+    this.props.history.push("/code/complete");
   }
 
-  handleConfirmSignUp = async (email, code) => {
-    console.log("Confirming Sign up: ", email, code);
+  handleCompleteSignUp = async (email, code) => {
+    console.log("Completing Sign up: ", email, code);
     await Auth.confirmSignUp(email, code);
     this.props.history.push("/signin");
   }
@@ -44,17 +44,17 @@ class App extends Component {
   handleResendSignUpCode = async (email) => {
     console.log("Resending Signing up code: ", email);
     await Auth.resendSignUp(email);
-    this.props.history.push("/code/confirm");
+    this.props.history.push("/code/complete");
   }
 
   handleResetPassword = async (email) => {
-    console.log("Confirming reset password: ", email);
+    console.log("Completing reset password: ", email);
     await Auth.forgotPassword(email);
-    this.props.history.push("/password/reset/confirm");
+    this.props.history.push("/password/reset/complete");
   }
 
-  handleConfirmResetPassword = async (email, code, password) => {
-    console.log("Confirming reset password: ", email, code, password);
+  handleCompleteResetPassword = async (email, code, password) => {
+    console.log("Completing reset password: ", email, code, password);
     await Auth.forgotPasswordSubmit(email, code, password);
     this.props.history.push("/signin");
   }
@@ -93,10 +93,10 @@ class App extends Component {
         isSignedIn: this.state.isSignedIn,
         user: this.state.user,
         handleSignUp: this.handleSignUp,
-        handleConfirmSignUp: this.handleConfirmSignUp,
+        handleCompleteSignUp: this.handleCompleteSignUp,
         handleResendSignUpCode: this.handleResendSignUpCode,
         handleResetPassword: this.handleResetPassword,
-        handleConfirmResetPassword: this.handleConfirmResetPassword,
+        handleCompleteResetPassword: this.handleCompleteResetPassword,
         handleChangePassword: this.handleChangePassword,
         handleSignIn: this.handleSignIn,
         handleSignOut: this.handleSignOut

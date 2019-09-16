@@ -3,24 +3,27 @@ import { Link } from "react-router-dom";
 import { Form, Button } from "react-bootstrap";
 import { Helmet } from 'react-helmet';
 import Message from "../../components/account/Message";
+import FormCode from "../../components/account/FormCode";
 import FormEmail from "../../components/account/FormEmail";
 import FormHelpText from "../../components/account/FormHelpText";
 import Config from "../../Config";
 import "./Account.css";
-import "./ResetPassword.css";
+import "./CompleteSignUp.css";
 
-export default class ResetPassword extends Component {
+export default class CompleteSignUp extends Component {
 
   constructor(props) {
     super(props);
     this.state = {
       email: "",
+      code: "",
       errorMessage: ""
     };
   }
 
   validateEmail = () => RegExp(Config.REGEX_EMAIL_ADDRESS).test(this.state.email);
-  validateForm = () => this.validateEmail();
+  validateCode = () => RegExp(Config.REGEX_CONFIRMATION_CODE).test(this.state.code);
+  validateForm = () => this.validateEmail() && this.validateCode();
 
   handleChange = event => {
     this.setState({
@@ -28,10 +31,10 @@ export default class ResetPassword extends Component {
     });
   }
 
-  handleSubmit = async event => {
+  handleCompleteSignUp = async event => {
     event.preventDefault();
     try {
-      await this.props.account.handleResetPassword(this.state.email);
+      await this.props.account.handleCompleteSignUp(this.state.email, this.state.code);
     }
     catch (e) {
       this.setState({ errorMessage: e.message });
@@ -40,24 +43,29 @@ export default class ResetPassword extends Component {
 
   form = () => {
     return (
-      <Form onSubmit={this.handleSubmit}>
+      <Form onSubmit={this.handleCompleteSignUp}>
         <FormEmail
           id="email"
           value={this.state.email}
           onChange={this.handleChange}
           validate={this.validateEmail} />
+        <FormCode
+          id="code"
+          value={this.state.code}
+          onChange={this.handleChange}
+          validate={this.validateCode} />
         <Button variant="primary" type="submit" disabled={!this.validateForm()} block>
-          Reset Password
+          Complete Sign Up
         </Button>
         <FormHelpText>
           <p>
-            A verification code will be sent to your email address.
             It can take a few minutes for the code to arrive.
             Check your email spam folder if you do not receive it.
+            After you have successfully verified your email, you will be able to sign in.
           </p>
           <p>
-            Do you have a verification code?
-            <Link to="/password/reset/complete">Complete Password Reset</Link>
+            Did not receive verification code?
+            <Link to="/code/resend">Resend Code</Link>
           </p>
         </FormHelpText>
       </Form>
@@ -66,13 +74,13 @@ export default class ResetPassword extends Component {
 
   render() {
     return (
-      <div className="account-page reset-password">
+      <div className="account-page complete-sign-up">
         <Helmet>
-          <title>Reset Password</title>
+          <title>Complete Sign Up</title>
         </Helmet>
         <div className="account-form-container">
           {this.state.errorMessage && <Message type="danger" message={this.state.errorMessage} />}
-          <h4>Reset Password</h4>
+          <h4>Complete Sign Up</h4>
           <this.form />
         </div>
       </div>

@@ -3,6 +3,10 @@ import { Link } from "react-router-dom";
 import { Form, Button } from "react-bootstrap";
 import { Helmet } from 'react-helmet';
 import Message from "../../components/account/Message";
+import FormEmail from "../../components/account/FormEmail";
+import FormPassword from "../../components/account/FormPassword";
+import FormHelpText from "../../components/account/FormHelpText";
+import Config from "../../Config";
 import "./Account.css";
 import "./SignIn.css";
 
@@ -17,14 +21,14 @@ export default class SignIn extends Component {
     };
   }
 
+  validateEmail = () => RegExp(Config.REGEX_EMAIL_ADDRESS).test(this.state.email);
+  validatePassword = () => RegExp(Config.REGEX_PASSWORD).test(this.state.password);
+  validateForm = () => this.validateEmail() && this.validatePassword();
+
   handleChange = event => {
     this.setState({
       [event.target.id]: event.target.value
     });
-  }
-
-  validateForm() {
-    return this.state.email.length > 0 && this.state.password.length > 0;
   }
 
   handleSubmit = async event => {
@@ -40,28 +44,24 @@ export default class SignIn extends Component {
   form = () => {
     return (
       <Form onSubmit={this.handleSubmit}>
-        <Form.Group controlId="email">
-          <Form.Label>Email Address</Form.Label>
-          <Form.Control
-            type="email"
-            placeholder="Enter Email Address"
-            value={this.state.email}
-            onChange={this.handleChange} />
-        </Form.Group>
-        <Form.Group controlId="password">
-          <Form.Label>Password</Form.Label>
-          <Form.Control
-            type="password"
-            placeholder="Enter Password"
-            value={this.state.password}
-            onChange={this.handleChange} />
-        </Form.Group>
+        <FormEmail
+          id="email"
+          value={this.state.email}
+          onChange={this.handleChange}
+          validate={this.validateEmail} />
+        <FormPassword
+          id="password"
+          label="Password"
+          placeholder="Enter Password"
+          value={this.state.password}
+          onChange={this.handleChange}
+          validate={this.validatePassword} />
         <Button variant="primary" type="submit" disabled={!this.validateForm()} block>
           Sign In
         </Button>
-        <Form.Text className="text-muted help-text">
+        <FormHelpText className="text-muted help-text">
           Unable to sign in? <Link to="/password/reset">Reset Password</Link>
-        </Form.Text>
+        </FormHelpText>
       </Form>
     );
   }

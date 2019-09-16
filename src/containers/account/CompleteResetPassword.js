@@ -1,29 +1,33 @@
 import React, { Component } from "react";
-import { Link } from "react-router-dom";
 import { Form, Button } from "react-bootstrap";
 import { Helmet } from 'react-helmet';
 import Message from "../../components/account/Message";
+import FormCode from "../../components/account/FormCode";
 import FormEmail from "../../components/account/FormEmail";
 import FormPassword from "../../components/account/FormPassword";
 import FormHelpText from "../../components/account/FormHelpText";
 import Config from "../../Config";
 import "./Account.css";
-import "./SignUp.css";
+import "./CompleteResetPassword.css";
 
-export default class SignUp extends Component {
+export default class CompleteResetPassword extends Component {
 
   constructor(props) {
     super(props);
     this.state = {
+      code: "",
       email: "",
       password: "",
+      confirmPassword: "",
       errorMessage: ""
     };
   }
 
+  validateCode = () => RegExp(Config.REGEX_CONFIRMATION_CODE).test(this.state.code);
   validateEmail = () => RegExp(Config.REGEX_EMAIL_ADDRESS).test(this.state.email);
   validatePassword = () => RegExp(Config.REGEX_PASSWORD).test(this.state.password);
-  validateForm = () => this.validateEmail() && this.validatePassword();
+  validateConfirmPassword = () => this.state.confirmPassword === this.state.password && this.state.password.length > 0;
+  validateForm = () => this.validateCode() && this.validateEmail() && this.validatePassword() && this.validateConfirmPassword();
 
   handleChange = event => {
     this.setState({
@@ -31,10 +35,10 @@ export default class SignUp extends Component {
     });
   }
 
-  handleSignUp = async event => {
+  handleCompleteResetPassword = async event => {
     event.preventDefault();
     try {
-      await this.props.account.handleSignUp(this.state.email, this.state.password);
+      await this.props.account.handleCompleteResetPassword(this.state.email, this.state.code, this.state.password);
     }
     catch (e) {
       this.setState({ errorMessage: e.message });
@@ -44,8 +48,13 @@ export default class SignUp extends Component {
   form = () => {
     return (
       <>
-        <h4>Sign Up</h4>
-        <Form onSubmit={this.handleSignUp}>
+        <h4>Complete Reset Password</h4>
+        <Form onSubmit={this.handleCompleteResetPassword}>
+          <FormCode
+            id="code"
+            value={this.state.code}
+            onChange={this.handleChange}
+            validate={this.validateCode} />
           <FormEmail
             id="email"
             value={this.state.email}
@@ -58,21 +67,19 @@ export default class SignUp extends Component {
             value={this.state.password}
             onChange={this.handleChange}
             validate={this.validatePassword} />
+          <FormPassword
+            id="confirmPassword"
+            label="Confirm Password"
+            placeholder="Enter Password Again"
+            value={this.state.confirmPassword}
+            onChange={this.handleChange}
+            validate={this.validateConfirmPassword} />
           <Button variant="primary" type="submit" disabled={!this.validateForm()} block>
-            Sign Up
+            Complete Reset Password
           </Button>
           <FormHelpText>
             <p>
-              Password must be at least 8 characters in length and contain at
-              least one uppercase letter, one lowercase letter, and one number.
-              </p>
-            <p>
-              Do you already have a verification code?
-                <Link to="/code/complete">Enter Code</Link>
-            </p>
-            <p>
-              Did you sign up and not receive a verification code?
-                <Link to="/code/resend">Resend Code</Link>
+              After you have successfully reset your password, you will be able to sign in.
             </p>
           </FormHelpText>
         </Form>
@@ -82,9 +89,9 @@ export default class SignUp extends Component {
 
   render() {
     return (
-      <div className="account-page sign-up">
+      <div className="account-page complete-reset-password">
         <Helmet>
-          <title>Sign Up</title>
+          <title>Complete Reset Password</title>
         </Helmet>
         <div className="account-form-container">
           {this.state.errorMessage && <Message type="danger" message={this.state.errorMessage} />}
