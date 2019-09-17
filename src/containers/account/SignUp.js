@@ -60,9 +60,10 @@ export default class SignUp extends Component {
             <p>
               Password must be at least 8 characters in length and contain at
               least one uppercase letter, one lowercase letter, and one number.
+              After signing up, a verification code will be sent to your email address.
               </p>
             <p>
-              Do you already have a verification code?
+              Do you have a verification code?
                 <Link to="/signup/complete">Enter Code</Link>
             </p>
             <p>

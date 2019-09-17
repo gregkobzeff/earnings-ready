@@ -1,2 +1,19 @@
 Cognito
  Manually removed special-character requirement for passwords on dev and prod
+
+Account
+ Sign Up
+  Complete Sign Up
+  Resend Sign Up Code
+ Complete Sign Up
+  Resend Sign Up Code
+ Resend Sign Up Code
+ Sign In
+  Reset Password
+ Reset Password
+  Complete Reset Password
+ Complete Reset Password
+ Change Email
+  Complete Change Email
+ Change Password
+  
