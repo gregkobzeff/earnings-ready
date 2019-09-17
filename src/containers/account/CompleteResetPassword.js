@@ -28,14 +28,9 @@ export default class CompleteResetPassword extends Component {
   validatePassword = () => RegExp(Config.REGEX_PASSWORD).test(this.state.password);
   validateConfirmPassword = () => this.state.confirmPassword === this.state.password && this.state.password.length > 0;
   validateForm = () => this.validateCode() && this.validateEmail() && this.validatePassword() && this.validateConfirmPassword();
+  handleChange = event => this.setState({ [event.target.id]: event.target.value });
 
-  handleChange = event => {
-    this.setState({
-      [event.target.id]: event.target.value
-    });
-  }
-
-  handleCompleteResetPassword = async event => {
+  handleSubmit = async event => {
     event.preventDefault();
     try {
       await this.props.account.handleCompleteResetPassword(this.state.email, this.state.code, this.state.password);
@@ -49,7 +44,7 @@ export default class CompleteResetPassword extends Component {
     return (
       <>
         <h4>Complete Reset Password</h4>
-        <Form onSubmit={this.handleCompleteResetPassword}>
+        <Form onSubmit={this.handleSubmit}>
           <FormCode
             id="code"
             value={this.state.code}

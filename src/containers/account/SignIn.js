@@ -24,12 +24,7 @@ export default class SignIn extends Component {
   validateEmail = () => RegExp(Config.REGEX_EMAIL_ADDRESS).test(this.state.email);
   validatePassword = () => RegExp(Config.REGEX_PASSWORD).test(this.state.password);
   validateForm = () => this.validateEmail() && this.validatePassword();
-
-  handleChange = event => {
-    this.setState({
-      [event.target.id]: event.target.value
-    });
-  }
+  handleChange = event => this.setState({ [event.target.id]: event.target.value });
 
   handleSubmit = async event => {
     event.preventDefault();

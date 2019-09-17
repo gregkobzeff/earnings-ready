@@ -24,14 +24,9 @@ export default class ChangePassword extends Component {
   validatePassword = () => RegExp(Config.REGEX_PASSWORD).test(this.state.password);
   validateConfirmPassword = () => this.state.confirmPassword === this.state.password && this.state.password.length > 0;
   validateForm = () => this.validateOldPassword() && this.validatePassword() && this.validateConfirmPassword();
+  handleChange = event => this.setState({ [event.target.id]: event.target.value });
 
-  handleChange = event => {
-    this.setState({
-      [event.target.id]: event.target.value
-    });
-  }
-
-  handleChangePassword = async event => {
+  handleSubmit = async event => {
     event.preventDefault();
     try {
       await this.props.account.handleChangePassword(this.state.oldPassword, this.state.password);
@@ -45,7 +40,7 @@ export default class ChangePassword extends Component {
     return (
       <>
         <h4>Change Password</h4>
-        <Form onSubmit={this.handleChangePassword}>
+        <Form onSubmit={this.handleSubmit}>
           <FormPassword
             id="oldPassword"
             label="Current Password"

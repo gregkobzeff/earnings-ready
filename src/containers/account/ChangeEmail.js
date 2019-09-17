@@ -3,33 +3,30 @@ import { Link } from "react-router-dom";
 import { Form, Button } from "react-bootstrap";
 import { Helmet } from 'react-helmet';
 import Message from "../../components/account/Message";
-import FormCode from "../../components/account/FormCode";
 import FormEmail from "../../components/account/FormEmail";
 import FormHelpText from "../../components/account/FormHelpText";
 import Config from "../../Config";
 import "./Account.css";
-import "./CompleteSignUp.css";
+import "./ChangeEmail.css";
 
-export default class CompleteSignUp extends Component {
+export default class ChangeEmail extends Component {
 
   constructor(props) {
     super(props);
     this.state = {
       email: "",
-      code: "",
       errorMessage: ""
     };
   }
 
   validateEmail = () => RegExp(Config.REGEX_EMAIL_ADDRESS).test(this.state.email);
-  validateCode = () => RegExp(Config.REGEX_CONFIRMATION_CODE).test(this.state.code);
-  validateForm = () => this.validateEmail() && this.validateCode();
+  validateForm = () => this.validateEmail();
   handleChange = event => this.setState({ [event.target.id]: event.target.value });
 
   handleSubmit = async event => {
     event.preventDefault();
     try {
-      await this.props.account.handleCompleteSignUp(this.state.email, this.state.code);
+      await this.props.account.handleChangeEmail(this.state.email);
     }
     catch (e) {
       this.setState({ errorMessage: e.message });
@@ -44,23 +41,19 @@ export default class CompleteSignUp extends Component {
           value={this.state.email}
           onChange={this.handleChange}
           validate={this.validateEmail} />
-        <FormCode
-          id="code"
-          value={this.state.code}
-          onChange={this.handleChange}
-          validate={this.validateCode} />
         <Button variant="primary" type="submit" disabled={!this.validateForm()} block>
-          Complete Sign Up
+          Change Email
         </Button>
-        <FormHelpText>
+        <FormHelpText className="text-muted help-text">
           <p>
+            Enter your new email address and click Change Email.
+            A verification code will be sent to your new email address.
             It can take a few minutes for the code to arrive.
             Check your email spam folder if you do not see it in your inbox.
-            After you have successfully verified your email, you will be able to sign in.
           </p>
           <p>
-            Did not receive verification code?
-            <Link to="/signup/resend">Resend Code</Link>
+            Do you already have a verification code?
+            <Link to="/email/change/complete">Enter Code</Link>
           </p>
         </FormHelpText>
       </Form>
@@ -69,13 +62,13 @@ export default class CompleteSignUp extends Component {
 
   render() {
     return (
-      <div className="account-page complete-sign-up">
+      <div className="account-page change-email">
         <Helmet>
-          <title>Complete Sign Up</title>
+          <title>Change Email Address</title>
         </Helmet>
         <div className="account-form-container">
           {this.state.errorMessage && <Message type="danger" message={this.state.errorMessage} />}
-          <h4>Complete Sign Up</h4>
+          <h4>Change Email Address</h4>
           <this.form />
         </div>
       </div>

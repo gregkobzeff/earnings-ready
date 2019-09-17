@@ -21,12 +21,7 @@ export default class ResetPassword extends Component {
 
   validateEmail = () => RegExp(Config.REGEX_EMAIL_ADDRESS).test(this.state.email);
   validateForm = () => this.validateEmail();
-
-  handleChange = event => {
-    this.setState({
-      [event.target.id]: event.target.value
-    });
-  }
+  handleChange = event => this.setState({ [event.target.id]: event.target.value });
 
   handleSubmit = async event => {
     event.preventDefault();
@@ -53,7 +48,7 @@ export default class ResetPassword extends Component {
           <p>
             A verification code will be sent to your email address.
             It can take a few minutes for the code to arrive.
-            Check your email spam folder if you do not receive it.
+            Check your email spam folder if you do not see it in your inbox.
           </p>
           <p>
             Do you have a verification code?

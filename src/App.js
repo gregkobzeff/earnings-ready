@@ -32,7 +32,7 @@ class App extends Component {
     console.log("Signing up: ", email, password);
     const newUser = await Auth.signUp({ username: email, password: password });
     console.log("New User: ", newUser);
-    this.props.history.push("/code/complete");
+    this.props.history.push("/signup/complete");
   }
 
   handleCompleteSignUp = async (email, code) => {
@@ -44,7 +44,7 @@ class App extends Component {
   handleResendSignUpCode = async (email) => {
     console.log("Resending Signing up code: ", email);
     await Auth.resendSignUp(email);
-    this.props.history.push("/code/complete");
+    this.props.history.push("/signup/complete");
   }
 
   handleResetPassword = async (email) => {
@@ -59,8 +59,23 @@ class App extends Component {
     this.props.history.push("/signin");
   }
 
+  handleChangeEmail = async (email) => {
+    console.log("changing email: ", email);
+    await Auth.updateUserAttributes(this.state.user, { email: email });
+    this.props.history.push("/email/change/complete");
+  }
+
+  handleCompleteChangeEmail = async (code) => {
+    console.log("completing changing email: ", code);
+    await Auth.verifyCurrentUserAttributeSubmit("email", code);
+    await Auth.signOut();
+    this.setState({ isSignedIn: false, user: null }, () => {
+      this.props.history.push("/signin");
+    });
+  }
+
   handleChangePassword = async (oldPassword, password) => {
-    console.log("change password: ", oldPassword, password);
+    console.log("changing password: ", oldPassword, password);
     const currentUser = await Auth.currentAuthenticatedUser();
     await Auth.changePassword(currentUser, oldPassword, password);
     await Auth.signOut();
@@ -97,6 +112,8 @@ class App extends Component {
         handleResendSignUpCode: this.handleResendSignUpCode,
         handleResetPassword: this.handleResetPassword,
         handleCompleteResetPassword: this.handleCompleteResetPassword,
+        handleChangeEmail: this.handleChangeEmail,
+        handleCompleteChangeEmail: this.handleCompleteChangeEmail,
         handleChangePassword: this.handleChangePassword,
         handleSignIn: this.handleSignIn,
         handleSignOut: this.handleSignOut

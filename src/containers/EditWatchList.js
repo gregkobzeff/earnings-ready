@@ -26,7 +26,7 @@ export default class EditWatchList extends Component {
     });
   }
 
-  handleSave = async event => {
+  handleSubmit = async event => {
     event.preventDefault();
     const symbols = Utilities.symbolsToArray(this.state.symbols);
     saveWatchList(symbols);
@@ -55,7 +55,7 @@ export default class EditWatchList extends Component {
               onChange={this.handleChange} />
           </Form.Group>
           <div className="text-center">
-            <Button onClick={this.handleSave}>Save</Button>
+            <Button onClick={this.handleSubmit}>Save</Button>
           </div>
         </Form>
       </div>

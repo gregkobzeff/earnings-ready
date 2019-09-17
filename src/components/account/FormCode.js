@@ -10,7 +10,7 @@ export default ({ id, value, onChange, validate }) => {
         Verification Code {validate() && <ValidIcon />}
       </Form.Label>
       <Form.Control
-        type="text"
+        type="tel"
         placeholder="Enter Verification Code"
         value={value}
         onChange={onChange} />

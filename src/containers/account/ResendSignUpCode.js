@@ -20,14 +20,9 @@ export default class ResendSignUpCode extends Component {
 
   validateEmail = () => RegExp(Config.REGEX_EMAIL_ADDRESS).test(this.state.email);
   validateForm = () => this.validateEmail();
+  handleChange = event => this.setState({ [event.target.id]: event.target.value });
 
-  handleChange = (event) => {
-    this.setState({
-      [event.target.id]: event.target.value
-    });
-  }
-
-  handleResendSignUpCode = async event => {
+  handleSubmit = async event => {
     event.preventDefault();
     try {
       await this.props.account.handleResendSignUpCode(this.state.email);
@@ -39,7 +34,7 @@ export default class ResendSignUpCode extends Component {
 
   form = () => {
     return (
-      <Form onSubmit={this.handleResendSignUpCode}>
+      <Form onSubmit={this.handleSubmit}>
         <FormEmail
           id="email"
           value={this.state.email}
@@ -50,7 +45,7 @@ export default class ResendSignUpCode extends Component {
         </Button>
         <FormHelpText>
           It can take a few minutes for the code to arrive.
-          Check your email spam folder if you do not receive it.
+          Check your email spam folder if you do not see it in your inbox.
         </FormHelpText>
       </Form>
     );
