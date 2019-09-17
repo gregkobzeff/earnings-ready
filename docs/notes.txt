@@ -1,5 +1,8 @@
 Cognito
- Manually removed special-character requirement for passwords on dev and prod
+ Manually removed special-character requirement for passwords on dev and prod.
+ Manually updated Email customization template for email verification messages.
+  Subject: EarningsReady.com - Your verification code
+  Body: Your verification code is {####}.
 
 Account
  Sign Up
