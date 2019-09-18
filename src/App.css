@@ -1,6 +1,6 @@
 .App {
-  margin-top: 15px;
-  margin-bottom: 50px;
+  margin-top: 1rem;
+  margin-bottom: 2.5rem;
 }
 
 .App .navbar-brand {
@@ -8,14 +8,9 @@
 }
 
 .navbar {
-  margin-bottom: 20px;
+  margin-bottom: 2rem;
 }
 
 .search {
-  margin-left: 5px;
-}
-
-.icon-info {
-  color: #000;
-  margin-left: 5px;
+  margin-left: 0.25rem;
 }

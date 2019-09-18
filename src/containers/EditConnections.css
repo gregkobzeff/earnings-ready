@@ -1,8 +1,8 @@
 .edit-connections form {
   margin-top: 1rem;
   border: 1px solid #DEE2E6;
-  border-radius: 10px;
-  padding: 10px;
+  border-radius: 0.25rem;
+  padding: 1rem;
 }
 
 .edit-connections h5 {

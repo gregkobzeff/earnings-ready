@@ -8,6 +8,7 @@
 
 .stock-earnings-table .table {
   margin-top: 1rem;
+  text-align: left;
 }
 
 .stock-earnings-table .tooltip-icon {
