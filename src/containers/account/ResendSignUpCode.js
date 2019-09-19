@@ -39,6 +39,7 @@ export default class ResendSignUpCode extends Component {
           id="email"
           value={this.state.email}
           onChange={this.handleChange}
+          autoFocus={true}
           validate={this.validateEmail} />
         <Button variant="primary" type="submit" disabled={!this.validateForm()} block>
           Resend Code

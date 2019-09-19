@@ -46,6 +46,7 @@ export default class ChangePassword extends Component {
             label="Current Password"
             placeholder="Enter Current Password"
             value={this.state.oldPassword}
+            autoFocus={true}
             onChange={this.handleChange}
             validate={this.validateOldPassword} />
           <FormPassword

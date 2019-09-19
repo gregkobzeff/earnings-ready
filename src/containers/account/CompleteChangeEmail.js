@@ -38,6 +38,7 @@ export default class CompleteChangeEmail extends Component {
         <FormCode
           id="code"
           value={this.state.code}
+          autoFocus={true}
           onChange={this.handleChange}
           validate={this.validateCode} />
         <Button variant="primary" type="submit" disabled={!this.validateForm()} block>

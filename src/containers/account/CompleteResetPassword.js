@@ -48,6 +48,7 @@ export default class CompleteResetPassword extends Component {
           <FormCode
             id="code"
             value={this.state.code}
+            autoFocus={true}
             onChange={this.handleChange}
             validate={this.validateCode} />
           <FormEmail

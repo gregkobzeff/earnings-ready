@@ -39,6 +39,7 @@ export default class ChangeEmail extends Component {
         <FormEmail
           id="email"
           value={this.state.email}
+          autoFocus={true}
           onChange={this.handleChange}
           validate={this.validateEmail} />
         <Button variant="primary" type="submit" disabled={!this.validateForm()} block>

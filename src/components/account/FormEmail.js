@@ -3,7 +3,7 @@ import { Form } from "react-bootstrap";
 import ValidIcon from "./ValidIcon";
 import "./FormEmail.css";
 
-export default ({ id, value, onChange, validate }) => {
+export default ({ id, value, onChange, validate, autoFocus = false }) => {
   return (
     <Form.Group controlId={id}>
       <Form.Label>
@@ -13,6 +13,7 @@ export default ({ id, value, onChange, validate }) => {
         type="email"
         placeholder="Enter Email Address"
         value={value}
+        autoFocus={autoFocus}
         onChange={onChange} />
     </Form.Group>
   );

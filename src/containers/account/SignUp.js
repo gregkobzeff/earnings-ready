@@ -44,6 +44,7 @@ export default class SignUp extends Component {
           <FormEmail
             id="email"
             value={this.state.email}
+            autoFocus={true}
             onChange={this.handleChange}
             validate={this.validateEmail} />
           <FormPassword
