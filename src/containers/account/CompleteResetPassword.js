@@ -32,6 +32,7 @@ export default class CompleteResetPassword extends Component {
 
   handleSubmit = async event => {
     event.preventDefault();
+    this.setState({ errorMessage: "" });
     try {
       await this.props.account.handleCompleteResetPassword(this.state.email, this.state.code, this.state.password);
     }
@@ -75,6 +76,7 @@ export default class CompleteResetPassword extends Component {
           </Button>
           <FormHelpText>
             <p>
+              Check your email for the verification code.
               After you have successfully reset your password, you will be able to sign in.
             </p>
           </FormHelpText>

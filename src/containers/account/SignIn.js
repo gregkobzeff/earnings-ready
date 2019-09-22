@@ -28,6 +28,7 @@ export default class SignIn extends Component {
 
   handleSubmit = async event => {
     event.preventDefault();
+    this.setState({ errorMessage: "" });
     try {
       await this.props.account.handleSignIn(this.state.email, this.state.password);
     }

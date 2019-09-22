@@ -25,6 +25,7 @@ export default class ChangeEmail extends Component {
 
   handleSubmit = async event => {
     event.preventDefault();
+    this.setState({ errorMessage: "" });
     try {
       await this.props.account.handleChangeEmail(this.state.email);
     }

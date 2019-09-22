@@ -25,6 +25,7 @@ export default class ResetPassword extends Component {
 
   handleSubmit = async event => {
     event.preventDefault();
+    this.setState({ errorMessage: "" });
     try {
       await this.props.account.handleResetPassword(this.state.email);
     }

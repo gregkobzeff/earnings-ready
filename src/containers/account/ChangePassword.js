@@ -28,6 +28,7 @@ export default class ChangePassword extends Component {
 
   handleSubmit = async event => {
     event.preventDefault();
+    this.setState({ errorMessage: "" });
     try {
       await this.props.account.handleChangePassword(this.state.oldPassword, this.state.password);
     }

@@ -24,6 +24,7 @@ export default class CompleteChangeEmail extends Component {
 
   handleSubmit = async event => {
     event.preventDefault();
+    this.setState({ errorMessage: "" });
     try {
       await this.props.account.handleCompleteChangeEmail(this.state.code);
     }
@@ -46,6 +47,7 @@ export default class CompleteChangeEmail extends Component {
         </Button>
         <FormHelpText>
           <p>
+            Check your email for the verification code.
             It can take a few minutes for the code to arrive.
             Check your email spam folder if you do not see it in your inbox.
             After you have successfully changed your email, you will be signed out

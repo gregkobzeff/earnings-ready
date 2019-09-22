@@ -24,6 +24,7 @@ export default class ResendSignUpCode extends Component {
 
   handleSubmit = async event => {
     event.preventDefault();
+    this.setState({ errorMessage: "" });
     try {
       await this.props.account.handleResendSignUpCode(this.state.email);
     }

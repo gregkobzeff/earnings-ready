@@ -28,6 +28,7 @@ export default class CompleteSignUp extends Component {
 
   handleSubmit = async event => {
     event.preventDefault();
+    this.setState({ errorMessage: "" });
     try {
       await this.props.account.handleCompleteSignUp(this.state.email, this.state.code);
     }
@@ -55,6 +56,7 @@ export default class CompleteSignUp extends Component {
         </Button>
         <FormHelpText>
           <p>
+            Check your email for the verification code.
             It can take a few minutes for the code to arrive.
             Check your email spam folder if you do not see it in your inbox.
             After you have successfully verified your email, you will be able to sign in.

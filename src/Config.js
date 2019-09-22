@@ -24,7 +24,9 @@ const prod = {
   }
 };
 
-const config = process.env.REACT_APP_STAGE === 'prod' ? prod : dev;
+const stage = process.env.REACT_APP_STAGE;
+const config = stage === 'prod' ? prod : dev;
+console.log("stage: ", stage);
 
 export default {
   GA_Tracking_ID: "UA-147348500-1",
