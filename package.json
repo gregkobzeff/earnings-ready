@@ -23,6 +23,7 @@
   },
   "scripts": {
     "start": "react-scripts start",
+    "start-prod": "set REACT_APP_STAGE=prod && react-scripts start",
     "build": "react-scripts build",
     "test": "jest --silent",
     "eject": "react-scripts eject",

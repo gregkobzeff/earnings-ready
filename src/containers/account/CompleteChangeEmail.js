@@ -1,4 +1,5 @@
 import React, { Component } from "react";
+import { Link } from "react-router-dom";
 import { Form, Button } from "react-bootstrap";
 import { Helmet } from 'react-helmet';
 import Message from "../../components/account/Message";
@@ -14,7 +15,8 @@ export default class CompleteChangeEmail extends Component {
     super(props);
     this.state = {
       code: "",
-      errorMessage: ""
+      message: "",
+      messageType: ""
     };
   }
 
@@ -24,12 +26,18 @@ export default class CompleteChangeEmail extends Component {
 
   handleSubmit = async event => {
     event.preventDefault();
-    this.setState({ errorMessage: "" });
+    this.setState({ message: "" });
     try {
       await this.props.account.handleCompleteChangeEmail(this.state.code);
+      const message =
+        <>
+          You have successsfully changed your email address.
+          <Link to="/signin">Sign In</Link>
+        </>
+      this.setState({ message: message, messageType: "success" });
     }
     catch (e) {
-      this.setState({ errorMessage: e.message });
+      this.setState({ message: e.message, messageType: "danger" });
     }
   }
 
@@ -65,7 +73,7 @@ export default class CompleteChangeEmail extends Component {
           <title>Complete Change Email</title>
         </Helmet>
         <div className="account-form-container">
-          {this.state.errorMessage && <Message type="danger" message={this.state.errorMessage} />}
+          {this.state.message && <Message type={this.state.messageType} message={this.state.message} />}
           <h4>Complete Change Email</h4>
           <this.form />
         </div>

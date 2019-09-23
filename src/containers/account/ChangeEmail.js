@@ -15,7 +15,8 @@ export default class ChangeEmail extends Component {
     super(props);
     this.state = {
       email: "",
-      errorMessage: ""
+      message: "",
+      messageType: ""
     };
   }
 
@@ -25,12 +26,18 @@ export default class ChangeEmail extends Component {
 
   handleSubmit = async event => {
     event.preventDefault();
-    this.setState({ errorMessage: "" });
+    this.setState({ message: "" });
     try {
       await this.props.account.handleChangeEmail(this.state.email);
+      const message =
+        <>
+          A verification code has been sent to your email address.
+          <Link to="/email/change/complete">Enter Code</Link>
+        </>
+      this.setState({ message: message, messageType: "success" });
     }
     catch (e) {
-      this.setState({ errorMessage: e.message });
+      this.setState({ message: e.message, messageType: "danger" });
     }
   }
 
@@ -69,7 +76,7 @@ export default class ChangeEmail extends Component {
           <title>Change Email Address</title>
         </Helmet>
         <div className="account-form-container">
-          {this.state.errorMessage && <Message type="danger" message={this.state.errorMessage} />}
+          {this.state.message && <Message type={this.state.messageType} message={this.state.message} />}
           <h4>Change Email Address</h4>
           <this.form />
         </div>

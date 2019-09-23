@@ -17,7 +17,8 @@ export default class SignIn extends Component {
     this.state = {
       email: "",
       password: "",
-      errorMessage: ""
+      message: "",
+      messageType: ""
     };
   }
 
@@ -28,12 +29,12 @@ export default class SignIn extends Component {
 
   handleSubmit = async event => {
     event.preventDefault();
-    this.setState({ errorMessage: "" });
+    this.setState({ message: "" });
     try {
       await this.props.account.handleSignIn(this.state.email, this.state.password);
     }
     catch (e) {
-      this.setState({ errorMessage: e.message });
+      this.setState({ message: e.message, messageType: "danger" });
     }
   }
 
@@ -70,7 +71,7 @@ export default class SignIn extends Component {
           <title>Sign In</title>
         </Helmet>
         <div className="account-form-container">
-          {this.state.errorMessage && <Message type="danger" message={this.state.errorMessage} />}
+          {this.state.message && <Message type={this.state.messageType} message={this.state.message} />}
           <h4>Sign In</h4>
           <this.form />
         </div>

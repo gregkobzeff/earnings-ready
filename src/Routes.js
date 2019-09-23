@@ -43,9 +43,9 @@ export default ({ appProps }) =>
     <UnauthenticatedRoute path="/signup/resend" exact component={ResendSignUpCode} appProps={appProps} />
     <UnauthenticatedRoute path="/password/reset" exact component={ResetPassword} appProps={appProps} />
     <UnauthenticatedRoute path="/password/reset/complete" exact component={CompleteResetPassword} appProps={appProps} />
-    <AuthenticatedRoute path="/password/change" exact component={ChangePassword} appProps={appProps} />
+    <AppliedRoute path="/password/change" exact component={ChangePassword} appProps={appProps} />
     <AuthenticatedRoute path="/email/change" exact component={ChangeEmail} appProps={appProps} />
-    <AuthenticatedRoute path="/email/change/complete" exact component={CompleteChangeEmail} appProps={appProps} />
+    <AppliedRoute path="/email/change/complete" exact component={CompleteChangeEmail} appProps={appProps} />
     <AuthenticatedRoute path="/settings" exact component={Settings} appProps={appProps} />
     <Route component={NotFound} />
   </Switch>

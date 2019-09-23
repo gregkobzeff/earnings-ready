@@ -2,6 +2,9 @@
 Fixing issues importing png files (assetsTransformer)
  https://github.com/facebook/jest/issues/2663
 
+Set environment variables on Windows
+ https://stackoverflow.com/questions/9249830/how-can-i-set-node-env-production-on-windows
+
 Google Analytics
  https://zeph.co/google-analytics-react-router
  https://medium.com/@AkyunaAkish/understanding-react-router-4-df73a66d96c4

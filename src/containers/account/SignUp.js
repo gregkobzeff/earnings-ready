@@ -17,7 +17,8 @@ export default class SignUp extends Component {
     this.state = {
       email: "",
       password: "",
-      errorMessage: ""
+      message: "",
+      messageType: ""
     };
   }
 
@@ -28,12 +29,18 @@ export default class SignUp extends Component {
 
   handleSubmit = async event => {
     event.preventDefault();
-    this.setState({ errorMessage: "" });
+    this.setState({ message: "" });
     try {
       await this.props.account.handleSignUp(this.state.email, this.state.password);
+      const message =
+        <>
+          A verification code has been sent to your email address.
+          <Link to="/signup/complete">Enter Code</Link>
+        </>
+      this.setState({ message: message, messageType: "success" });
     }
     catch (e) {
-      this.setState({ errorMessage: e.message });
+      this.setState({ message: e.message, messageType: "danger" });
     }
   }
 
@@ -85,7 +92,7 @@ export default class SignUp extends Component {
           <title>Sign Up</title>
         </Helmet>
         <div className="account-form-container">
-          {this.state.errorMessage && <Message type="danger" message={this.state.errorMessage} />}
+          {this.state.message && <Message type={this.state.messageType} message={this.state.message} />}
           <this.form />
         </div>
       </div>

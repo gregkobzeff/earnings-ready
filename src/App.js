@@ -32,46 +32,38 @@ class App extends Component {
     console.log("Signing up: ", email, password);
     const newUser = await Auth.signUp({ username: email, password: password });
     console.log("New User: ", newUser);
-    this.props.history.push("/signup/complete");
   }
 
   handleCompleteSignUp = async (email, code) => {
     console.log("Completing Sign up: ", email, code);
     await Auth.confirmSignUp(email, code);
-    this.props.history.push("/signin");
   }
 
   handleResendSignUpCode = async (email) => {
     console.log("Resending Signing up code: ", email);
     await Auth.resendSignUp(email);
-    this.props.history.push("/signup/complete");
   }
 
   handleResetPassword = async (email) => {
     console.log("Completing reset password: ", email);
     await Auth.forgotPassword(email);
-    this.props.history.push("/password/reset/complete");
   }
 
   handleCompleteResetPassword = async (email, code, password) => {
     console.log("Completing reset password: ", email, code, password);
     await Auth.forgotPasswordSubmit(email, code, password);
-    this.props.history.push("/signin");
   }
 
   handleChangeEmail = async (email) => {
     console.log("changing email: ", email);
     await Auth.updateUserAttributes(this.state.user, { email: email });
-    this.props.history.push("/email/change/complete");
   }
 
   handleCompleteChangeEmail = async (code) => {
     console.log("completing changing email: ", code);
     await Auth.verifyCurrentUserAttributeSubmit("email", code);
     await Auth.signOut();
-    this.setState({ isSignedIn: false, user: null }, () => {
-      this.props.history.push("/signin");
-    });
+    this.setState({ isSignedIn: false, user: null });
   }
 
   handleChangePassword = async (oldPassword, password) => {
@@ -79,9 +71,7 @@ class App extends Component {
     const currentUser = await Auth.currentAuthenticatedUser();
     await Auth.changePassword(currentUser, oldPassword, password);
     await Auth.signOut();
-    this.setState({ isSignedIn: false, user: null }, () => {
-      this.props.history.push("/signin");
-    });
+    this.setState({ isSignedIn: false, user: null });
   }
 
   handleSignIn = async (email, password) => {
