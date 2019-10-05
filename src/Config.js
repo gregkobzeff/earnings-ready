@@ -1,3 +1,16 @@
+const local = {
+  apiGateway: {
+    REGION: "local",
+    URL: "http://localhost:3001"
+  },
+  cognito: {
+    REGION: "us-west-2",
+    USER_POOL_ID: "us-west-2_Uv9XuZ2F6",
+    APP_CLIENT_ID: "2mk53hkq2td7jpjknerg6rhkli",
+    IDENTITY_POOL_ID: "us-west-2:d4735e80-6ec3-4740-aa9b-bbe8bd43f8c8"
+  }
+};
+
 const dev = {
   apiGateway: {
     REGION: "us-west-2",
@@ -25,7 +38,7 @@ const prod = {
 };
 
 const stage = process.env.REACT_APP_STAGE;
-const config = stage === 'prod' ? prod : dev;
+const config = stage === "prod" ? prod : stage === "dev" ? dev : local;
 console.log("stage: ", stage);
 
 export default {

@@ -1,7 +1,7 @@
 import React, { Component } from "react";
 import { Form, Button } from "react-bootstrap";
 import { Helmet } from 'react-helmet';
-import { getWatchList, saveWatchList } from "../libs/DataAccess";
+import { getWatchListSymbols, saveWatchList } from "../libs/DataAccess";
 import Utilities from "../libs/Utilities";
 import SymbolEntry from "../components/SymbolEntry";
 import "./EditWatchList.css";
@@ -16,8 +16,9 @@ export default class EditWatchList extends Component {
   }
 
   async componentDidMount() {
-    const symbols = Utilities.symbolsToString(getWatchList().map(s => s.symbol));
-    this.setState({ symbols: symbols });
+    const symbols = await getWatchListSymbols();
+    const symbolsString = Utilities.symbolsToString(symbols);
+    this.setState({ symbols: symbolsString });
   }
 
   handleChange = event => {
@@ -29,7 +30,8 @@ export default class EditWatchList extends Component {
   handleSubmit = async event => {
     event.preventDefault();
     const symbols = Utilities.symbolsToArray(this.state.symbols);
-    saveWatchList(symbols);
+    await saveWatchList(symbols);
+    this.props.history.push("/watchlist");
   }
 
   render() {

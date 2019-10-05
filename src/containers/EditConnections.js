@@ -21,8 +21,8 @@ export default class EditConnections extends Component {
     };
   }
 
-  loadData() {
-    const allConnections = getAllSymbolConnections();
+  async loadData() {
+    const allConnections = await getAllSymbolConnections();
     this.setState({ allConnections: allConnections });
   }
 
@@ -71,7 +71,7 @@ export default class EditConnections extends Component {
             <Form.Label column sm={2}>
               Symbol:
           </Form.Label>
-            <Col sm={2}>
+            <Col sm={3}>
               <SymbolSelector
                 placeholder=""
                 onChange={this.handleSymbolSelectorChange}

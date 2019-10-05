@@ -1,7 +1,7 @@
 import React, { Component } from "react";
 import { Link } from "react-router-dom";
 import { Helmet } from 'react-helmet';
-import { getWatchList } from "../libs/DataAccess";
+import { getWatchListData } from "../libs/DataAccess";
 import StockEarningsTable from "../components/StockEarningsTable";
 import "./WatchList.css";
 
@@ -15,7 +15,7 @@ export default class WatchList extends Component {
   }
 
   async componentDidMount() {
-    const stocks = getWatchList();
+    const stocks = await getWatchListData();
     this.setState({ stocks: stocks });
   }
 

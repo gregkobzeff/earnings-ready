@@ -1,7 +1,7 @@
 import React, { Component } from "react";
 import { Link } from "react-router-dom";
 import { Helmet } from 'react-helmet';
-import { getStock, getStockEarnings, getConnectedStocks } from "../libs/DataAccess";
+import { getStockDetails, getEarnings, getConnectedStocks } from "../libs/DataAccess";
 import StockDetailsHeader from "../components/StockDetailsHeader"
 import StockEarningsTable from "../components/StockEarningsTable"
 import "./StockDetails.css";
@@ -19,10 +19,10 @@ export default class StockDetails extends Component {
     };
   }
 
-  loadStock(symbol) {
-    const stock = getStock(symbol);
-    const earnings = getStockEarnings(symbol);
-    const connectedStocks = getConnectedStocks(symbol).filter(h => h.symbol !== symbol);
+  async loadStock(symbol) {
+    const stock = await getStockDetails(symbol);
+    const earnings = await getEarnings([symbol]);
+    const connectedStocks = await getConnectedStocks(symbol);
     this.setState({
       isLoading: false,
       symbol: symbol,
@@ -33,7 +33,7 @@ export default class StockDetails extends Component {
   }
 
   async componentDidMount() {
-    this.loadStock(this.props.match.params.symbol);
+    await this.loadStock(this.props.match.params.symbol);
   }
 
   componentDidUpdate(prevProps) {

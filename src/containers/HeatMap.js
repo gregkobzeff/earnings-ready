@@ -3,7 +3,7 @@ import React, { Component } from "react";
 import { Container, Row, Col, Popover, OverlayTrigger } from "react-bootstrap";
 import { LinkContainer } from "react-router-bootstrap";
 import { Helmet } from 'react-helmet';
-import { getStocks } from "../libs/DataAccess";
+import { getHeatMap } from "../libs/DataAccess";
 import "./HeatMap.css";
 
 export default class HeatMap extends Component {
@@ -16,7 +16,7 @@ export default class HeatMap extends Component {
   }
 
   async componentDidMount() {
-    const stocks = getStocks(moment("2000-01-01"), moment("2050-01-01"));
+    const stocks = await getHeatMap();
     this.setState({
       stocks: stocks
     });

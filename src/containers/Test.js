@@ -1,11 +1,12 @@
 import React, { Component } from "react";
 import { Helmet } from 'react-helmet';
+import { trace } from "../libs/DataAccess";
 import "./Test.css";
 
 export default class Test extends Component {
 
   async componentDidMount() {
-
+    await trace();
   }
 
   render() {

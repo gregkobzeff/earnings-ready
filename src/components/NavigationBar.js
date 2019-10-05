@@ -25,7 +25,8 @@ class NavigationBar extends Component {
 
   handleSymbolKeyDown = async event => {
     if (event.key === "Enter") {
-      this.handleSearch(event);
+      //does not work properly - state.symbol now always set
+      //this.handleSearch(event);
     }
   }
 

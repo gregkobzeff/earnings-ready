@@ -1,7 +1,6 @@
-import moment from "moment";
 import React, { Component } from "react";
 import { Helmet } from 'react-helmet';
-import { getStocks } from "../libs/DataAccess";
+import { getCalendar } from "../libs/DataAccess";
 import StockEarningsTable from "../components/StockEarningsTable";
 import "./Calendar.css";
 
@@ -15,10 +14,7 @@ export default class Calendar extends Component {
   }
 
   async componentDidMount() {
-    //const thisWeekStart = moment().clone().startOf("week");
-    const lastWeekStart = moment().clone().subtract(1, "week").startOf("week");
-    const nextWeekEnd = moment().clone().add(1, "week").endOf("week");
-    const stocks = getStocks(lastWeekStart, nextWeekEnd);
+    const stocks = await getCalendar();
     stocks.sort((s1, s2) => s1.earningsDate - s2.earningsDate);
     this.setState({ stocks: stocks });
   }

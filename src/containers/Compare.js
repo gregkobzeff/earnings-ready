@@ -2,7 +2,7 @@ import React, { Component } from "react";
 import { Form, Button, InputGroup } from "react-bootstrap";
 import { Helmet } from 'react-helmet';
 import ReactGA from 'react-ga'
-import { getStockEarningsBySymbols } from "../libs/DataAccess";
+import { getEarnings } from "../libs/DataAccess";
 import Utilities from "../libs/Utilities";
 import SymbolEntry from "../components/SymbolEntry";
 import StockEarningsTable from "../components/StockEarningsTable";
@@ -61,7 +61,7 @@ export default class Compare extends Component {
     event.preventDefault();
     if (!this.state.symbols) return;
     const symbols = Utilities.symbolsToArray(this.state.symbols);
-    const stocks = getStockEarningsBySymbols(symbols);
+    const stocks = await getEarnings(symbols);
     this.setState({ stocks: stocks });
     ReactGA.event({
       category: 'View',
