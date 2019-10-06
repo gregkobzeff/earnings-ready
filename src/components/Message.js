@@ -4,7 +4,7 @@ import "./Message.css";
 
 export default ({ type, message }) => {
   return (
-    <Alert variant={type} className="account-message">
+    <Alert variant={type} className="message">
       <p>
         {message}
       </p>

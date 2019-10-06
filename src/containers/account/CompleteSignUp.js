@@ -2,7 +2,7 @@ import React, { Component } from "react";
 import { Link } from "react-router-dom";
 import { Form, Button } from "react-bootstrap";
 import { Helmet } from 'react-helmet';
-import Message from "../../components/account/Message";
+import Message from "../../components/Message";
 import FormCode from "../../components/account/FormCode";
 import FormEmail from "../../components/account/FormEmail";
 import FormHelpText from "../../components/account/FormHelpText";

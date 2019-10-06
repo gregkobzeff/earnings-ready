@@ -44,9 +44,14 @@ export async function saveWatchList(symbols) {
 export async function saveSymbolConnections(symbolConnections) {
   const symbol = symbolConnections.symbol;
   const symbols = symbolConnections.connections.map(c => c.symbol);
-  const data = JSON.stringify({ "symbol": symbol, "symbols": symbols.sort() });
-  const response = await API.put("api", "/connections/symbols", { body: data });
-  return response;
+  if (symbols.length > 0) {
+    const data = JSON.stringify({ "symbol": symbol, "symbols": symbols.sort() });
+    const response = await API.put("api", "/connections/symbols", { body: data });
+    return response;
+  } else {
+    const response = await API.del("api", `/connections/${symbol}`);
+    return response;
+  }
 }
 
 //EditConnections

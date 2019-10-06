@@ -6,6 +6,7 @@ import { getAllSymbolConnections, saveSymbolConnections } from "../libs/DataAcce
 import Utilities from "../libs/Utilities";
 import SymbolSelector from "../components/SymbolSelector";
 import SymbolEntry from "../components/SymbolEntry";
+import Message from "../components/Message";
 import SymbolConnections from "../models/SymbolConnections";
 import Connection from "../models/Connection";
 import "./EditConnections.css";
@@ -17,7 +18,9 @@ export default class EditConnections extends Component {
     this.state = {
       editSymbol: "",
       editConnections: "",
-      allConnections: null
+      allConnections: null,
+      message: "",
+      messageType: ""
     };
   }
 
@@ -44,13 +47,25 @@ export default class EditConnections extends Component {
     });
   }
 
-  handleSave = async () => {
-    const symbol = this.state.editSymbol;
-    if (!symbol) return;
-    const connections = Utilities.symbolsToArray(this.state.editConnections).map(s => new Connection(s, null));
-    var symbolConnections = new SymbolConnections(symbol, connections);
-    await saveSymbolConnections(symbolConnections);
-    this.loadData();
+  handleSave = async (event) => {
+    event.preventDefault();
+    try {
+      const symbol = this.state.editSymbol;
+      if (!symbol) return;
+      this.setState({ message: "" });
+      const connections = Utilities.symbolsToArray(this.state.editConnections).map(s => new Connection(s, null));
+      var symbolConnections = new SymbolConnections(symbol, connections);
+      await saveSymbolConnections(symbolConnections);
+      await this.loadData();
+      const message =
+        <>
+          Connections {connections.length > 0 ? "saved" : "deleted"} successfully.
+        </>
+      this.setState({ message: message, messageType: "success" });
+    }
+    catch (e) {
+      this.setState({ message: e.message, messageType: "danger" });
+    }
   }
 
   handleSymbolEntryChange = async (event) => {
@@ -67,6 +82,7 @@ export default class EditConnections extends Component {
           Edit Connections
         </h5>
         <Form>
+          {this.state.message && <Message type={this.state.messageType} message={this.state.message} />}
           <Form.Group as={Row}>
             <Form.Label column sm={2}>
               Symbol:
@@ -85,7 +101,7 @@ export default class EditConnections extends Component {
             <Col sm={8}>
               <SymbolEntry
                 rows="2"
-                placeholder="Enter symbols separated by commas (example: AMZN,MSFT)"
+                placeholder="Enter symbols separated by commas (example: AMZN,MSFT)."
                 value={this.state.editConnections}
                 onChange={this.handleSymbolEntryChange} />
             </Col>
