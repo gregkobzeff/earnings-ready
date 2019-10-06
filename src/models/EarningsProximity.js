@@ -41,24 +41,24 @@ export default class EarningsProximity {
     const next = nextEarningsDate;
 
     //reported last week
-    if (last.isSameOrAfter(lastWeekStart) && last.isBefore(thisWeekStart)) return "B1";
+    if (last && last.isSameOrAfter(lastWeekStart) && last.isBefore(thisWeekStart)) return "B1";
 
     //this week - already reported
-    if (last.isSameOrAfter(thisWeekStart) && last.isBefore(todayStart)) return "B0";
+    if (last && last.isSameOrAfter(thisWeekStart) && last.isBefore(todayStart)) return "B0";
 
     //today - before
-    if (last.isSame(now, "d") && last.isBefore(now)) return "B";
-    if (next.isSame(now, "d") && next.isBefore(now)) return "B";
+    if (last && last.isSame(now, "d") && last.isBefore(now)) return "B";
+    if (next && next.isSame(now, "d") && next.isBefore(now)) return "B";
 
     //today - after
-    if (last.isSame(now, "d") && last.isSameOrAfter(now)) return "A";
-    if (next.isSame(now, "d") && next.isSameOrAfter(now)) return "A";
+    if (last && last.isSame(now, "d") && last.isSameOrAfter(now)) return "A";
+    if (next && next.isSame(now, "d") && next.isSameOrAfter(now)) return "A";
 
     //this week - not reported yet
-    if (next.isSameOrAfter(now) && next.isBefore(nextWeekStart)) return "A0";
+    if (next && next.isSameOrAfter(now) && next.isBefore(nextWeekStart)) return "A0";
 
     //reports next week
-    if (next.isSameOrAfter(nextWeekStart) && next.isBefore(twoWeeksStart)) return "A1";
+    if (next && next.isSameOrAfter(nextWeekStart) && next.isBefore(twoWeeksStart)) return "A1";
 
     //default
     return "";

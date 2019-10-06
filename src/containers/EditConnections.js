@@ -49,7 +49,7 @@ export default class EditConnections extends Component {
     if (!symbol) return;
     const connections = Utilities.symbolsToArray(this.state.editConnections).map(s => new Connection(s, null));
     var symbolConnections = new SymbolConnections(symbol, connections);
-    saveSymbolConnections(symbolConnections);
+    await saveSymbolConnections(symbolConnections);
     this.loadData();
   }
 
